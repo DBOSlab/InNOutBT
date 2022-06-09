@@ -79,7 +79,7 @@
     
     
 <p>The main goal of the <strong>InNOutBT</strong> package is to readily create input data to and process output data from Meade &amp; Pagel’s (2022) <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html" class="external-link">BayesTraits</a> computer package.<br></p>
-<p>Here in this article, we show how to use the package’s function <code>BayesTraits.shell</code> for producing shell scripts and associated run commands of BayesTraits phylogenetic independent contrast regression analyses.</p>
+<p>Here in this article, we show how to use <strong>InNOutBT</strong>’s function <code>BayesTraits.shell</code> for producing shell scripts and associated run commands of BayesTraits phylogenetic independent contrast regression analyses. Basically, the function <code>BayesTraits.shell</code> uses the directory paths to the tree, linked and mean data files as created with <code>BayesTraits.inputs</code> (see article <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html" class="external-link">here</a>), to automatically produce shell scripts in both Unix and Windows PowerShell formats. The resulting single shell script file can then be used for running one or all-in-once multiple BayesTraits phylogenetic regressions, without manually setting new anaklyses with new parameters. The shell script produced with <code>BayesTraits.shell</code> should have thus all parameters for all analyses with any defined model. In addition to save the shell script directly in BayesTraits directory, the function saves all the separate running files with BayesTraits specified parameters (bi, it, sa, and st) for any run, depending on the chosen model of tree transformation. See <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf" class="external-link">BayesTraits V4.0.0 Manual</a> for further details on each of BayesTraits parameters available for phylogenetic regression so as to better understand how to set the arguments of <code>BayesTraits.shell</code>.<br></p>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
@@ -91,19 +91,19 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables">Create sample of trait data using a different subset of explanatory variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables"></a>
+<h2 id="creating-unix-shell-script">Creating Unix shell script<a class="anchor" aria-label="anchor" href="#creating-unix-shell-script"></a>
 </h2>
-<p>This function produces all BayesTraits input data of linked samples of trait/climate data (distribution data), by automatically generating two .txt files: one including the linked traits and the other with mean values for each included trait. The function also includes an argument to calculate the net node count for each species/accession given a phylogenetic tree of reference, which has been successfully used to explore the effect of speciation rates (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>) on the response variable.<br></p>
-<p>The example below shows how to mine all accepted species for a specified vector of families.</p>
+<p>Set the argument <code>syst = "unix"</code> to create a shell script for running the phylogenetic regressions with macOS Monterey.<br></p>
+<p>Note that you should give the name of the response variable of your analysis in the argument <code>responvar</code>. Also, you should use the argument <code>treetransf</code> to define any or all (listed as a vector) available tree transformation models that you want to run the phylogenetic regressions with your input data. As such, choose among the models <em>Kappa</em>, <em>Delta</em>, <em>Lambda</em>, <em>OU</em> (Ornstein–Uhlenbeck), <em>UNI</em> (if you have used an uniform tree transformation), <em>VR</em> (if you have used a variable rates) or <em>Fabric</em> (if you want to use the general statistical mode that accommodates uneven evolutionary landscape as described by <a href="https://doi.org/10.1038/s41467-022-28595-z" class="external-link">Pagel et al. (2022)</a>.<br></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,
-                  linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,
+<span class="fu"><a href="../reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/09Jun2022"</span>,
+                  linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/09Jun2022"</span>,
                   treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,
                   BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,
                   responvar <span class="op">=</span> <span class="st">"DBH"</span>,
-                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,
+                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,
                   bi <span class="op">=</span> <span class="st">"30000000"</span>,
                   it <span class="op">=</span> <span class="st">"130000000"</span>,
                   sa <span class="op">=</span> <span class="st">"100000"</span>,
@@ -111,26 +111,31 @@
                   syst <span class="op">=</span> <span class="st">"unix"</span>,
                   dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_shell"</span>,
                   cc_DataTree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="figures/shell_unix.png"><!-- --></p>
 </div>
 <div class="section level2">
-<h2 id="create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables-1">Create sample of trait data using a different subset of explanatory variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables-1"></a>
+<h2 id="creating-windows-powershell-script">Creating Windows PowerShell script<a class="anchor" aria-label="anchor" href="#creating-windows-powershell-script"></a>
 </h2>
-<p>To mine a species checklist for all families of flowering plants, you recommend to load the dataframe-formatted data object called <code>POWOcodes</code> that comes associated with the <strong>expowo</strong> package. Because the <code>POWOcodes</code> data object already contains the URI addresses for all angiosperms families recognized in the <a href="https://powo.science.kew.org" class="external-link">POWO</a> database, you do not need to perform the time-consuming URI search using <strong>taxize</strong>.<br></p>
-<p>The example below shows how to mine a global checklist of all accepted species of flowering plants by using the vector of all angiosperm families and associated URI addresses stored in the <code>POWOcodes</code> object.</p>
+<p>Set the argument <code>syst = "windows"</code> to create a PowerShell script for running the phylogenetic regressions with Windows.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,
-                  linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,
+<code class="sourceCode R"><span class="fu"><a href="../reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/09Jun2022"</span>,
+                  linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/09Jun2022"</span>,
                   treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,
                   BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,
                   responvar <span class="op">=</span> <span class="st">"DBH"</span>,
-                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,
+                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,
                   bi <span class="op">=</span> <span class="st">"30000000"</span>,
                   it <span class="op">=</span> <span class="st">"130000000"</span>,
                   sa <span class="op">=</span> <span class="st">"100000"</span>,
                   st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"500"</span>, <span class="st">"50000"</span><span class="op">)</span>,
-                  syst <span class="op">=</span> <span class="st">"unix"</span>,
+                  syst <span class="op">=</span> <span class="st">"windows"</span>,
                   dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_shell"</span>,
                   cc_DataTree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="figures/shell_windows.png"><!-- --><br><br>
+The function generates all running BayesTraits commands for the multiple regressions, depending on the parameters set in the arguments <code>treetransf</code>, <code>bi</code>, <code>it</code>, <code>sa</code>, and <code>st</code>.<br><br><img src="figures/shell_bayestraits_running_commands.png"><!-- --><br><br>
+Note that because we have set the argument <code>cc_DataTree = TRUE</code>, then the tree, mean and linked data files were also copied directly into the BayesTraits folder.<br><br><img src="figures/bayestraits_folder.png"><!-- --></p>
+<p><br>
+See also an associated article on how to automatically <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html" class="external-link">create input files</a>) with <code>BayesTraits.inputs</code> for the phylogenetic regression analyses, as well as another article on how to use <code>BayesTraits.outputs</code> to <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html" class="external-link">process the resulting output files</a>) from the analyses.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
