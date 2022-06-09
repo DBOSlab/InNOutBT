@@ -13,14 +13,13 @@ computer package.
 
 ## Overview
 
-The package InNOutBT is still under development. Currently it has only
-three major functions that help to automatize BayesTraits phylogenetic
-independent contrast regression analyses. To better understand how these
-functions work, see [BayesTraits V4.0.0
+The package **InNOutBT** is still under development. Currently, it has
+only three major functions that help to automatize BayesTraits
+phylogenetic independent contrast regression analyses. To better
+understand how these functions work, see [BayesTraits V4.0.0
 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
 for further details on the specific format of the input files that are
-required by BayesTraits, as well as the resulting output files after
-analyses.
+required by BayesTraits, as well as the resulting output files.
 
 ## Installation
 
@@ -54,7 +53,7 @@ explore the effect of speciation rates (e.g. [O’Donovan et
 al. 2018](https://doi.org/10.1038/s41559-017-0454-6)) on the response
 variable.
 
-##### Example with `BayesTraits.inputs`:
+##### Example of using `BayesTraits.inputs`:
 
 ``` r
 library(InNOutBT)
@@ -87,7 +86,7 @@ in BayesTraits directory, the function also creates all running files
 with BayesTraits specified parameters (bi, it, sa, and st) for any run,
 depending on the chosen model of tree transformation.
 
-##### Example with `BayesTraits.shell`:
+##### Example of using `BayesTraits.shell`:
 
 ``` r
 library(InNOutBT)
@@ -115,7 +114,7 @@ tables either in Word or CSV formats summarizing each model, including
 comparison with Bayes Factor. Heatmaps based on pairwise Bayes Factor
 comparison are also automatically produced in PDF format.
 
-##### Example with `BayesTraits.outputs`:
+##### Example of using `BayesTraits.outputs`:
 
 ``` r
 library(InNOutBT)

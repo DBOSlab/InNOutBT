@@ -1,6 +1,11 @@
 ---
 title: "Shell scripts for independent contrast regressions"
 output: rmarkdown::html_vignette
+resource_files:
+    - shell_unix.png
+    - shell_windows.png
+    - shell_bayestraits_running_commands.png
+    - bayestraits_folder.png
 vignette: >
   %\VignetteIndexEntry{Shell scripts for independent contrast regressions}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,9 +23,20 @@ The main goal of the __InNOutBT__ package is to readily create input data to and
 process output data from Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
 computer package.\
 
-Here in this article, we show how to use the package's function `BayesTraits.shell`
+Here in this article, we show how to use __InNOutBT__'s function `BayesTraits.shell`
 for producing shell scripts and associated run commands of BayesTraits phylogenetic 
-independent contrast regression analyses.
+independent contrast regression analyses. Basically, the function `BayesTraits.shell`
+uses the directory paths to the tree, linked and mean data files as created 
+with `BayesTraits.inputs` (see article [here](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)),
+to automatically produce shell scripts in both Unix and Windows
+PowerShell formats. The resulting single shell script file can then be used for 
+running one or all-in-once multiple BayesTraits phylogenetic regressions, without manually setting
+new anaklyses with new parameters. The shell script produced with `BayesTraits.shell`
+should have thus all parameters for all analyses with any defined model.
+In addition to save the shell script directly in BayesTraits directory, the 
+function saves all the separate running files with BayesTraits specified parameters 
+(bi, it, sa, and st) for any run, depending on the chosen model of tree transformation. 
+See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf) for further details on each of BayesTraits parameters available for phylogenetic regression so as to better understand how to set the arguments of `BayesTraits.shell`.\
 
 
 # Setup
@@ -37,27 +53,29 @@ library(InNOutBT)
 ```
 
 
-# Create sample of trait data using a different subset of explanatory variables
+# Creating Unix shell script
 
-This function produces all BayesTraits input data of linked samples of trait/climate 
-data (distribution data), by automatically generating two .txt files: one including 
-the linked traits and the other with mean values for each included trait. The 
-function also includes an argument to calculate the net node count for each
-species/accession given a phylogenetic tree of reference, which has been successfully 
-used to explore the effect of speciation rates (e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6)) on the response variable.\
+Set the argument `syst = "unix"` to create a shell script for running the phylogenetic
+regressions with macOS Monterey.\
 
-The example below shows how to mine all accepted species for a specified vector 
-of families. 
+Note that you should give the name of the response variable of your analysis in
+the argument `responvar`. Also, you should use the argument `treetransf` to define
+any or all (listed as a vector) available tree transformation models that you want
+to run the phylogenetic regressions with your input data. As such, choose among 
+the models *Kappa*, *Delta*, *Lambda*, *OU* (Ornstein–Uhlenbeck), *UNI* (if you 
+have used an uniform tree transformation), *VR* (if you have used a variable rates)
+or *Fabric* (if you want to use the general statistical mode that accommodates 
+uneven evolutionary landscape as described by [Pagel et al. (2022)](https://doi.org/10.1038/s41467-022-28595-z).\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
 
-BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/03Jun2022",
-                  linkfile_dir = "results_BayesTraits_input/03Jun2022",
+BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/09Jun2022",
+                  linkfile_dir = "results_BayesTraits_input/09Jun2022",
                   treefile_dir = "Data",
                   BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
                   responvar = "DBH",
-                  treetransf = c("UNI", "Lambda", "VR"),
+                  treetransf = c("UNI", "Lambda", "VR", "Fabric"),
                   bi = "30000000",
                   it = "130000000",
                   sa = "100000",
@@ -67,31 +85,53 @@ BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/03Jun2022",
                   cc_DataTree = TRUE)
 ```
 
+```{r, echo = FALSE}
+knitr::include_graphics("figures/shell_unix.png", dpi = 300)
+```
 
-# Create sample of trait data using a different subset of explanatory variables
 
-To mine a species checklist for all families of flowering plants, you recommend to
-load the dataframe-formatted data object called `POWOcodes` that comes associated with
-the __expowo__ package. Because the `POWOcodes` data object already contains the 
-URI addresses for all angiosperms families recognized in the [POWO](https://powo.science.kew.org) 
-database, you do not need to perform the time-consuming URI search using __taxize__. \
+# Creating Windows PowerShell script 
 
-The example below shows how to mine a global checklist of all accepted species of
-flowering plants by using the vector of all angiosperm families and associated URI 
-addresses stored in the `POWOcodes` object.
+Set the argument `syst = "windows"` to create a PowerShell script for running the 
+phylogenetic regressions with Windows. 
 
 ```{r, eval = FALSE}
-BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/03Jun2022",
-                  linkfile_dir = "results_BayesTraits_input/03Jun2022",
+BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/09Jun2022",
+                  linkfile_dir = "results_BayesTraits_input/09Jun2022",
                   treefile_dir = "Data",
                   BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
                   responvar = "DBH",
-                  treetransf = c("UNI", "Lambda", "VR"),
+                  treetransf = c("UNI", "Lambda", "VR", "Fabric"),
                   bi = "30000000",
                   it = "130000000",
                   sa = "100000",
                   st = c("500", "50000"),
-                  syst = "unix",
+                  syst = "windows",
                   dir_create = "results_BayesTraits_shell",
                   cc_DataTree = TRUE)
 ```
+
+```{r, echo = FALSE}
+knitr::include_graphics("figures/shell_windows.png", dpi = 300)
+```
+\
+\
+The function generates all running BayesTraits commands for the multiple regressions,
+depending on the parameters set in the arguments `treetransf`, `bi`, `it`, `sa`, 
+and `st`.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/shell_bayestraits_running_commands.png", dpi = 300)
+```
+\
+\
+Note that because we have set the argument `cc_DataTree = TRUE`, then the tree, 
+mean and linked data files were also copied directly into the BayesTraits folder.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/bayestraits_folder.png", dpi = 300)
+```
+
+\
+See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)) with `BayesTraits.inputs` for the phylogenetic regression analyses, as well as another 
+article on how to use `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)) from the analyses.

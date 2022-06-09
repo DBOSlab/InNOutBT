@@ -1,6 +1,8 @@
 ---
 title: "Creating input data for independent contrast regressions"
 output: rmarkdown::html_vignette
+resource_files:
+    - vouchered_dataset.png
 vignette: >
   %\VignetteIndexEntry{Creating input data for independent contrast regressions}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,9 +20,15 @@ The main goal of the __InNOutBT__ package is to readily create input data to and
 process output data from Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
 computer package.\
 
-Here in this article, we show how to use the package's function `BayesTraits.inputs`
-for creating input linked and mean data for BayesTraits phylogenetic independent 
-contrast regression analyses.
+Here in this article, we show how to use __InNOutBT__'s function `BayesTraits.inputs`
+for creating BayesTraits input data of linked samples of trait/climate data 
+(distribution data) for phylogenetic independent contrast regression analyses. 
+This function automatically generates two .txt files: one including the linked traits
+and the other with mean values for each included trait. The function also includes 
+an argument to calculate the net node count for each species/accession given a 
+phylogenetic tree of reference, which has been successfully used to explore the 
+effect of speciation rates (e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6))
+on the response variable.\
 
 
 # Setup
@@ -37,17 +45,22 @@ library(InNOutBT)
 ```
 
 
-# Create sample of trait data using a different subset of explanatory variables
+# Example of spreadsheet with georeferenced data and associated traits
 
-This function produces all BayesTraits input data of linked samples of trait/climate 
-data (distribution data), by automatically generating two .txt files: one including 
-the linked traits and the other with mean values for each included trait. The 
-function also includes an argument to calculate the net node count for each
-species/accession given a phylogenetic tree of reference, which has been successfully 
-used to explore the effect of speciation rates (e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6)) on the response variable.\
+Before using `BayesTraits.inputs`, make sure your spreadsheet with georeferenced
+data and associated traits also includes a **terminal** column where each accession/sample are linked with its corresponding tip label in the input phylogenetic tree.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/vouchered_dataset.png", dpi = 300)
+```
 
-The example below shows how to mine all accepted species for a specified vector 
-of families. 
+
+# Create sample of trait data using a subset of explanatory variables
+
+The example below creates the linked and mean data files where "DBH" was defined 
+as the response variable whereas "bio12" and "bio15" are the explanatory variables. 
+In other words, the first name in the argument `traitcols` will define the 
+response variable.\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
@@ -59,24 +72,26 @@ phylo <- read.beast("Data/vatcomb30_24May22_Yule.con.tree")
 BayesTraits.inputs(tree = phylo,
                    data = traitdata,
                    tipscol = "terminal",
-                   traitcols = c("bio12", "bio15"),
+                   traitcols = c("DBH", "bio12", "bio15"),
                    dir_create = "results_BayesTraits_input",
                    fileDistData = "BayesTraits_linked_data_bio12_bio15.txt",
                    fileMeanData = "BayesTraits_mean_data_bio12_bio15.txt")
 ```
 
 
-# Create sample of trait data using a different subset of explanatory variables
+# Log transform any variable before creating the input linked and mean data
 
-To mine a species checklist for all families of flowering plants, you recommend to
-load the dataframe-formatted data object called `POWOcodes` that comes associated with
-the __expowo__ package. Because the `POWOcodes` data object already contains the 
-URI addresses for all angiosperms families recognized in the [POWO](https://powo.science.kew.org) 
-database, you do not need to perform the time-consuming URI search using __taxize__. \
-
-The example below shows how to mine a global checklist of all accepted species of
-flowering plants by using the vector of all angiosperm families and associated URI 
-addresses stored in the `POWOcodes` object.
+You may want to log-10 transform a variable before running the phylogenetic regressions.
+You just need to provide in the argument `logtransf` the variables/traits to 
+be log-transformed. The log-transformed trait will always result in a new column 
+with a new name where the additional prefix "log10" is added as following: "log10NAMEOFTHETRAIT".
+The name(s) of the log-transformed trait(s) to be used in the analyses should then 
+be listed in the argument `addtraits`. Note that in the example below the variable
+"DBH" was chosen to be log-transformed and also as the response variable. In this 
+case, we need to reorder the variables in the argument `ordtraits` so as to 
+make sure your newly generated "log10DBH" variable will remain on front, i.e. as 
+the response variable. You may also want to save the original spreadsheet including 
+the new column of log-transformed DBH by giving a name in the argument `fileOrigData`.\
 
 ```{r, eval = FALSE}
 BayesTraits.inputs(tree = phylo,
@@ -95,13 +110,13 @@ BayesTraits.inputs(tree = phylo,
 
 # Create sample of trait data using a different subset of explanatory variables
 
-You can also narrow down the species checklist search of any family by
-focusing on just a particular country or a list of countries. You just need to 
-define a vector of country names in the argument \code{country}. In the example below,
-note that we have originally searched for the species within the families 
-__Amborellaceae__, __Cabombaceae__, and __Martyniaceae__, but the function 
-returned a smaller species list, because many species in the searched families 
-are not recorded in any of the specified vector of country, i.e. __Brazil__ or __Colombia__.
+By setting the argument `NodeCount = TRUE`, the function will calculate the net 
+node count for each species/accession given the phylogenetic tree of reference. 
+Net node has been successfully used to explore the effect of speciation rates 
+(e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6)) on the 
+response variable. See that in the example below we have also chosen to log10-transform 
+both the response variable "DBH" and the newly created column of net node, all which 
+were then listed in the arguments `addtraits` and `ordtraits`.\
 
 ```{r, eval = FALSE}
 BayesTraits.inputs(tree = phylo,
@@ -121,15 +136,13 @@ BayesTraits.inputs(tree = phylo,
 
 # Create sample of trait data using quadratic net nodes as the explanatory variable
 
-You may want to retrieve information for just one or a list of accepted 
-genera from a given country (or from a list of countries). Just like before,
-you only need to define a vector of genus names in the argument \code{genus} and
-a vector of country names in the argument \code{country}. In the example below,
-see that we have again searched for just the genera ***Asarum*** and ***Bertholletia***
-of the families __Aristolochiaceae__ and __Lecythidaceae__, but the function 
-only returned the Lecythidaceae genus ***Bertholletia***, because ***Asarum*** 
-does not occur in any of the provided list of countries, i.e. __Argentina__, __Brazil__ 
-or __French Guiana__.
+You may want to square transform a variable before running the phylogenetic regressions.
+You just need to provide in the argument `sqrtransf` the variables/traits to 
+be squared. The square-transformed trait will always result in a new column 
+with a new name where the additional prefix "sqr" is added as following: "sqrNAMEOFTHETRAIT".
+The name(s) of the square-transformed trait(s) to be used in the analyses should 
+then be listed in the argument `addtraits`. Note that in the example below the newly 
+created variable "NodeCount" was chosen to be both log- and square-transformed.\
 
 ```{r, eval = FALSE}
 BayesTraits.inputs(tree = phylo,
@@ -147,17 +160,11 @@ BayesTraits.inputs(tree = phylo,
 ```
 
 
-# Create sample of trait data using only longitude and latitude for the GEO model
+# Create sample of trait data for GEO model
 
-You may want to retrieve information for just one or a list of accepted 
-genera from a given country (or from a list of countries). Just like before,
-you only need to define a vector of genus names in the argument \code{genus} and
-a vector of country names in the argument \code{country}. In the example below,
-see that we have again searched for just the genera ***Asarum*** and ***Bertholletia***
-of the families __Aristolochiaceae__ and __Lecythidaceae__, but the function 
-only returned the Lecythidaceae genus ***Bertholletia***, because ***Asarum*** 
-does not occur in any of the provided list of countries, i.e. __Argentina__, __Brazil__ 
-or __French Guiana__.
+The example below shows that you can also define the columns of "longitude" and
+"latitude" from your original spreadsheet so as to create input linked and mean
+data for geographic-model-based phylogenetic regression.\
 
 ```{r, eval = FALSE}
 BayesTraits.inputs(tree = phylo,
@@ -169,3 +176,8 @@ BayesTraits.inputs(tree = phylo,
                    fileDistData = "BayesTraits_linked_data_GEO.txt",
                    fileMeanData = "BayesTraits_mean_data_GEO.txt")
 ```
+
+
+See also an associated article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)) with `BayesTraits.shell` for multiple phylogenetic regression analyses, as well as
+another article on how to use `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)) from the analyses.
+

@@ -83,10 +83,16 @@
 create input data to and process output data from Meade &amp; Pagel’s
 (2022) <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html" class="external-link">BayesTraits</a>
 computer package.<br></p>
-<p>Here in this article, we show how to use the package’s function
-<code>BayesTraits.inputs</code> for creating input linked and mean data
-for BayesTraits phylogenetic independent contrast regression
-analyses.</p>
+<p>Here in this article, we show how to use <strong>InNOutBT</strong>’s
+function <code>BayesTraits.inputs</code> for creating BayesTraits input
+data of linked samples of trait/climate data (distribution data) for
+phylogenetic independent contrast regression analyses. This function
+automatically generates two .txt files: one including the linked traits
+and the other with mean values for each included trait. The function
+also includes an argument to calculate the net node count for each
+species/accession given a phylogenetic tree of reference, which has been
+successfully used to explore the effect of speciation rates (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et
+al. 2018</a>) on the response variable.<br></p>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
@@ -96,24 +102,28 @@ latest development version from <a href="https://github.com/" class="external-li
 <code class="sourceCode R"><span class="co">#install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DBOSlab/InNOutBT"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT/">InNOutBT</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables">Create sample of trait data using a different subset of explanatory
-variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables"></a>
+<h2 id="example-of-spreadsheet-with-georeferenced-data-and-associated-traits">Example of spreadsheet with georeferenced data and associated
+traits<a class="anchor" aria-label="anchor" href="#example-of-spreadsheet-with-georeferenced-data-and-associated-traits"></a>
 </h2>
-<p>This function produces all BayesTraits input data of linked samples
-of trait/climate data (distribution data), by automatically generating
-two .txt files: one including the linked traits and the other with mean
-values for each included trait. The function also includes an argument
-to calculate the net node count for each species/accession given a
-phylogenetic tree of reference, which has been successfully used to
-explore the effect of speciation rates (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et
-al. 2018</a>) on the response variable.<br></p>
-<p>The example below shows how to mine all accepted species for a
-specified vector of families.</p>
+<p>Before using <code>BayesTraits.inputs</code>, make sure your
+spreadsheet with georeferenced data and associated traits also includes
+a <strong>terminal</strong> column where each accession/sample are
+linked with its corresponding tip label in the input phylogenetic
+tree.<br><br><img src="figures/vouchered_dataset.png" width="745"></p>
+</div>
+<div class="section level2">
+<h2 id="create-sample-of-trait-data-using-a-subset-of-explanatory-variables">Create sample of trait data using a subset of explanatory
+variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-subset-of-explanatory-variables"></a>
+</h2>
+<p>The example below creates the linked and mean data files where “DBH”
+was defined as the response variable whereas “bio12” and “bio15” are the
+explanatory variables. In other words, the first name in the argument
+<code>traitcols</code> will define the response variable.<br></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT/">InNOutBT</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/YuLab-SMU/treeio" class="external-link">treeio</a></span><span class="op">)</span>
 
 <span class="va">traitdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"Data/vataireoids_1610_25May2022_BayesTraits.csv"</span><span class="op">)</span>
@@ -122,27 +132,30 @@ specified vector of families.</p>
 <span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,
                    data <span class="op">=</span> <span class="va">traitdata</span>,
                    tipscol <span class="op">=</span> <span class="st">"terminal"</span>,
-                   traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,
+                   traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,
                    dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_input"</span>,
                    fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15.txt"</span>,
                    fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15.txt"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables-1">Create sample of trait data using a different subset of explanatory
-variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables-1"></a>
+<h2 id="log-transform-any-variable-before-creating-the-input-linked-and-mean-data">Log transform any variable before creating the input linked and mean
+data<a class="anchor" aria-label="anchor" href="#log-transform-any-variable-before-creating-the-input-linked-and-mean-data"></a>
 </h2>
-<p>To mine a species checklist for all families of flowering plants, you
-recommend to load the dataframe-formatted data object called
-<code>POWOcodes</code> that comes associated with the
-<strong>expowo</strong> package. Because the <code>POWOcodes</code> data
-object already contains the URI addresses for all angiosperms families
-recognized in the <a href="https://powo.science.kew.org" class="external-link">POWO</a>
-database, you do not need to perform the time-consuming URI search using
-<strong>taxize</strong>.<br></p>
-<p>The example below shows how to mine a global checklist of all
-accepted species of flowering plants by using the vector of all
-angiosperm families and associated URI addresses stored in the
-<code>POWOcodes</code> object.</p>
+<p>You may want to log-10 transform a variable before running the
+phylogenetic regressions. You just need to provide in the argument
+<code>logtransf</code> the variables/traits to be log-transformed. The
+log-transformed trait will always result in a new column with a new name
+where the additional prefix “log10” is added as following:
+“log10NAMEOFTHETRAIT”. The name(s) of the log-transformed trait(s) to be
+used in the analyses should then be listed in the argument
+<code>addtraits</code>. Note that in the example below the variable
+“DBH” was chosen to be log-transformed and also as the response
+variable. In this case, we need to reorder the variables in the argument
+<code>ordtraits</code> so as to make sure your newly generated
+“log10DBH” variable will remain on front, i.e. as the response variable.
+You may also want to save the original spreadsheet including the new
+column of log-transformed DBH by giving a name in the argument
+<code>fileOrigData</code>.<br></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,
                    data <span class="op">=</span> <span class="va">traitdata</span>,
@@ -157,18 +170,17 @@ angiosperm families and associated URI addresses stored in the
                    fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_DBH_logtransf.csv"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables-2">Create sample of trait data using a different subset of explanatory
-variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables-2"></a>
+<h2 id="create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables">Create sample of trait data using a different subset of explanatory
+variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables"></a>
 </h2>
-<p>You can also narrow down the species checklist search of any family
-by focusing on just a particular country or a list of countries. You
-just need to define a vector of country names in the argument . In the
-example below, note that we have originally searched for the species
-within the families <strong>Amborellaceae</strong>,
-<strong>Cabombaceae</strong>, and <strong>Martyniaceae</strong>, but the
-function returned a smaller species list, because many species in the
-searched families are not recorded in any of the specified vector of
-country, i.e. <strong>Brazil</strong> or <strong>Colombia</strong>.</p>
+<p>By setting the argument <code>NodeCount = TRUE</code>, the function
+will calculate the net node count for each species/accession given the
+phylogenetic tree of reference. Net node has been successfully used to
+explore the effect of speciation rates (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et
+al. 2018</a>) on the response variable. See that in the example below we
+have also chosen to log10-transform both the response variable “DBH” and
+the newly created column of net node, all which were then listed in the
+arguments <code>addtraits</code> and <code>ordtraits</code>.<br></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,
                    data <span class="op">=</span> <span class="va">traitdata</span>,
@@ -187,19 +199,16 @@ country, i.e. <strong>Brazil</strong> or <strong>Colombia</strong>.</p>
 <h2 id="create-sample-of-trait-data-using-quadratic-net-nodes-as-the-explanatory-variable">Create sample of trait data using quadratic net nodes as the
 explanatory variable<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-quadratic-net-nodes-as-the-explanatory-variable"></a>
 </h2>
-<p>You may want to retrieve information for just one or a list of
-accepted genera from a given country (or from a list of countries). Just
-like before, you only need to define a vector of genus names in the
-argument and a vector of country names in the argument . In the example
-below, see that we have again searched for just the genera
-<strong><em>Asarum</em></strong> and
-<strong><em>Bertholletia</em></strong> of the families
-<strong>Aristolochiaceae</strong> and <strong>Lecythidaceae</strong>,
-but the function only returned the Lecythidaceae genus
-<strong><em>Bertholletia</em></strong>, because
-<strong><em>Asarum</em></strong> does not occur in any of the provided
-list of countries, i.e. <strong>Argentina</strong>,
-<strong>Brazil</strong> or <strong>French Guiana</strong>.</p>
+<p>You may want to square transform a variable before running the
+phylogenetic regressions. You just need to provide in the argument
+<code>sqrtransf</code> the variables/traits to be squared. The
+square-transformed trait will always result in a new column with a new
+name where the additional prefix “sqr” is added as following:
+“sqrNAMEOFTHETRAIT”. The name(s) of the square-transformed trait(s) to
+be used in the analyses should then be listed in the argument
+<code>addtraits</code>. Note that in the example below the newly created
+variable “NodeCount” was chosen to be both log- and
+square-transformed.<br></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,
                    data <span class="op">=</span> <span class="va">traitdata</span>,
@@ -215,22 +224,12 @@ list of countries, i.e. <strong>Argentina</strong>,
                    fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf_sqrtransf.csv"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="create-sample-of-trait-data-using-only-longitude-and-latitude-for-the-geo-model">Create sample of trait data using only longitude and latitude for
-the GEO model<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-only-longitude-and-latitude-for-the-geo-model"></a>
+<h2 id="create-sample-of-trait-data-for-geo-model">Create sample of trait data for GEO model<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-for-geo-model"></a>
 </h2>
-<p>You may want to retrieve information for just one or a list of
-accepted genera from a given country (or from a list of countries). Just
-like before, you only need to define a vector of genus names in the
-argument and a vector of country names in the argument . In the example
-below, see that we have again searched for just the genera
-<strong><em>Asarum</em></strong> and
-<strong><em>Bertholletia</em></strong> of the families
-<strong>Aristolochiaceae</strong> and <strong>Lecythidaceae</strong>,
-but the function only returned the Lecythidaceae genus
-<strong><em>Bertholletia</em></strong>, because
-<strong><em>Asarum</em></strong> does not occur in any of the provided
-list of countries, i.e. <strong>Argentina</strong>,
-<strong>Brazil</strong> or <strong>French Guiana</strong>.</p>
+<p>The example below shows that you can also define the columns of
+“longitude” and “latitude” from your original spreadsheet so as to
+create input linked and mean data for geographic-model-based
+phylogenetic regression.<br></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,
                    data <span class="op">=</span> <span class="va">traitdata</span>,
@@ -240,6 +239,11 @@ list of countries, i.e. <strong>Argentina</strong>,
                    dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_input"</span>,
                    fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_GEO.txt"</span>,
                    fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_GEO.txt"</span><span class="op">)</span></code></pre></div>
+<p>See also an associated article on how to create a <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html" class="external-link">shell
+script</a>) with <code>BayesTraits.shell</code> for multiple
+phylogenetic regression analyses, as well as another article on how to
+use <code>BayesTraits.outputs</code> to <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html" class="external-link">process
+the resulting output files</a>) from the analyses.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

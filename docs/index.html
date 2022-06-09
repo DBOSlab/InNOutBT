@@ -74,7 +74,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The package InNOutBT is still under development. Currently it has only three major functions that help to automatize BayesTraits phylogenetic independent contrast regression analyses. To better understand how these functions work, see <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf" class="external-link">BayesTraits V4.0.0 Manual</a> for further details on the specific format of the input files that are required by BayesTraits, as well as the resulting output files after analyses.</p>
+<p>The package <strong>InNOutBT</strong> is still under development. Currently, it has only three major functions that help to automatize BayesTraits phylogenetic independent contrast regression analyses. To better understand how these functions work, see <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf" class="external-link">BayesTraits V4.0.0 Manual</a> for further details on the specific format of the input files that are required by BayesTraits, as well as the resulting output files.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -84,7 +84,7 @@
 <code class="sourceCode R"><span class="co">#install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"DBOSlab/InNOutBT"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT/">InNOutBT</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -96,10 +96,10 @@
 </h4>
 <p>This function produces all BayesTraits input data of linked samples of trait/climate data (distribution data), by automatically generating two .txt files: one including the linked traits and the other with mean values for each included trait. The function also includes an argument to calculate the net node count for each species/accession given a phylogenetic tree of reference, which has been successfully used to explore the effect of speciation rates (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>) on the response variable.</p>
 <div class="section level5">
-<h5 id="example-with-bayestraitsinputs">Example with <code>BayesTraits.inputs</code>:<a class="anchor" aria-label="anchor" href="#example-with-bayestraitsinputs"></a>
+<h5 id="example-of-using-bayestraitsinputs">Example of using <code>BayesTraits.inputs</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsinputs"></a>
 </h5>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT/">InNOutBT</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/YuLab-SMU/treeio" class="external-link">treeio</a></span><span class="op">)</span>
 
 <span class="va">traitdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"Data/vataireoids_1610_25May2022_BayesTraits.csv"</span><span class="op">)</span>
@@ -125,10 +125,10 @@
 </h4>
 <p>Based on the directory paths to the tree, linked and mean data input files, this function automatically produces shell scripts in both Unix and Windows PowerShell formats for running one or multiple phylogenetic regression analyses. In addition to generate the shell script directly in BayesTraits directory, the function also creates all running files with BayesTraits specified parameters (bi, it, sa, and st) for any run, depending on the chosen model of tree transformation.</p>
 <div class="section level5">
-<h5 id="example-with-bayestraitsshell">Example with <code>BayesTraits.shell</code>:<a class="anchor" aria-label="anchor" href="#example-with-bayestraitsshell"></a>
+<h5 id="example-of-using-bayestraitsshell">Example of using <code>BayesTraits.shell</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsshell"></a>
 </h5>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT/">InNOutBT</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span>
 
 <span class="fu"><a href="reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,
                   linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,
@@ -151,10 +151,10 @@
 </h4>
 <p>This function processes the output Log and Stones .txt files from phylogenetic regression analyses. The resulting processed files are tables either in Word or CSV formats summarizing each model, including comparison with Bayes Factor. Heatmaps based on pairwise Bayes Factor comparison are also automatically produced in PDF format.</p>
 <div class="section level5">
-<h5 id="example-with-bayestraitsoutputs">Example with <code>BayesTraits.outputs</code>:<a class="anchor" aria-label="anchor" href="#example-with-bayestraitsoutputs"></a>
+<h5 id="example-of-using-bayestraitsoutputs">Example of using <code>BayesTraits.outputs</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsoutputs"></a>
 </h5>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT/">InNOutBT</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span>
 
 <span class="fu"><a href="reference/BayesTraits.outputs.html">BayesTraits.outputs</a></span><span class="op">(</span>logst_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/BayesTraits_outputs_log_stone"</span><span class="op">)</span>,
                     responvar <span class="op">=</span> <span class="st">"DBH"</span>,

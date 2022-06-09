@@ -1,6 +1,10 @@
 ---
 title: "Processing output data from independent contrast regressions"
 output: rmarkdown::html_vignette
+resource_files:
+    - bayes_factor_heatmap.png
+    - bayes_factor_heatmap_cluster.png
+    - word_table_model_comparisons.png
 vignette: >
   %\VignetteIndexEntry{Processing output data from independent contrast regressions}
   %\VignetteEngine{knitr::rmarkdown}
@@ -19,8 +23,8 @@ process output data from Meade & Pagel's (2022) [BayesTraits](http://www.evoluti
 computer package.\
 
 Here in this article, we show how to use the package's function `BayesTraits.outputs`
-for processing all output data from BayesTraits phylogenetic independent 
-contrast regression analyses.
+for processing all Log and Stones .txt output files from BayesTraits phylogenetic 
+independent contrast regression analyses.\
 
 
 # Setup
@@ -37,23 +41,20 @@ library(InNOutBT)
 ```
 
 
-# Create sample of trait data using a different subset of explanatory variables
+# Processing Log and Stone output files
 
-This function produces all BayesTraits input data of linked samples of trait/climate 
-data (distribution data), by automatically generating two .txt files: one including 
-the linked traits and the other with mean values for each included trait. The 
-function also includes an argument to calculate the net node count for each
-species/accession given a phylogenetic tree of reference, which has been successfully 
-used to explore the effect of speciation rates (e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6)) on the response variable.\
-
-The example below shows how to mine all accepted species for a specified vector 
-of families. 
+The function `BayesTraits.outputs` reads and processes all Log and Stones .txt 
+output files resulting from the phylogenetic regressions and automatically generates
+tables either in Word or CSV formats summarizing each model, including comparison 
+with Bayes Factor. Heatmaps based on pairwise Bayes Factor comparison are also 
+automatically produced in PDF format.\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
+
 BayesTraits.outputs(logst_dir = paste0(getwd(),"/BayesTraits_outputs_log_stone"),
                     responvar = "DBH",
-                    explanvar = c("bio15"),
+                    explanvar = c("bio12", "bio15", "nnodes"),
                     treetransf = c("Kappa", "Delta", "Lambda", "OU"),
                     bayesfactor = TRUE,
                     unirates = FALSE,
@@ -61,34 +62,30 @@ BayesTraits.outputs(logst_dir = paste0(getwd(),"/BayesTraits_outputs_log_stone")
                     tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
                     dir_create = "results_BayesTraits_output",
                     outfile = "BayesTraits_output_table",
-                    height = 17,
-                    width = 20)
+                    height = 12,
+                    width = 15)
+```
+
+Heatmap including Bayes Factor pairwise comparison.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/bayes_factor_heatmap.png", dpi = 300)
+```
+
+Heatmap clustering models based on Bayes Factor values.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/bayes_factor_heatmap_cluster.png", dpi = 300)
+```
+
+Table describing the models and coefficients.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/word_table_model_comparisons.png", dpi = 300)
 ```
 
 
-# Create sample of trait data using a different subset of explanatory variables
-
-To mine a species checklist for all families of flowering plants, you recommend to
-load the dataframe-formatted data object called `POWOcodes` that comes associated with
-the __expowo__ package. Because the `POWOcodes` data object already contains the 
-URI addresses for all angiosperms families recognized in the [POWO](https://powo.science.kew.org) 
-database, you do not need to perform the time-consuming URI search using __taxize__. \
-
-The example below shows how to mine a global checklist of all accepted species of
-flowering plants by using the vector of all angiosperm families and associated URI 
-addresses stored in the `POWOcodes` object.
-
-```{r, eval = FALSE}
-BayesTraits.outputs(logst_dir = paste0(getwd(),"/BayesTraits_outputs_log_stone"),
-                    responvar = "DBH",
-                    explanvar = c("bio15"),
-                    treetransf = c("Kappa", "Delta", "Lambda", "OU"),
-                    bayesfactor = TRUE,
-                    unirates = FALSE,
-                    outformat = c("Word", "CSV"),
-                    tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
-                    dir_create = "results_BayesTraits_output",
-                    outfile = "BayesTraits_output_table",
-                    height = 17,
-                    width = 20)
-```
+See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)) 
+with `BayesTraits.inputs` for the phylogenetic regression analyses, as well as 
+another article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)) 
+with `BayesTraits.shell` for one or all-in-once multiple analyses.
