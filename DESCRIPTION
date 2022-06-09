@@ -1,0 +1,42 @@
+Package: InNOutBT
+Title: An R package for creating input data to and processing output data from BayesTraits analyses
+Version: 1.0.0
+Authors@R:
+    c(person(given = "Domingos",
+             family = "Cardoso",
+             role = c("aut", "cre"),
+             email = "cardosobot@gmail.com",
+             comment = c(ORCID = "0000-0001-7072-2656")),
+      person(given = "Matt",
+             family = "Lavin",
+             role = c("aut", "ctb"),
+             email = "mlavin@montana.edu",
+             comment = c(ORCID = "0000-0003-4205-1802")))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+Depends: 
+    R (>= 3.5.0)
+Imports: 
+    combinat,
+    dplyr,
+    ggplot2,
+    grid,
+    knitr,
+    magrittr,
+    phangorn,
+    pheatmap,
+    reshape2,
+    rmarkdown,
+    stringr,
+    tibble,
+    wesanderson
+Suggests: 
+    testthat (>= 3.0.0)
+URL: https://DBOSlab.github.io/InNOutBT, https://github.com/DBOSlab/InNOutBT
+BugReports: https://github.com/DBOSlab/InNOutBT/issues
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+LazyData: true

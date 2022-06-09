@@ -1,0 +1,97 @@
+---
+title: "Shell scripts for independent contrast regressions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Shell scripts for independent contrast regressions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The main goal of the __InNOutBT__ package is to readily create input data to and
+process output data from Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
+computer package.\
+
+Here in this article, we show how to use the package's function `BayesTraits.shell`
+for producing shell scripts and associated run commands of BayesTraits phylogenetic 
+independent contrast regression analyses.
+
+
+# Setup
+
+__InNOutBT__ is not on CRAN yet but you can install the latest development version 
+from [GitHub](https://github.com/):
+
+``` r
+#install.packages("devtools")
+devtools::install_github("DBOSlab/InNOutBT")
+```
+```{r, eval = FALSE}
+library(InNOutBT)
+```
+
+
+# Create sample of trait data using a different subset of explanatory variables
+
+This function produces all BayesTraits input data of linked samples of trait/climate 
+data (distribution data), by automatically generating two .txt files: one including 
+the linked traits and the other with mean values for each included trait. The 
+function also includes an argument to calculate the net node count for each
+species/accession given a phylogenetic tree of reference, which has been successfully 
+used to explore the effect of speciation rates (e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6)) on the response variable.\
+
+The example below shows how to mine all accepted species for a specified vector 
+of families. 
+
+```{r, eval = FALSE}
+library(InNOutBT)
+
+BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/03Jun2022",
+                  linkfile_dir = "results_BayesTraits_input/03Jun2022",
+                  treefile_dir = "Data",
+                  BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
+                  responvar = "DBH",
+                  treetransf = c("UNI", "Lambda", "VR"),
+                  bi = "30000000",
+                  it = "130000000",
+                  sa = "100000",
+                  st = c("500", "50000"),
+                  syst = "unix",
+                  dir_create = "results_BayesTraits_shell",
+                  cc_DataTree = TRUE)
+```
+
+
+# Create sample of trait data using a different subset of explanatory variables
+
+To mine a species checklist for all families of flowering plants, you recommend to
+load the dataframe-formatted data object called `POWOcodes` that comes associated with
+the __expowo__ package. Because the `POWOcodes` data object already contains the 
+URI addresses for all angiosperms families recognized in the [POWO](https://powo.science.kew.org) 
+database, you do not need to perform the time-consuming URI search using __taxize__. \
+
+The example below shows how to mine a global checklist of all accepted species of
+flowering plants by using the vector of all angiosperm families and associated URI 
+addresses stored in the `POWOcodes` object.
+
+```{r, eval = FALSE}
+BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/03Jun2022",
+                  linkfile_dir = "results_BayesTraits_input/03Jun2022",
+                  treefile_dir = "Data",
+                  BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
+                  responvar = "DBH",
+                  treetransf = c("UNI", "Lambda", "VR"),
+                  bi = "30000000",
+                  it = "130000000",
+                  sa = "100000",
+                  st = c("500", "50000"),
+                  syst = "unix",
+                  dir_create = "results_BayesTraits_shell",
+                  cc_DataTree = TRUE)
+```
