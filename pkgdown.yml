@@ -1,0 +1,12 @@
+pandoc: 2.7.3
+pkgdown: 2.0.3
+pkgdown_sha: ~
+articles:
+  independent_contrast_regression_inputs: independent_contrast_regression_inputs.html
+  independent_contrast_regression_outputs: independent_contrast_regression_outputs.html
+  independent_contrast_regression_shell: independent_contrast_regression_shell.html
+last_built: 2022-06-09T19:16Z
+urls:
+  reference: https://DBOSlab.github.io/InNOutBT/reference
+  article: https://DBOSlab.github.io/InNOutBT/articles
+
