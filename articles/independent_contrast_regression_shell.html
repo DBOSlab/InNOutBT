@@ -88,7 +88,7 @@
 <code class="sourceCode R"><span class="co">#install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DBOSlab/InNOutBT"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT" class="external-link">InNOutBT</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables">Create sample of trait data using a different subset of explanatory variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-different-subset-of-explanatory-variables"></a>
@@ -96,7 +96,7 @@
 <p>This function produces all BayesTraits input data of linked samples of trait/climate data (distribution data), by automatically generating two .txt files: one including the linked traits and the other with mean values for each included trait. The function also includes an argument to calculate the net node count for each species/accession given a phylogenetic tree of reference, which has been successfully used to explore the effect of speciation rates (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>) on the response variable.<br></p>
 <p>The example below shows how to mine all accepted species for a specified vector of families.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT" class="external-link">InNOutBT</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,
                   linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,
