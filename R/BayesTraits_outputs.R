@@ -2,20 +2,27 @@
 #'
 #' @author Domingos Cardoso & Matt Lavin
 #'
-#' @description It processes the output Log and Stones .txt files from phylogenetic
-#' regression analyses with Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html)
-#' computer package. The resulting processed files are tables either in Word
-#' or CSV formats summarizing each model, including comparison with Bayes Factor.
-#' Heatmaps based on pairwise Bayes Factor comparison are also automatically produced
-#' in PDF format. See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
-#' for further details on each of the output files produced by BayesTraits so as to better
-#' understand the processed output files from the current function \code{BayesTraits.outputs}.
+#' @description This function processes the output reported in the log and stones .txt files,
+#' which are generated from the phylogenetic regression analyses in Meade & Pagel's (2022)
+#' [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html)
+#' program. The resulting files are tables either Word or CSV formats and these rank
+#' competing models by their likelihood scores. Bayes Factors can also be reported in the
+#' case where models with tree transformations (e.g., either Lambda or variable rates are
+#' estimated) always have high likelihood scores than simpler models (e.g., those with neither
+#' Lambda nor variable rates estimated). In this case, the reported Bayes Factors pertain
+#' to the more complex model listed in the table and the simpler nested model that didn't
+#' involve a tree transformation. Heatmaps based on pairwise Bayes Factor comparison
+#' are also automatically produced in PDF format. These are intended to identify
+#' models that are most similar to the model with the highest likelihood score.
+#' See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
+#' for details of the output files produced by BayesTraits, which may facilitate an
+#' understanding of how output files are processed with the function \code{BayesTraits.outputs}.
 #'
 #' @usage
 #' BayesTraits.outputs(logst_dir = NULL,
 #'                     responvar = NULL,
 #'                     explanvar = NULL,
-#'                     treetransf = c("Kappa", "Delta", "Lambda", "OU"),
+#'                     treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
 #'                     bayesfactor = FALSE,
 #'                     unirates = TRUE,
 #'                     outformat = c("Word", "CSV"),
@@ -24,67 +31,58 @@
 #'                     outfile = "BayesTraits_output_table",
 #'                     ...)
 #'
-#' @param logst_dir Path to the folder directory where the Log and stepping
-#' stone sampler files from the BayesTraits phylogenetic independent contrast
-#' regression analyses are stored. The Log file(s) contain the model options and
-#' output. The stepping stone sampler files file(s) contain the estimated log
-#' marginal likelihood and the additional information about the stones. Make sure
-#' that all these are also named with the explanatory variable(s) separated by
-#' underscore, as well as the exact name of the tree transformation set in the analysis.
-#' So, you have to name them either with *Kappa*, *Delta*, *Lambda*, *OU* (Ornstein–Uhlenbeck),
-#' *UNI* (if you have used an uniform tree transformation), *VR* (if you have used
-#' a variable rates) or *Fabric* (if you have used the general statistical model
-#' that accommodates uneven evolutionary landscape as described by [Pagel et al. (2022)](https://doi.org/10.1038/s41467-022-28595-z).
-#' Thus, your Log file(s) should be name as something like _VAR1NAME_VAR2NAME.txt.Log.TREETRANSFORMATIONNAME.txt.
-#' See the following real examples of Log input files: "BayesTraits_mean_data_bio12_bio15.txt.Log.VR"
-#' and "BayesTraits_mean_data_bio12_bio15_nnodes.txt.Log.Lambda". This means that
-#' the first Log file contains two models named "bio12" and "bio15" and was based
-#' on VR (Variable Rates tree transformation), the second Log file contains three
-#' models named "bio12", "bio15", and "nnodes", and was based on Lambda tree transformation.
-#' Likewise, your Stones file(s) should be name as something like _VAR1NAME_VAR2NAME.txt.Stones.TREETRANSFORMATIONNAME.txt.
-#' See the following real examples of Stones input files: "BayesTraits_mean_data_bio12_bio15.txt.Stones.VR"
-#' and "BayesTraits_mean_data_bio12_bio15_nnodes.txt.Stones.Lambda". This means
-#' that the first Stones file contains two models named "bio12" and "bio15" and
-#' was based on VR (Variable Rates tree transformation), the second Stones file
-#' contains three models named "bio12", "bio15", and "nnodes", and was based on
-#' Lambda tree transformation.
+#' @param logst_dir Path to the directory where are stored the log and stepping stones files
+#' generated during the independent contrast regression analysis. The log file(s) contain
+#' the model options and output. The stepping stones file(s) contain the marginal log
+#' likelihood for a given model. These files are labeled with the explanatory variable(s)
+#' of the relevant model, where each variable is separated by an underscore. Explanatory
+#' variables include any tree transformation included in a model, and these can include
+#' *Kappa*, *Delta*, *Lambda*, *OU* (Ornstein–Uhlenbeck), *UNI* (for no tree transformation),
+#' *VR* (variable rates) or *Fabric* (for a model that accommodates uneven evolutionary
+#' landscape, as described by [Pagel et al. (2022)](https://doi.org/10.1038/s41467-022-28595-z).
+#' Thus, Log file(s) have a format like "BayesTraits_mean_data_bio12_bio15_VR.log.txt" and
+#' "BayesTraits_mean_data_bio12_bio15_nnodes_Lambda.log.txt" (where nnodes signifies net
+#' nodes). This indicates that the first log file contains three explanatory variables
+#' ("bio12", "bio15", and variable rates), and the second log file contains four explanatory
+#' variables ("bio12", "bio15", "nnodes", and Lambda). Stepping stones file(s) should be
+#' named correspondingly (e.g., "BayesTraits_mean_data_bio12_bio15_VR.stones.txt" and
+#' "BayesTraits_mean_data_bio12_bio15_nnodes_Lambda.stones.txt".)
 #'
-#' @param responvar Give the name of the response variable.
+#' @param responvar Report the name of the response variable.
 #'
-#' @param explanvar Give the name(s) of the explanatory variable(s) exactly as
-#' they are also written in the names of the Log and Stones files to be processed.
+#' @param explanvar Report the name(s) of the explanatory variable(s) exactly as
+#' they are also written in the names of the log and stones files being processed.
 #'
-#' @param treetransf Select any of the available BayesTraits tree transformation
-#' of evolution (*Kappa*, *Delta*, *Lambda* or *OU*), with which you have analysed
-#' your data. If you have analysed your data with just Uniform, VR or Fabric models
-#' then make sure you defined \code{treetransf = NULL}.
+#' @param treetransf Select any of the available BayesTraits tree transformations
+#' (*Kappa*, *Delta*, *Lambda*, *OU*, *UNI*, *VR* or *Fabric*) that are included
+#' among the competing models.
 #'
 #' @param bayesfactor Logical, if \code{FALSE}, then no Bayes Factor pairwise comparisons
 #' will performed among the models.
 #'
-#' @param unirates Logical, \code{FALSE}, then the results with uniform tree transformation
-#' will not be displayed in the main table.
+#' @param unirates Logical, if \code{FALSE}, then models lacking tree transformations
+#' (*Kappa*, *Delta*, *Lambda* or *OU*) and variable rates and Fabric (i.e., default values
+#' and uniform rates of evolution are assumed) will not be displayed in the main table.
 #'
-#' @param outformat Define either "Word" or "CSV", or a vector c("Word", "CSV")
-#' of both, for writing the results in any of such formats.
+#' @param outformat Define either "Word" or "CSV", or both, a vector c("Word", "CSV"),
+#' for writing the results in such formats.
 #'
 #' @param tableleg A legend for the main table, provided that you have also chosen
-#' "Word" in the argument \code{outformat} for the resulting format. If you do not give
-#' any specific legend here, then the Word-formatted table will have the default
-#' legend **Phylogenetic regression in BayesTraits: models and coefficients**.
+#' \code{outformat = "Word"}. If you do not report a legend, then the Word-formatted
+#' table will have the default legend **Phylogenetic regression in BayesTraits: models and coefficients**.
 #'
-#' @param dir_create Pathway to the computer's directory, where the file(s) will be saved.
-#' The default setting creates a directory named **results_BayesTraits_output** in
-#' which the results will be saved within another subfolder named by the current date.
+#' @param dir_create Path to the directory where the file(s) will be saved. the default
+#' setting creates a directory named **results_BayesTraits_output** where the results
+#' will be saved in a subfolder named by the current date.
 #'
-#' @param outfile Name of the main resulting table-formatted files in either "Word"
-#' or "CSV" (or both formats; i.e. depending on the specified argument \code{outformat})
-#' to be saved on the directory. If no name is given, the default setting creates
-#' a file named *BayesTraits_output_table.docx* and/or *BayesTraits_output_table.csv*.
+#' @param outfile Name of the resulting table-formatted files in either "Word", "CSV",
+#' or both (depending on the specified argument \code{outformat}). If no name is reported,
+#' the default setting creates a file named
+#' *BayesTraits_output_table.docx* and/or *BayesTraits_output_table.csv*.
 #'
-#' @param ... additional parameters passed to pdf.
+#' @param ... Additional parameters passed to pdf.
 #'
-#' @return Table in dataframe which is also saved on disk in .csv format.
+#' @return Table in dataframe format, which is also saved in .csv format.
 #'
 #' @seealso \code{\link{BayesTraits.inputs}}
 #'
@@ -106,7 +104,7 @@
 BayesTraits.outputs <- function(logst_dir = NULL,
                                 responvar = NULL,
                                 explanvar = NULL,
-                                treetransf = c("Kappa", "Delta", "Lambda", "OU"),
+                                treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
                                 bayesfactor = FALSE,
                                 unirates = TRUE,
                                 outformat = c("Word", "CSV"),
@@ -115,7 +113,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
                                 outfile = "BayesTraits_output_table",
                                 ...) {
 
-  # input data
+  # Input data
   tf <- grepl("Log", list.files(logst_dir))
   log_infiles <- list.files(logst_dir)[tf]
   tf <- grepl("Stones", list.files(logst_dir))
@@ -124,6 +122,12 @@ BayesTraits.outputs <- function(logst_dir = NULL,
   fnames <- gsub("BayesTraits_mean_data_|[.]txt.Log[.]|[.]txt$", "_", log_infiles)
   fnames <- gsub("^_|_$", "", fnames)
   fnames <- gsub("_Lmda", "_Lambda", fnames)
+
+  # Differentiating the models of tree transformation "Kappa", "Delta", "Lambda",
+  # and "OU" from the remaining, i.e. "Fabric", "VR", and "UNI".
+  treetransf <- treetransf[!treetransf %in% c("Fabric", "VR", "UNI")]
+  if(length(treetransf) == 0) treetransf <- NULL
+
 
   #_____________________________________________________________________________
   # Getting the Log marginal likelihood
@@ -482,7 +486,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
     cat("\n", folder_name)
   }
 
-  # Return also the resulting table as an object to the R environment
+  # Return the resulting table as an object to the R environment
   return(output_log_df)
 }
 
