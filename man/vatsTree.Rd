@@ -3,7 +3,7 @@
 \docType{data}
 \name{vatsTree}
 \alias{vatsTree}
-\title{BEAST-dated phylogeny of the Vataireoid legumes}
+\title{BEAST-dated phylogeny or time-tree of the Vataireoid legumes}
 \format{
 Treedata file in nexus format as resulting from BEAST analysis
 }
@@ -14,7 +14,7 @@ Treedata file in nexus format as resulting from BEAST analysis
 data(vatsTree)
 }
 \description{
-A dated phylogeny of the Vataireoid legumes from a comprehensive BEAST
+A dated phylogeny of the Vataireoid legumes from a BEAST
 analysis of nine genes (nuclear ribosomal ETS and ITS, and the plastid regions
 matK, 3′-trnK intron, psbA-trnH, trnL intron, rps16 intron, trnQ-5′rps16,
 and trnD-trnT).

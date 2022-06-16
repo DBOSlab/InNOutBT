@@ -13,8 +13,9 @@ data(vatsData)
 \description{
 A dataset of 1610 georeferenced, taxonomically vetted herbarium
 records of the Vataireoid legumes from which the climate data
-(\href{https://www.worldclim.org/data/bioclim.html}{WorldClim}'s bioclimatic variables)
-were extracted. This dataframe-formatted dataset also includes some categorical
-traits, as for example DBH, spindly, biome classification (sensu \href{http://publ.royalacademy.dk/books/120/834?lang=da}{Schrire et al. 2005}),
-and probability of occurrence in the global succulent biome (\href{https://doi.org/10.1111/geb.13089}{Ringelberg et al. 2019}).
+(\href{https://www.worldclim.org/data/bioclim.html}{WorldClim} derive from monthly
+precipitation and temperature model layers. This data frame includes additional
+continuous and categorical traits, such as DBH, the probability of occurrence
+in the global succulent biome (\href{https://doi.org/10.1111/geb.13089}{Ringelberg et al. 2019}),
+and biome classification (sensu \href{http://publ.royalacademy.dk/books/120/834?lang=da}{Schrire et al. 2005}).
 }

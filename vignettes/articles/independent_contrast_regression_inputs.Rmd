@@ -1,10 +1,10 @@
 ---
-title: "Creating input data for independent contrast regressions"
+title: "Creating input data for independent contrast regression analysis"
 output: rmarkdown::html_vignette
 resource_files:
     - vouchered_dataset.png
 vignette: >
-  %\VignetteIndexEntry{Creating input data for independent contrast regressions}
+  %\VignetteIndexEntry{Creating input data for independent contrast regression analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,19 +16,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-The main goal of the __InNOutBT__ package is to readily create input data to and
-process output data from Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
-computer package.\
+The main goal of the __InNOutBT__ package is to readily create input data and
+process output data for Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
+program.\
 
-Here in this article, we show how to use __InNOutBT__'s function `BayesTraits.inputs`
-for creating BayesTraits input data of linked samples of trait/climate data 
-(distribution data) for phylogenetic independent contrast regression analyses. 
-This function automatically generates two .txt files: one including the linked traits
-and the other with mean values for each included trait. The function also includes 
-an argument to calculate the net node count for each species/accession given a 
-phylogenetic tree of reference, which has been successfully used to explore the 
-effect of speciation rates (e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6))
-on the response variable.\
+We describe how the __InNOutBT__'s function `BayesTraits.inputs` creates two input
+text files representing samples of trait/climate data. One text file reports mean
+values for each sample of traits and a second text file reports linked samples of
+trait values (distribution data) in a format used in the phylogenetic independent
+contrast regression analyses. This function includes an argument to calculate the
+net node count for each species/accession given a phylogenetic tree, which is used
+to explore the effects of speciation rates on the response variable (e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6)).\
 
 
 # Setup
@@ -47,8 +45,12 @@ library(InNOutBT)
 
 # Example of spreadsheet with georeferenced data and associated traits
 
-Before using `BayesTraits.inputs`, make sure your spreadsheet with georeferenced
-data and associated traits also includes a **terminal** column where each accession/sample are linked with its corresponding tip label in the input phylogenetic tree.\
+Outputting longitude and latitude data (columns arranged in that order) with the 
+terminal label column provides the required data formats of the mean and linked 
+data that can be analyzed using the Geographical Model in BayesTraits. Before using
+`BayesTraits.inputs`, make sure your spreadsheet with georeferenced data and associated
+traits also includes a **terminal** column where each accession/sample is linked
+to the corresponding tip label in the input phylogenetic tree.\
 \
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/vouchered_dataset.png", dpi = 300)
@@ -57,10 +59,10 @@ knitr::include_graphics("figures/vouchered_dataset.png", dpi = 300)
 
 # Create sample of trait data using a subset of explanatory variables
 
-The example below creates the linked and mean data files where "DBH" was defined 
-as the response variable whereas "bio12" and "bio15" are the explanatory variables. 
-In other words, the first name in the argument `traitcols` will define the 
-response variable.\
+The example below generates the linked and mean data files where "DBH" is defined 
+as the response variable because it is listed first and "bio12" and "bio15" are 
+the explanatory variables because they are listed second and third. Thus, the first
+name reported in the argument `traitcols` will define the response variable.\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
@@ -79,19 +81,20 @@ BayesTraits.inputs(tree = phylo,
 ```
 
 
-# Log transform any variable before creating the input linked and mean data
+# Log transform any variable before creating the input mean and linked data
 
-You may want to log-10 transform a variable before running the phylogenetic regressions.
-You just need to provide in the argument `logtransf` the variables/traits to 
-be log-transformed. The log-transformed trait will always result in a new column 
-with a new name where the additional prefix "log10" is added as following: "log10NAMEOFTHETRAIT".
-The name(s) of the log-transformed trait(s) to be used in the analyses should then 
-be listed in the argument `addtraits`. Note that in the example below the variable
-"DBH" was chosen to be log-transformed and also as the response variable. In this 
-case, we need to reorder the variables in the argument `ordtraits` so as to 
-make sure your newly generated "log10DBH" variable will remain on front, i.e. as 
-the response variable. You may also want to save the original spreadsheet including 
-the new column of log-transformed DBH by giving a name in the argument `fileOrigData`.\
+You may want to log-10 transform a variable before running the phylogenetic regression
+analysis. In the argument `logtransf`, just report the variables/traits to be 
+log-transformed. The log-transformed trait will always result in a new column 
+with a new name where the additional prefix "log10" is added, as in the following:
+"log10NAMEOFTHETRAIT". The name(s) of the log-transformed trait(s) to be used in 
+the analyses should then be listed in the argument `addtraits`. Note that in the 
+example below, the variable "DBH" was chosen to be log-transformed and also as 
+the response variable. In this case, we need to reorder the variables in the argument
+`ordtraits` so as to make sure your newly generated "log10DBH" variable will be 
+reported first and thus serve as the response variable. You may also want to save
+a copy of the original spreadsheet that includes the new column of log-transformed
+DBH by reporting a name for the data file copy in the argument `fileOrigData`.\
 
 ```{r, eval = FALSE}
 BayesTraits.inputs(tree = phylo,
@@ -112,11 +115,11 @@ BayesTraits.inputs(tree = phylo,
 
 By setting the argument `NodeCount = TRUE`, the function will calculate the net 
 node count for each species/accession given the phylogenetic tree of reference. 
-Net node has been successfully used to explore the effect of speciation rates 
+Net nodes or node count was used to explore the effects of speciation rates 
 (e.g. [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6)) on the 
-response variable. See that in the example below we have also chosen to log10-transform 
-both the response variable "DBH" and the newly created column of net node, all which 
-were then listed in the arguments `addtraits` and `ordtraits`.\
+response variable. In the example below we chose to log10-transform both the response
+variable "DBH" and the newly created column of net nodes, all which were then listed
+in the arguments `addtraits` and `ordtraits`.\
 
 ```{r, eval = FALSE}
 BayesTraits.inputs(tree = phylo,
@@ -137,12 +140,12 @@ BayesTraits.inputs(tree = phylo,
 # Create sample of trait data using quadratic net nodes as the explanatory variable
 
 You may want to square transform a variable before running the phylogenetic regressions.
-You just need to provide in the argument `sqrtransf` the variables/traits to 
-be squared. The square-transformed trait will always result in a new column 
-with a new name where the additional prefix "sqr" is added as following: "sqrNAMEOFTHETRAIT".
-The name(s) of the square-transformed trait(s) to be used in the analyses should 
-then be listed in the argument `addtraits`. Note that in the example below the newly 
-created variable "NodeCount" was chosen to be both log- and square-transformed.\
+You just need to provide in the argument `sqrtransf` the variables/traits to be 
+squared. The square-transformed trait will always result in a new column with a 
+new name where the additional prefix "sqr" is added as following: "sqrNAMEOFTHETRAIT".
+The name(s) of the square-transformed trait(s) to be used in the analyses should
+then be listed in the argument `addtraits`. Note that in the example below the 
+newly created variable "NodeCount" was chosen to be both log10-transformed and log10-transformed squared.\
 
 ```{r, eval = FALSE}
 BayesTraits.inputs(tree = phylo,
@@ -162,9 +165,9 @@ BayesTraits.inputs(tree = phylo,
 
 # Create sample of trait data for GEO model
 
-The example below shows that you can also define the columns of "longitude" and
-"latitude" from your original spreadsheet so as to create input linked and mean
-data for geographic-model-based phylogenetic regression.\
+The example below uses columns of "longitude" and "latitude" in the original 
+spreadsheet to generate input mean and linked data for use in the Geographical 
+Model of BayesTraits.\
 
 ```{r, eval = FALSE}
 BayesTraits.inputs(tree = phylo,
@@ -178,6 +181,8 @@ BayesTraits.inputs(tree = phylo,
 ```
 
 
-See also an associated article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)) with `BayesTraits.shell` for multiple phylogenetic regression analyses, as well as
-another article on how to use `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)) from the analyses.
-
+Once the above text files of mean and linked samples of trait data have been created,
+analyzing them can be facilitated by creating a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)) 
+with `BayesTraits.shell` for multiple phylogenetic regression analyses. These BayesTraits
+runs are then followed by processing the Log and Stones files, which is detailed 
+in using `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)).
