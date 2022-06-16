@@ -41,7 +41,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/independent_contrast_regression_inputs.html">Creating input data for independent contrast regressions</a>
+    <a class="dropdown-item" href="articles/independent_contrast_regression_inputs.html">Creating input data for independent contrast regression analysis</a>
     <a class="dropdown-item" href="articles/independent_contrast_regression_outputs.html">Processing output data from independent contrast regressions</a>
     <a class="dropdown-item" href="articles/independent_contrast_regression_shell.html">Shell scripts for independent contrast regressions</a>
   </div>
@@ -68,11 +68,11 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="innoutbt">InNOutBT<a class="anchor" aria-label="anchor" href="#innoutbt"></a>
 </h1></div>
-<!-- badges: start --><!-- badges: end --><p>An R package for creating input data to and processing output data from Meade &amp; Pagel’s (2022) <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html" class="external-link">BayesTraits</a> computer package.</p>
+<!-- badges: start --><!-- badges: end --><p>An R package for creating input data and processing output data in formats required of Meade &amp; Pagel’s (2022) program <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html" class="external-link">BayesTraits</a>.</p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The package <strong>InNOutBT</strong> is still under development. Currently, it has only three major functions that help to automatize BayesTraits phylogenetic independent contrast regression analyses. To better understand how these functions work, see <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf" class="external-link">BayesTraits V4.0.0 Manual</a> for further details on the specific format of the input files that are required by BayesTraits, as well as the resulting output files.</p>
+<p>The package <strong>InNOutBT</strong> remains under development. Currently, it has three major functions that help to automate BayesTraits phylogenetic independent contrast regression analyses. To better understand how these functions work, see <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf" class="external-link">BayesTraits V4.0.0 Manual</a> for further details on the specific format of the input files that are required by BayesTraits, as well as the BayesTraits strucuture of resulting output files.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -89,10 +89,10 @@
 </h2>
 <p>A general description of each of the three available functions (<code>BayesTraits.inputs</code>, <code>BayesTraits.shell</code>, and <code>BayesTraits.outputs</code>) are provided below.</p>
 <div class="section level4">
-<h4 id="1-bayestraitsinputs-creating-input-linked-and-mean-data-for-phylogenetic-regression-analyses">
-<em>1. <code>BayesTraits.inputs</code>: Creating input linked and mean data for phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#1-bayestraitsinputs-creating-input-linked-and-mean-data-for-phylogenetic-regression-analyses"></a>
+<h4 id="1-bayestraitsinputs-creating-input-mean-and-linked-data-for-phylogenetic-regression-analyses">
+<em>1. <code>BayesTraits.inputs</code>: Creating input mean and linked data for phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#1-bayestraitsinputs-creating-input-mean-and-linked-data-for-phylogenetic-regression-analyses"></a>
 </h4>
-<p>This function produces all BayesTraits input data of linked samples of trait/climate data (distribution data), by automatically generating two .txt files: one including the linked traits and the other with mean values for each included trait. The function also includes an argument to calculate the net node count for each species/accession given a phylogenetic tree of reference, which has been successfully used to explore the effect of speciation rates (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>) on the response variable.</p>
+<p>This function produces the required BayesTraits input data of linked samples of trait/climate data (distribution data), by generating two text files, one of which includes the mean values associated with each trait associated with a terminal taxon and a second of which reports samples of trait values that are linked to each other because they were sampled from one accession of the associated terminal taxon. The function also includes an argument to calculate the net node count for each species/accession given a phylogenetic tree. Net node counts have been used to explore the effects of speciation rates on the response variable (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>).</p>
 <div class="section level5">
 <h5 id="example-of-using-bayestraitsinputs">Example of using <code>BayesTraits.inputs</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsinputs"></a>
 </h5>
@@ -121,7 +121,7 @@
 <h4 id="2-bayestraitsshell-creating-shell-script-for-running-phylogenetic-regression-analyses">
 <em>2. <code>BayesTraits.shell</code>: Creating shell script for running phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#2-bayestraitsshell-creating-shell-script-for-running-phylogenetic-regression-analyses"></a>
 </h4>
-<p>Based on the directory paths to the tree, linked and mean data input files, this function automatically produces shell scripts in both Unix and Windows PowerShell formats for running one or multiple phylogenetic regression analyses. In addition to generate the shell script directly in BayesTraits directory, the function also creates all running files with BayesTraits specified parameters (bi, it, sa, and st) for any run, depending on the chosen model of tree transformation.</p>
+<p>Using directory paths to the tree and the input files of mean and linked trait data, this function produces shell scripts in both Unix and Windows PowerShell formats for running one or multiple phylogenetic regression analyses. This function creates the necessary batch file commands, including the desired settings for the burnin, iterations, and stepping stones parameters (e.g., abbreviated as bi, it, sa, and st) for a given run, in addition to incorporating any model of tree transformation. In the example below, we use “UNI”, “Lambda”, and “VR” in the treefransf argument to indicate we want three separate sets of batch file commands all identical except one, designated as “UNI” will not estimate “Lambda” or “VR” (variable rates). We use “UNI” to indicate the assumption of uniform rates of evolution and no other tree transformation (e.g., such as estimating “Lambda”). In this case, “Lambda” assumes the default setting of 1.0 (see the BayesTraits manual).</p>
 <div class="section level5">
 <h5 id="example-of-using-bayestraitsshell">Example of using <code>BayesTraits.shell</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsshell"></a>
 </h5>
@@ -133,7 +133,7 @@
                   treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,
                   BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,
                   responvar <span class="op">=</span> <span class="st">"DBH"</span>,
-                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,
+                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Kappa"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,
                   bi <span class="op">=</span> <span class="st">"30000000"</span>,
                   it <span class="op">=</span> <span class="st">"130000000"</span>,
                   sa <span class="op">=</span> <span class="st">"100000"</span>,
@@ -147,7 +147,7 @@
 <h4 id="3-bayestraitsoutputs-processing-output-data-from-phylogenetic-regression-analyses">
 <em>3. <code>BayesTraits.outputs</code>: Processing output data from phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#3-bayestraitsoutputs-processing-output-data-from-phylogenetic-regression-analyses"></a>
 </h4>
-<p>This function processes the output Log and Stones .txt files from phylogenetic regression analyses. The resulting processed files are tables either in Word or CSV formats summarizing each model, including comparison with Bayes Factor. Heatmaps based on pairwise Bayes Factor comparison are also automatically produced in PDF format.</p>
+<p>This function processes the output Log and Stones .txt files from phylogenetic regression analyses. The resulting processed files are tables either in Word or CSV formats summarizing each model, including comparisons of Bayes Factors. Heatmaps using pairwise Bayes Factor comparisons are also produced in PDF format (we use heatmaps only to identify models similar to the model with the highest likelihood score).</p>
 <div class="section level5">
 <h5 id="example-of-using-bayestraitsoutputs">Example of using <code>BayesTraits.outputs</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsoutputs"></a>
 </h5>
@@ -156,8 +156,8 @@
 
 <span class="fu"><a href="reference/BayesTraits.outputs.html">BayesTraits.outputs</a></span><span class="op">(</span>logst_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/BayesTraits_outputs_log_stone"</span><span class="op">)</span>,
                     responvar <span class="op">=</span> <span class="st">"DBH"</span>,
-                    explanvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"nnodes"</span>, <span class="st">"nnodes2"</span><span class="op">)</span>,
-                    treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kappa"</span>, <span class="st">"Delta"</span>, <span class="st">"Lambda"</span>, <span class="st">"OU"</span><span class="op">)</span>,
+                    explanvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"nnodes"</span><span class="op">)</span>,
+                    treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Kappa"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,
                     bayesfactor <span class="op">=</span> <span class="cn">TRUE</span>,
                     unirates <span class="op">=</span> <span class="cn">FALSE</span>,
                     outformat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"CSV"</span><span class="op">)</span>,
@@ -172,12 +172,12 @@
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>A detailed description of the <strong>InNOutBT</strong>’s full functionality is available in <a href="https://dboslab.github.io/InNOutBT/" class="external-link">here</a>.</p>
+<p>A detailed description of the <strong>InNOutBT</strong>’s full functionality is available in different <a href="https://dboslab.github.io/InNOutBT/" class="external-link">articles</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Cardoso, D. &amp; Lavin, M. (2022). InNOutBT: An R package for creating input data to and processing output data from BayesTraits analyses. <a href="https://github.com/dboslab/InNOutBT" class="external-link uri">https://github.com/dboslab/InNOutBT</a></p>
+<p>Cardoso, D. &amp; Lavin, M. (2022). InNOutBT: An R package for creating input data and processing output data required for BayesTraits analyses. <a href="https://github.com/dboslab/InNOutBT" class="external-link uri">https://github.com/dboslab/InNOutBT</a></p>
 <p><img src="reference/figures/DBOSlab_logo.png" style="width:30.0%"></p>
 </div>
 </div>
