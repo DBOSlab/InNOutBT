@@ -7,8 +7,10 @@
 <!-- badges: end -->
 
 An R package for creating input data and processing output data in
-formats required of Meade & Pagel’s (2022) program
-[BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html).
+formats required of Meade & Pagel’s (2022)
+[BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html)
+computer package.  
+  
 
 ## Overview
 
@@ -19,7 +21,8 @@ functions work, see [BayesTraits V4.0.0
 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
 for further details on the specific format of the input files that are
 required by BayesTraits, as well as the BayesTraits strucuture of
-resulting output files.
+resulting output files.  
+  
 
 ## Installation
 
@@ -35,11 +38,15 @@ devtools::install_github("DBOSlab/InNOutBT")
 library(InNOutBT)
 ```
 
+  
+  
+
 ## Usage
 
 A general description of each of the three available functions
 (`BayesTraits.inputs`, `BayesTraits.shell`, and `BayesTraits.outputs`)
-are provided below.
+are provided below.  
+  
 
 #### *1. `BayesTraits.inputs`: Creating input mean and linked data for phylogenetic regression analyses*
 
@@ -53,7 +60,8 @@ function also includes an argument to calculate the net node count for
 each species/accession given a phylogenetic tree. Net node counts have
 been used to explore the effects of speciation rates on the response
 variable (e.g. [O’Donovan et
-al. 2018](https://doi.org/10.1038/s41559-017-0454-6)).
+al. 2018](https://doi.org/10.1038/s41559-017-0454-6)).  
+  
 
 ##### Example of using `BayesTraits.inputs`:
 
@@ -78,6 +86,9 @@ BayesTraits.inputs(tree = phylo,
                    fileOrigData = "vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv")
 ```
 
+  
+  
+
 #### *2. `BayesTraits.shell`: Creating shell script for running phylogenetic regression analyses*
 
 Using directory paths to the tree and the input files of mean and linked
@@ -94,7 +105,8 @@ not estimate “Lambda” or “VR” (variable rates). We use “UNI” to indi
 the assumption of uniform rates of evolution and no other tree
 transformation (e.g., such as estimating “Lambda”). In this case,
 “Lambda” assumes the default setting of 1.0 (see the BayesTraits
-manual).
+manual).  
+  
 
 ##### Example of using `BayesTraits.shell`:
 
@@ -116,6 +128,9 @@ BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/03Jun2022",
                   cc_DataTree = TRUE)
 ```
 
+  
+  
+
 #### *3. `BayesTraits.outputs`: Processing output data from phylogenetic regression analyses*
 
 This function processes the output Log and Stones .txt files from
@@ -123,7 +138,9 @@ phylogenetic regression analyses. The resulting processed files are
 tables either in Word or CSV formats summarizing each model, including
 comparisons of Bayes Factors. Heatmaps using pairwise Bayes Factor
 comparisons are also produced in PDF format (we use heatmaps only to
-identify models similar to the model with the highest likelihood score).
+identify models similar to the model with the highest likelihood
+score).  
+  
 
 ##### Example of using `BayesTraits.outputs`:
 
@@ -144,10 +161,15 @@ BayesTraits.outputs(logst_dir = paste0(getwd(),"/BayesTraits_outputs_log_stone")
                     width = 20)
 ```
 
+  
+  
+
 ## Documentation
 
 A detailed description of the **InNOutBT**’s full functionality is
-available in different [articles](https://dboslab.github.io/InNOutBT/).
+available in different
+[articles](https://dboslab.github.io/InNOutBT/).  
+  
 
 ## Citation
 

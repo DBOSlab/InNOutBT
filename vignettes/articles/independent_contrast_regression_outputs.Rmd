@@ -1,12 +1,12 @@
 ---
-title: "Processing output data from independent contrast regressions"
+title: "Processing output data from independent contrast regression analysis"
 output: rmarkdown::html_vignette
 resource_files:
     - bayes_factor_heatmap.png
     - bayes_factor_heatmap_cluster.png
     - word_table_model_comparisons.png
 vignette: >
-  %\VignetteIndexEntry{Processing output data from independent contrast regressions}
+  %\VignetteIndexEntry{Processing output data from independent contrast regression analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,14 +18,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-The main goal of the __InNOutBT__ package is to readily create input data to and
-process output data from Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
-computer package.\
+\
+The main goal of the __InNOutBT__ package is to readily create input data and
+process output data for Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
+program.\
 
-Here in this article, we show how to use the package's function `BayesTraits.outputs`
-for processing all Log and Stones .txt output files from BayesTraits phylogenetic 
+Here we show how to use the package's function `BayesTraits.outputs`
+for processing all Log and Stones output text files from BayesTraits phylogenetic 
 independent contrast regression analyses.\
-
+\
 
 # Setup
 
@@ -39,15 +40,16 @@ devtools::install_github("DBOSlab/InNOutBT")
 ```{r, eval = FALSE}
 library(InNOutBT)
 ```
-
+\
 
 # Processing Log and Stone output files
 
-The function `BayesTraits.outputs` reads and processes all Log and Stones .txt 
-output files resulting from the phylogenetic regressions and automatically generates
-tables either in Word or CSV formats summarizing each model, including comparison 
-with Bayes Factor. Heatmaps based on pairwise Bayes Factor comparison are also 
-automatically produced in PDF format.\
+The function `BayesTraits.outputs` reads and processes the Log and Stones .txt 
+output files resulting from the independent contrast regression analyses and generates 
+tables in Word or CSV formats, which summarizes competing model and ranks them by
+log likelihood scores. Heatmaps derived from pairwise Bayes Factors are generated 
+in PDF format and these can be used to identify competing modes that are most similar
+to the model with the highest log likelihood score.\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
@@ -55,7 +57,7 @@ library(InNOutBT)
 BayesTraits.outputs(logst_dir = paste0(getwd(),"/BayesTraits_outputs_log_stone"),
                     responvar = "DBH",
                     explanvar = c("bio12", "bio15", "nnodes"),
-                    treetransf = c("Kappa", "Delta", "Lambda", "OU"),
+                    treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
                     bayesfactor = TRUE,
                     unirates = FALSE,
                     outformat = c("Word", "CSV"),
@@ -66,26 +68,31 @@ BayesTraits.outputs(logst_dir = paste0(getwd(),"/BayesTraits_outputs_log_stone")
                     width = 15)
 ```
 
-Heatmap including Bayes Factor pairwise comparison.\
+\
+\
+Heatmap including Bayes Factor pairwise comparison:\
 \
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/bayes_factor_heatmap.png", dpi = 300)
 ```
 
-Heatmap clustering models based on Bayes Factor values.\
+\
+\
+Heatmap clustering models based on Bayes Factor values:\
 \
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/bayes_factor_heatmap_cluster.png", dpi = 300)
 ```
 
-Table describing the models and coefficients.\
+\
+\
+Table describing the models and coefficients:\
 \
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/word_table_model_comparisons.png", dpi = 300)
 ```
 
-
-See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)) 
-with `BayesTraits.inputs` for the phylogenetic regression analyses, as well as 
-another article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)) 
-with `BayesTraits.shell` for one or all-in-once multiple analyses.
+\
+See also associated article on how to [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)) 
+with `BayesTraits.inputs` for independent contrast regression analyses, as well as 
+another article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)) with `BayesTraits.shell` for the analysis of one or multiple models.

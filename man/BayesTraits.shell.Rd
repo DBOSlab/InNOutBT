@@ -2,7 +2,7 @@
 % Please edit documentation in R/BayesTraits_shell.R
 \name{BayesTraits.shell}
 \alias{BayesTraits.shell}
-\title{Create shell scripts to run BayesTraits phylogenetic regression analyses using samples of traits data}
+\title{Create shell scripts to run BayesTraits phylogenetic regression analyses using samples of trait data}
 \usage{
 BayesTraits.shell(meanfile_dir = NULL,
                   linkfile_dir = NULL,
@@ -19,11 +19,11 @@ BayesTraits.shell(meanfile_dir = NULL,
                   cc_DataTree = TRUE)
 }
 \arguments{
-\item{meanfile_dir}{Path to the folder directory where the mean data file(s)
-of samples of trait data is(are) stored.}
+\item{meanfile_dir}{Path to the folder directory where the data file(s)
+containing trait means for samples of trait data is(are) stored.}
 
-\item{linkfile_dir}{Path to the folder directory where the linked data file(s)
-of samples of trait data is(are) stored.}
+\item{linkfile_dir}{Path to the folder directory where the data file(s)
+containing samples of linked trait data is(are) stored.}
 
 \item{treefile_dir}{Path to the folder directory where the tree file is stored.}
 
@@ -37,14 +37,15 @@ estimated, such as \emph{Kappa}, \emph{Delta}, \emph{Lambda}, \emph{OU} (Ornstei
 A model of variable rates \emph{VR} or the \emph{Fabric} model can be reported here,
 the latter of which is a statistical model accommodating an uneven evolutionary
 landscape, as described by \href{https://doi.org/10.1038/s41467-022-28595-z}{Pagel et al. (2022)}.
-We use \emph{UNI} as a designation for uniform rates of evolution (no \emph{VR} estimated)
-and no other tree transformation models estimated.}
+We use \emph{UNI} as a designation for uniform rates of evolution where \emph{VR} is not
+estimated and no other tree transformation models are estimated (e.g., Lambda
+is assumed to be 1.0).}
 
 \item{bi}{Set the number of iterations for the MCMC burnin. Report this number
 as a character (i.e., in quotes).}
 
-\item{it}{Set the number of total iterations for the MCMC chain. Report this number
-as a character (i.e., in quotes).}
+\item{it}{Set the number of total iterations for the MCMC chain. Report this
+number as a character (i.e., in quotes).}
 
 \item{sa}{Set the sample frequency. Report this number as a character (i.e., in quotes).}
 
@@ -54,28 +55,29 @@ characters (i.e., a vector of numbers each in quotes).}
 
 \item{syst}{Report the operating system ("unix" or "windows").}
 
-\item{dir_create}{Path to the computer's working directory or where the file(s) will
-be saved. The default setting creates a directory "results_BayesTraits_output" in
-which the results will be saved within a subfolder named by the current date.}
+\item{dir_create}{Path to the computer's working directory or where the file(s)
+will be saved. The default setting creates a directory "results_BayesTraits_output"
+in which the results will be saved within a subfolder named by the current date.}
 
-\item{cc_DataTree}{Logical, the default is \code{TRUE}. A copy of the tree file and
-the mean and linked data files will be made in the BayesTraits folder where the
-BayesTraits executable file is located.}
+\item{cc_DataTree}{Logical, the default is \code{TRUE}. A copy of the tree file
+and the mean and linked data files will be made in the BayesTraits folder where
+the BayesTraits executable file is located.}
 }
 \description{
-By reporting the directory paths to the tree and data files,
-this function produces shell scripts in both Unix and Windows PowerShell
-formats for running one or multiple phylogenetic regression analyses with
-Meade & Pagel's (2022) \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html}{BayesTraits}
+By reporting the directory paths to the tree and data files, this
+function produces shell scripts in both Unix and Windows PowerShell formats
+for running one or multiple phylogenetic regression analyses with Meade & Pagel's
+(2022) \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html}{BayesTraits}
 program. In addition to generating the shell script directly in the BayesTraits
 directory, the function also creates BayesTraits batch files with specified
-parameters (e.g., bi, it, sa, and st) and model of tree transformations.
-See \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf}{BayesTraits V4.0.0 Manual}
-for further details on the available BayesTraits parameters for phylogenetic
-regression so as to better understand how to set the arguments of the current
-function \code{BayesTraits.shell}. You might want to consider using
-the function \code{\link{BayesTraits.inputs}} to generate properly formatted input files
-of mean and linked samples of trait data prior to using \code{BayesTraits.shell}.
+parameters, including generations set for burnin, iterations, and the stepping
+stones sampler (e.g., bi, it, sa, and st). In addition, models involving alternative
+tree transformations can be specified. See \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf}{BayesTraits V4.0.0 Manual}
+for further details involving BayesTraits parameters and default settings for
+independent contrast regression analysis so as to better understand how to set
+arguments of this function \code{BayesTraits.shell}. You might consider using
+the function \code{\link{BayesTraits.inputs}} to generate properly formatted
+input files of mean and linked samples of trait data prior to using \code{BayesTraits.shell}.
 }
 \seealso{
 \code{\link{BayesTraits.inputs}}

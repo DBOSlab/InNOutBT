@@ -1,5 +1,5 @@
 ---
-title: "Shell scripts for independent contrast regressions"
+title: "Shell scripts for independent contrast regression analysis"
 output: rmarkdown::html_vignette
 resource_files:
     - shell_unix.png
@@ -7,7 +7,7 @@ resource_files:
     - shell_bayestraits_running_commands.png
     - bayestraits_folder.png
 vignette: >
-  %\VignetteIndexEntry{Shell scripts for independent contrast regressions}
+  %\VignetteIndexEntry{Shell scripts for independent contrast regression analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,25 +19,27 @@ knitr::opts_chunk$set(
 )
 ```
 
-The main goal of the __InNOutBT__ package is to readily create input data to and
-process output data from Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
-computer package.\
+\
+The main goal of the __InNOutBT__ package is to readily create input data and
+process output data for Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
+program.\
 
 Here in this article, we show how to use __InNOutBT__'s function `BayesTraits.shell`
 for producing shell scripts and associated run commands of BayesTraits phylogenetic 
 independent contrast regression analyses. Basically, the function `BayesTraits.shell`
-uses the directory paths to the tree, linked and mean data files as created 
-with `BayesTraits.inputs` (see article [here](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)),
-to automatically produce shell scripts in both Unix and Windows
-PowerShell formats. The resulting single shell script file can then be used for 
-running one or all-in-once multiple BayesTraits phylogenetic regressions, without manually setting
-new anaklyses with new parameters. The shell script produced with `BayesTraits.shell`
-should have thus all parameters for all analyses with any defined model.
-In addition to save the shell script directly in BayesTraits directory, the 
-function saves all the separate running files with BayesTraits specified parameters 
-(bi, it, sa, and st) for any run, depending on the chosen model of tree transformation. 
-See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf) for further details on each of BayesTraits parameters available for phylogenetic regression so as to better understand how to set the arguments of `BayesTraits.shell`.\
-
+uses the directory paths to the tree, mean and linked data files as created with
+`BayesTraits.inputs` (see article [here](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)),
+to automatically produce shell scripts in both Unix and Windows PowerShell formats. 
+The resulting single shell script file can then be used for running one or all-in-once
+multiple BayesTraits phylogenetic regressions, without manually setting new analyses
+with new parameters. The shell script produced with `BayesTraits.shell` should 
+have thus all parameters for all analyses with any defined model. In addition to 
+save the shell script directly in BayesTraits directory, the function saves all 
+the separate running files with BayesTraits specified parameters (bi, it, sa, and
+st) for any run, depending on the chosen model of tree transformation. See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
+for further details on each of BayesTraits parameters available for phylogenetic
+regression so as to better understand how to set the arguments of `BayesTraits.shell`.\
+\
 
 # Setup
 
@@ -51,7 +53,7 @@ devtools::install_github("DBOSlab/InNOutBT")
 ```{r, eval = FALSE}
 library(InNOutBT)
 ```
-
+\
 
 # Creating Unix shell script
 
@@ -65,7 +67,7 @@ to run the phylogenetic regressions with your input data. As such, choose among
 the models *Kappa*, *Delta*, *Lambda*, *OU* (Ornstein–Uhlenbeck), *UNI* (if you 
 have used an uniform tree transformation), *VR* (if you have used a variable rates)
 or *Fabric* (if you want to use the general statistical mode that accommodates 
-uneven evolutionary landscape as described by [Pagel et al. (2022)](https://doi.org/10.1038/s41467-022-28595-z).\
+uneven evolutionary landscape as described by [Pagel et al., 2022](https://doi.org/10.1038/s41467-022-28595-z)).\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
@@ -88,7 +90,8 @@ BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/09Jun2022",
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/shell_unix.png", dpi = 300)
 ```
-
+\
+\
 
 # Creating Windows PowerShell script 
 
@@ -114,6 +117,7 @@ BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/09Jun2022",
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/shell_windows.png", dpi = 300)
 ```
+
 \
 \
 The function generates all running BayesTraits commands for the multiple regressions,
@@ -123,6 +127,7 @@ and `st`.\
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/shell_bayestraits_running_commands.png", dpi = 300)
 ```
+
 \
 \
 Note that because we have set the argument `cc_DataTree = TRUE`, then the tree, 
@@ -133,5 +138,6 @@ knitr::include_graphics("figures/bayestraits_folder.png", dpi = 300)
 ```
 
 \
-See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)) with `BayesTraits.inputs` for the phylogenetic regression analyses, as well as another 
+See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html))
+with `BayesTraits.inputs` for the phylogenetic regression analyses, as well as another 
 article on how to use `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)) from the analyses.
