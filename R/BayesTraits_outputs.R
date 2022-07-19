@@ -426,7 +426,8 @@ BayesTraits.outputs <- function(logst_dir = NULL,
                                treeheight_col = ifelse(length(log_infiles)>10, 40, 80),
                                treeheight_row = ifelse(length(log_infiles)>10, 40, 80),
                                cutree_cols = 4,
-                               cutree_rows = 4)
+                               cutree_rows = 4,
+                               silent = TRUE)
 
     pcor$gtable$grobs[[1]]$gp=grid::gpar(lwd=1.0) # control for dendrogram
     pcor$gtable$grobs[[2]]$gp=grid::gpar(lwd=1.0) # control for dendrogram
