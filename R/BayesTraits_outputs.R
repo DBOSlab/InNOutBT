@@ -344,7 +344,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
   #_____________________________________________________________________________
   # Create a new directory to save the results with current date
   # If there is no directory... make one!
-  todaydate <- gsub(" ", "", format(Sys.time(), "%d %b %Y"))
+  todaydate <- format(Sys.time(), "%d%b%Y")
   if (!dir.exists(paste0(dir_create, "/"))) {
     dir.create(paste0(dir_create, "/"))
   }
@@ -387,12 +387,14 @@ BayesTraits.outputs <- function(logst_dir = NULL,
     #scales::show_col(pal)
 
 
-    #_______________________________________________________________________________
+    #___________________________________________________________________________
     # Plotting a general heatmap with values inside
     pdf(paste0(folder_name, "/Bayes_Factor_heatmap.pdf"), ...)
     p <- ggplot(data = cormat, aes(Var1, Var2, fill = value)) +
       geom_tile(color = "white") +
-      geom_text(aes(label = value), color = "white", size = ifelse(length(log_infiles)>10, 3, 6)) +
+      geom_text(aes(label = value), color = "white",
+                size = ifelse(length(log_infiles)>10, 3, 6),
+                na.rm = TRUE) +
       scale_x_discrete(labels = xlabs) +
       scale_y_discrete(labels = ylabs) +
       scale_fill_gradientn(colours = pal,
@@ -409,7 +411,8 @@ BayesTraits.outputs <- function(logst_dir = NULL,
     print(p)
     dev.off()
 
-    #_______________________________________________________________________________
+
+    #___________________________________________________________________________
     # Plotting the heatmap with dendrograms
 
     # Make the asymmetric matrix as symmetric so as to plot with the pheatmap package

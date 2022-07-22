@@ -100,7 +100,7 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
   # Create a new directory with current date to save the shell script and run command
   # files at the R directory.
   # If there is no directory... make one
-  todaydate <- gsub(" ", "", format(Sys.time(), "%d %b %Y"))
+  todaydate <- format(Sys.time(), "%d%b%Y")
   if (!dir.exists(paste0(dir_create, "/"))) {
     dir.create(paste0(dir_create, "/"))
   }
@@ -496,6 +496,127 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
     }
     invisible(file.copy(from = paste0(treefile_dir, "/", treefile_name),
                         to = paste0(BayesTraits_dir, "/", treefile_name)))
+  }
+
+  #_____________________________________________________________________________
+  # Remove running files from the folder where the BayesTraits executable file is stored
+  cat("\n", "\n", "\n", file = shellfile_bt, append=T)
+  if (!is.null(dir_create)) {
+    cat("\n", "\n", "\n", file = shellfile_wd, append=T)
+  }
+
+  cat("## remove running files from the BayesTraits folder\n", file = shellfile_bt, append=T)
+  if (!is.null(dir_create)) {
+    cat("## remove running files from the BayesTraits folder\n", file = shellfile_wd, append=T)
+  }
+
+  if (syst == "unix") {
+    cat(paste0("rm $treefile"), "\n", file = shellfile_bt, append=T)
+  }
+  if (syst == "windows") {
+    cat(paste0("Remove-Item $treefile"), "\n", file = shellfile_bt, append=T)
+  }
+  if (!is.null(dir_create)) {
+    if (syst == "unix") {
+      cat(paste0("rm $treefile"), "\n", file = shellfile_wd, append=T)
+    }
+    if (syst == "windows") {
+      cat(paste0("Remove-Item $treefile"), "\n", file = shellfile_wd, append=T)
+    }
+  }
+
+  cat("\n", file = shellfile_bt, append=T)
+  if (!is.null(dir_create)) {
+    cat("\n", file = shellfile_wd, append=T)
+  }
+
+  for(i in seq_along(meanfiles_nbrs)) {
+    if (syst == "unix") {
+      cat(paste0("rm $", meanfiles_nbrs[i]), "\n", file = shellfile_bt, append=T)
+    }
+    if (syst == "windows") {
+      cat(paste0("Remove-Item $", meanfiles_nbrs[i]), "\n", file = shellfile_bt, append=T)
+    }
+    if (!is.null(dir_create)) {
+      if (syst == "unix") {
+        cat(paste0("rm $", meanfiles_nbrs[i]), "\n", file = shellfile_wd, append=T)
+      }
+      if (syst == "windows") {
+        cat(paste0("Remove-Item $", meanfiles_nbrs[i]), "\n", file = shellfile_wd, append=T)
+      }
+    }
+  }
+
+  cat("\n", file = shellfile_bt, append=T)
+  if (!is.null(dir_create)) {
+    cat("\n", file = shellfile_wd, append=T)
+  }
+
+  for(i in seq_along(param_temp)) {
+    if (syst == "unix") {
+      cat(paste0("rm $paramfile", i), "\n", file = shellfile_bt, append=T)
+    }
+    if (syst == "windows") {
+      cat(paste0("Remove-Item $paramfile", i), "\n", file = shellfile_bt, append=T)
+    }
+    if (!is.null(dir_create)) {
+      if (syst == "unix") {
+        cat(paste0("rm $paramfile", i), "\n", file = shellfile_wd, append=T)
+      }
+      if (syst == "windows") {
+        cat(paste0("Remove-Item $paramfile", i), "\n", file = shellfile_wd, append=T)
+      }
+    }
+  }
+
+  cat("\n", file = shellfile_bt, append=T)
+  if (!is.null(dir_create)) {
+    cat("\n", file = shellfile_wd, append=T)
+  }
+
+  if (syst == "unix") {
+    cat(paste0(" rm *linked_data*"), "\n", file = shellfile_bt, append=T)
+  }
+  if (syst == "windows") {
+    cat(paste0("Remove-Item *linked_data*"), "\n", file = shellfile_bt, append=T)
+  }
+  if (!is.null(dir_create)) {
+    if (syst == "unix") {
+      cat(paste0("rm  *linked_data*"), "\n", file = shellfile_wd, append=T)
+    }
+    if (syst == "windows") {
+      cat(paste0("Remove-Item *linked_data*"), "\n", file = shellfile_wd, append=T)
+    }
+  }
+
+  cat("\n", file = shellfile_bt, append=T)
+  if (!is.null(dir_create)) {
+    cat("\n", file = shellfile_wd, append=T)
+  }
+
+  if (syst == "unix") {
+    cat(paste0("rm run_BayesTraits_shell_unix.sh"), "\n", file = shellfile_bt, append=T)
+  }
+  if (syst == "windows") {
+    cat(paste0("Remove-Item run_BayesTraits_shell_windows.ps1"), "\n", file = shellfile_bt, append=T)
+  }
+  if (!is.null(dir_create)) {
+    if (syst == "unix") {
+      cat(paste0("rm run_BayesTraits_shell_unix.sh"), "\n", file = shellfile_wd, append=T)
+    }
+    if (syst == "windows") {
+      cat(paste0("Remove-Item run_BayesTraits_shell_windows.ps1"), "\n", file = shellfile_wd, append=T)
+    }
+  }
+
+  cat("\n", file = shellfile_bt, append=T)
+  if (!is.null(dir_create)) {
+    cat("\n", file = shellfile_wd, append=T)
+  }
+
+  cat(paste0("echo ", "\"", "The input tree file $treefile and all associated running linked and mean trait data were removed from BayesTraits folder.", "\""), "\n", file = shellfile_bt, append=T)
+  if (!is.null(dir_create)) {
+    cat(paste0("echo ", "\"", "The input tree file $treefile and all associated running linked and mean trait data were removed from BayesTraits folder.", "\""), "\n", file = shellfile_wd, append=T)
   }
 
 }
