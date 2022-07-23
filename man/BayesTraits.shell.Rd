@@ -10,6 +10,11 @@ BayesTraits.shell(meanfile_dir = NULL,
                   BayesTraits_dir = NULL,
                   responvar = NULL,
                   treetransf = NULL,
+                  Kappa = NULL,
+                  Delta = NULL,
+                  Lambda = NULL,
+                  OU = NULL,
+                  VRLambda = FALSE,
                   bi = "30000000",
                   it = "130000000",
                   sa = "100000",
@@ -40,6 +45,39 @@ landscape, as described by \href{https://doi.org/10.1038/s41467-022-28595-z}{Pag
 We use \emph{UNI} as a designation for uniform rates of evolution where \emph{VR} is not
 estimated and no other tree transformation models are estimated (e.g., Lambda
 is assumed to be 1.0).}
+
+\item{Kappa}{If set as default \code{NULL}, this tree transformation model will
+be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+But here you can also set a vector with any specific value between 0 and 1. If
+you want to run analyses with both specific and estimated values for for \emph{Kappa},
+then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+any number as a character (i.e., in quotes).}
+
+\item{Delta}{If set as default \code{NULL}, this tree transformation model will
+be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+But here you can also set a vector with any specific value between 0 and 1. If
+you want to run analyses with both specific and estimated values for for \emph{Delta},
+then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+any number as a character (i.e., in quotes).}
+
+\item{Lambda}{If set as default \code{NULL}, this tree transformation model will
+be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+But here you can also set a vector with any specific value between 0 and 1. If
+you want to run analyses with both specific and estimated values for for \emph{Lambda},
+then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+any number as a character (i.e., in quotes).}
+
+\item{OU}{If set as default \code{NULL}, this tree transformation model will
+be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+But here you can also set a vector with any specific value between 0 and 1. If
+you want to run analyses with both specific and estimated values for for \emph{OU},
+then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+any number as a character (i.e., in quotes).}
+
+\item{VRLambda}{Logical, the default is \code{FALSE}. If set as \code{TRUE},
+then the specific values set for the tree transformation models \emph{Kappa}, \emph{Delta},
+\emph{Lambda} or \emph{OU} will be considered as separate runs when using the model of
+variable rates \emph{VR}, provided this was also chosen in the parameter \code{treetransf}.}
 
 \item{bi}{Set the number of iterations for the MCMC burnin. Report this number
 as a character (i.e., in quotes).}

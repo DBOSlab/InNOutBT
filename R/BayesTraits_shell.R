@@ -24,6 +24,11 @@
 #'                   BayesTraits_dir = NULL,
 #'                   responvar = NULL,
 #'                   treetransf = NULL,
+#'                   Kappa = NULL,
+#'                   Delta = NULL,
+#'                   Lambda = NULL,
+#'                   OU = NULL,
+#'                   VRLambda = FALSE,
 #'                   bi = "30000000",
 #'                   it = "130000000",
 #'                   sa = "100000",
@@ -53,6 +58,39 @@
 #' We use *UNI* as a designation for uniform rates of evolution where *VR* is not
 #' estimated and no other tree transformation models are estimated (e.g., Lambda
 #' is assumed to be 1.0).
+#'
+#' @param Kappa If set as default \code{NULL}, this tree transformation model will
+#' be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+#' But here you can also set a vector with any specific value between 0 and 1. If
+#' you want to run analyses with both specific and estimated values for for *Kappa*,
+#' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+#' any number as a character (i.e., in quotes).
+#'
+#' @param Delta If set as default \code{NULL}, this tree transformation model will
+#' be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+#' But here you can also set a vector with any specific value between 0 and 1. If
+#' you want to run analyses with both specific and estimated values for for *Delta*,
+#' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+#' any number as a character (i.e., in quotes).
+#'
+#' @param Lambda If set as default \code{NULL}, this tree transformation model will
+#' be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+#' But here you can also set a vector with any specific value between 0 and 1. If
+#' you want to run analyses with both specific and estimated values for for *Lambda*,
+#' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+#' any number as a character (i.e., in quotes).
+#'
+#' @param OU If set as default \code{NULL}, this tree transformation model will
+#' be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+#' But here you can also set a vector with any specific value between 0 and 1. If
+#' you want to run analyses with both specific and estimated values for for *OU*,
+#' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+#' any number as a character (i.e., in quotes).
+#'
+#' @param VRLambda Logical, the default is \code{FALSE}. If set as \code{TRUE},
+#' then the specific values set for the tree transformation models *Kappa*, *Delta*,
+#' *Lambda* or *OU* will be considered as separate runs when using the model of
+#' variable rates *VR*, provided this was also chosen in the parameter \code{treetransf}.
 #'
 #' @param bi Set the number of iterations for the MCMC burnin. Report this number
 #' as a character (i.e., in quotes).
@@ -88,6 +126,11 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
                                BayesTraits_dir = NULL,
                                responvar = NULL,
                                treetransf = NULL,
+                               Kappa = NULL,
+                               Delta = NULL,
+                               Lambda = NULL,
+                               OU = NULL,
+                               VRLambda = FALSE,
                                bi = "30000000",
                                it = "130000000",
                                sa = "100000",
@@ -196,99 +239,59 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
     cat("\n", file = shellfile_wd, append=T)
   }
 
+  treetransf_value <- list(Kappa, Delta, Lambda, OU)
+  names(treetransf_value) <- c("Kappa", "Delta", "Lambda", "OU")
+
+  treetransf_complete <- list()
+  for (t in seq_along(treetransf_value)) {
+    if (!is.null(treetransf_value[[t]])) {
+      treetransf_complete[[t]] <- paste0(names(treetransf_value)[t], treetransf_value[[t]])
+    }
+  }
+
+  tf <- treetransf %in% unique(gsub("Estimate|[[:digit:]]|[.]", "", unlist(treetransf_complete)))
+  treetransf_complete <- append(unlist(treetransf_complete), treetransf[!tf])
+
+  if(VRLambda) {
+    treetransf_complete <- append(treetransf_complete[(!treetransf_complete %in% "VR")],
+                                  paste0("VR", treetransf_complete[grepl("Lambda", treetransf_complete)]))
+  }
+
   param_temp <- list()
   temp <- vector()
   run_temp <- list()
   temp_run <- vector()
+
   for (l in seq_along(meanfile_name)) {
     explanvar <- gsub("BayesTraits_mean_data_", "", meanfile_name[l])
     explanvar <- gsub("[.]txt", "", explanvar)
-    for(i in seq_along(treetransf)) {
-      temp[i] <- paste0("paramfile", "=", "run_", responvar, "_", explanvar, "_", treetransf[i], ".txt")
+    for(i in seq_along(treetransf_complete)) {
+      temp[i] <- paste0("paramfile", "=", "run_", responvar, "_", explanvar, "_", treetransf_complete[i], ".txt")
 
-      if (treetransf[i] == "UNI") {
-        temp_run[i] <- paste0("9", "\n",
-                              "2", "\n",
-                              "bi ", bi, "\n",
-                              "it ", it, "\n",
-                              "sa ", sa, "\n",
-                              "stones ", st[1], " ", st[2], "\n",
-                              "DistData ",
-                              linkfile_name[l], "\n",
-                              "Run")
+      if (is.null(unlist(treetransf_value))) {
+        temp_run[[i]] <- run_commands(treetransf_complete[i], bi, it, sa, st,
+                                      linkfile_name[l],
+                                      ttransf_value = NULL,
+                                      VRLambda=VRLambda)
       }
-      if (treetransf[i] == "Kappa") {
-        temp_run[i] <- paste0("9", "\n",
-                              "2", "\n",
-                              "Kappa", "\n",
-                              "bi ", bi, "\n",
-                              "it ", it, "\n",
-                              "sa ", sa, "\n",
-                              "stones ", st[1], " ", st[2], "\n",
-                              "DistData ",
-                              linkfile_name[l], "\n",
-                              "Run")
+
+      if (!is.null(unlist(treetransf_value))) {
+
+        if (treetransf_complete[i] %in% c("UNI", "VR", "Fabric")) {
+          temp_run[i] <- run_commands(treetransf_complete[i], bi, it, sa, st,
+                                      linkfile_name[l],
+                                      ttransf_value = NULL,
+                                      VRLambda=VRLambda)
+        } else {
+          temp_run[i] <- run_commands(treetransf_complete[i], bi, it, sa, st,
+                                      linkfile_name[l],
+                                      gsub("VRLambda|Kappa|Delta|Lambda|OU", "",
+                                           treetransf_complete[i]),
+                                      VRLambda=VRLambda)
+        }
+
       }
-      if (treetransf[i] == "Delta") {
-        temp_run[i] <- paste0("9", "\n",
-                              "2", "\n",
-                              "Delta", "\n",
-                              "bi ", bi, "\n",
-                              "it ", it, "\n",
-                              "sa ", sa, "\n",
-                              "stones ", st[1], " ", st[2], "\n",
-                              "DistData ",
-                              linkfile_name[l], "\n",
-                              "Run")
-      }
-      if (treetransf[i] == "Lambda") {
-        temp_run[i] <- paste0("9", "\n",
-                              "2", "\n",
-                              "Lambda", "\n",
-                              "bi ", bi, "\n",
-                              "it ", it, "\n",
-                              "sa ", sa, "\n",
-                              "stones ", st[1], " ", st[2], "\n",
-                              "DistData ",
-                              linkfile_name[l], "\n",
-                              "Run")
-      }
-      if (treetransf[i] == "OU") {
-        temp_run[i] <- paste0("9", "\n",
-                              "2", "\n",
-                              "OU", "\n",
-                              "bi ", bi, "\n",
-                              "it ", it, "\n",
-                              "sa ", sa, "\n",
-                              "stones ", st[1], " ", st[2], "\n",
-                              "DistData ",
-                              linkfile_name[l], "\n",
-                              "Run")
-      }
-      if (treetransf[i] == "VR") {
-        temp_run[i] <- paste0("9", "\n",
-                              "2", "\n",
-                              "vr", "\n",
-                              "bi ", bi, "\n",
-                              "it ", it, "\n",
-                              "sa ", sa, "\n",
-                              "stones ", st[1], " ", st[2], "\n",
-                              "DistData ",
-                              linkfile_name[l], "\n",
-                              "Run")
-      }
-      if (treetransf[i] == "Fabric") {
-        temp_run[i] <- paste0("9", "\n",
-                              "2", "\n",
-                              "Fabric", "\n",
-                              "bi ", bi, "\n",
-                              "it ", it, "\n",
-                              "sa ", sa, "\n",
-                              "stones ", st[1], " ", st[2], "\n",
-                              "DistData ",
-                              linkfile_name[l], "\n",
-                              "Run")
-      }
+
     }
     param_temp[[l]] <- temp
     run_temp[[l]] <- temp_run
@@ -364,38 +367,40 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
   temp_stones <- vector()
   temp_scheds <- vector()
 
-  if (any(treetransf == "VR")) {
+  if (any(grepl("VR", treetransf_complete))) {
     temp_outrees <- vector()
     temp_varates <- vector()
   }
 
   for(i in seq_along(meanfile_name)) {
-    for (l in seq_along(treetransf)) {
+    for (l in seq_along(treetransf_complete)) {
       if (syst == "unix") {
-        temp_logs[l] <- paste0("mv ", meanfile_name[i], ".Log.txt ", meanfile_name[i], ".Log.", treetransf[l], ".txt")
-        temp_stones[l] <- paste0("mv ", meanfile_name[i], ".Stones.txt ", meanfile_name[i], ".Stones.", treetransf[l], ".txt")
-        temp_scheds[l] <- paste0("mv ", meanfile_name[i], ".Schedule.txt ", meanfile_name[i], ".Schedule.", treetransf[l], ".txt")
+        temp_logs[l] <- paste0("mv ", meanfile_name[i], ".Log.txt ", meanfile_name[i], ".Log.", treetransf_complete[l], ".txt")
+        temp_stones[l] <- paste0("mv ", meanfile_name[i], ".Stones.txt ", meanfile_name[i], ".Stones.", treetransf_complete[l], ".txt")
+        temp_scheds[l] <- paste0("mv ", meanfile_name[i], ".Schedule.txt ", meanfile_name[i], ".Schedule.", treetransf_complete[l], ".txt")
       }
       if (syst == "windows") {
-        temp_logs[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".Log.txt ", "-NewName ", meanfile_name[i], ".Log.", treetransf[l], ".txt")
-        temp_stones[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".Stones.txt ", "-NewName ", meanfile_name[i], ".Stones.", treetransf[l], ".txt")
-        temp_scheds[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".Schedule.txt ", "-NewName ", meanfile_name[i], ".Schedule.", treetransf[l], ".txt")
+        temp_logs[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".Log.txt ", "-NewName ", meanfile_name[i], ".Log.", treetransf_complete[l], ".txt")
+        temp_stones[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".Stones.txt ", "-NewName ", meanfile_name[i], ".Stones.", treetransf_complete[l], ".txt")
+        temp_scheds[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".Schedule.txt ", "-NewName ", meanfile_name[i], ".Schedule.", treetransf_complete[l], ".txt")
       }
-      if (treetransf[l] == "VR") {
+      if (treetransf_complete[l] == "VR" |
+          grepl("VRLambda", treetransf_complete[l])) {
         if (syst == "unix") {
-          temp_outrees[l] <- paste0("mv ", meanfile_name[i], ".Output.trees ", meanfile_name[i], ".Output.", treetransf[l], ".trees")
-          temp_varates[l] <- paste0("mv ", meanfile_name[i], ".VarRates.txt ", meanfile_name[i], ".VarRates.", treetransf[l], ".txt")
+          temp_outrees[l] <- paste0("mv ", meanfile_name[i], ".Output.trees ", meanfile_name[i], ".Output.", treetransf_complete[l], ".trees")
+          temp_varates[l] <- paste0("mv ", meanfile_name[i], ".VarRates.txt ", meanfile_name[i], ".VarRates.", treetransf_complete[l], ".txt")
         }
         if (syst == "windows") {
-          temp_outrees[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".Output.trees ", "-NewName ", meanfile_name[i], ".Output.", treetransf[l], ".trees")
-          temp_varates[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".VarRates.txt ", "-NewName ", meanfile_name[i], ".VarRates.", treetransf[l], ".txt")
+          temp_outrees[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".Output.trees ", "-NewName ", meanfile_name[i], ".Output.", treetransf_complete[l], ".trees")
+          temp_varates[l] <- paste0("Rename-Item -Path ", meanfile_name[i], ".VarRates.txt ", "-NewName ", meanfile_name[i], ".VarRates.", treetransf_complete[l], ".txt")
         }
       }
     }
     logs[[i]] <- temp_logs
     stones[[i]] <- temp_stones
     scheds[[i]] <- temp_scheds
-    if (any(treetransf == "VR")) {
+    if (any(treetransf_complete == "VR") |
+        any(grepl("VRLambda", treetransf_complete))) {
       outrees[[i]] <- temp_outrees
       varates[[i]] <- temp_varates
     }
@@ -403,7 +408,8 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
 
   temp <- append(unlist(logs), unlist(stones))
   temp <- append(temp, unlist(scheds))
-  if (any(treetransf == "VR")) {
+  if (any(treetransf_complete == "VR") |
+      any(grepl("VRLambda", treetransf_complete))) {
     temp <- append(temp, unlist(outrees))
     temp <- append(temp, unlist(varates))
   }
@@ -417,14 +423,14 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
   }
   vars <- gsub("[.]txt.+", "", vars)
   mods <- gsub("[.]txt$|[.]trees", "", allnames_tochange)
-  mods <- gsub(".+[.]", "", mods)
+  mods <- gsub(".+Stones[.]|.+Log[.]|.+Schedule[.]|.+Output[.]|.+VarRates[.]", "", mods)
 
   change_names <- list()
   temp <- list()
   for (i in seq_along(unique(vars))) {
     tf <- vars %in% unique(vars)[i]
-    for (l in seq_along(treetransf)) {
-      temp[[l]] <- allnames_tochange[tf][mods[tf] %in% treetransf[l]]
+    for (l in seq_along(treetransf_complete)) {
+      temp[[l]] <- allnames_tochange[tf][mods[tf] %in% treetransf_complete[l]]
     }
     change_names[[i]] <- temp
   }
@@ -620,3 +626,133 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
   }
 
 }
+
+
+# Auxiliary function to generate the run commands
+run_commands <- function (ttransf, bi, it, sa, st, linkfile, ttransf_value, VRLambda=VRLambda) {
+
+  ttransf <- gsub("Estimate|[[:digit:]]|[.]", "", ttransf)
+
+  if (ttransf == "VR") {
+    ttransf <- tolower(ttransf)
+  }
+
+  if (ttransf == "UNI") {
+    run_res <- paste0("9", "\n",
+                      "2", "\n",
+                      "bi ", bi, "\n",
+                      "it ", it, "\n",
+                      "sa ", sa, "\n",
+                      "stones ", st[1], " ", st[2], "\n",
+                      "DistData ",
+                      linkfile, "\n",
+                      "Run")
+  }
+
+  if (ttransf != "UNI" & is.null(ttransf_value)) {
+    run_res <- paste0("9", "\n",
+                      "2", "\n",
+                      ttransf, "\n",
+                      "bi ", bi, "\n",
+                      "it ", it, "\n",
+                      "sa ", sa, "\n",
+                      "stones ", st[1], " ", st[2], "\n",
+                      "DistData ",
+                      linkfile, "\n",
+                      "Run")
+  }
+
+  if (ttransf != "UNI" & !is.null(ttransf_value)) {
+
+    if (VRLambda) {
+
+      if (ttransf == "VRLambda") {
+
+        if (ttransf_value == "Estimate") {
+          run_res <- paste0("9", "\n",
+                            "2", "\n",
+                            "vr", "\n",
+                            "Lambda", "\n",
+                            "bi ", bi, "\n",
+                            "it ", it, "\n",
+                            "sa ", sa, "\n",
+                            "stones ", st[1], " ", st[2], "\n",
+                            "DistData ",
+                            linkfile, "\n",
+                            "Run")
+        } else {
+
+          run_res <- paste0("9", "\n",
+                            "2", "\n",
+                            "vr", "\n",
+                            "Lambda", " ", ttransf_value, "\n",
+                            "bi ", bi, "\n",
+                            "it ", it, "\n",
+                            "sa ", sa, "\n",
+                            "stones ", st[1], " ", st[2], "\n",
+                            "DistData ",
+                            linkfile, "\n",
+                            "Run")
+        }
+
+      } else {
+
+        if (ttransf_value == "Estimate") {
+          run_res <- paste0("9", "\n",
+                            "2", "\n",
+                            ttransf, "\n",
+                            "bi ", bi, "\n",
+                            "it ", it, "\n",
+                            "sa ", sa, "\n",
+                            "stones ", st[1], " ", st[2], "\n",
+                            "DistData ",
+                            linkfile, "\n",
+                            "Run")
+        } else {
+          run_res <- paste0("9", "\n",
+                            "2", "\n",
+                            ttransf, " ", ttransf_value, "\n",
+                            "bi ", bi, "\n",
+                            "it ", it, "\n",
+                            "sa ", sa, "\n",
+                            "stones ", st[1], " ", st[2], "\n",
+                            "DistData ",
+                            linkfile, "\n",
+                            "Run")
+        }
+
+      }
+    }
+
+    if (!VRLambda) {
+
+      if (ttransf_value == "Estimate") {
+        run_res <- paste0("9", "\n",
+                          "2", "\n",
+                          ttransf, "\n",
+                          "bi ", bi, "\n",
+                          "it ", it, "\n",
+                          "sa ", sa, "\n",
+                          "stones ", st[1], " ", st[2], "\n",
+                          "DistData ",
+                          linkfile, "\n",
+                          "Run")
+      } else {
+        run_res <- paste0("9", "\n",
+                          "2", "\n",
+                          ttransf, " ", ttransf_value, "\n",
+                          "bi ", bi, "\n",
+                          "it ", it, "\n",
+                          "sa ", sa, "\n",
+                          "stones ", st[1], " ", st[2], "\n",
+                          "DistData ",
+                          linkfile, "\n",
+                          "Run")
+      }
+
+    }
+  }
+
+  return(run_res)
+}
+
