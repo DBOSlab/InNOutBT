@@ -200,7 +200,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
     }
 
     if (any(treetransf %in% names(BayesTraits_outs[[i]]))) {
-      treetransf_temp <- gsub(".+_", "", fnames[i])
+      treetransf_temp <- gsub(".+_|[[:digit:]]|[.]|Estimate|VR", "", fnames[i])
       df$mean[df$param %in% treetransf_temp] <- round(mean(BayesTraits_outs[[i]][[treetransf_temp]]), digits=5)
       df$mean[df$param %in% "Rsquared"] <- round(mean(BayesTraits_outs[[i]][["R.2"]]), digits=5)
       df$mean[df$param %in% paste0("mean", responvar)] <- round(10^(mean(BayesTraits_outs[[i]][["Alpha"]])), digits=2)
@@ -208,10 +208,15 @@ BayesTraits.outputs <- function(logst_dir = NULL,
       # Adding "0" for OU tree transformation and "1.0" for all other tree transformation if they were not estimated
       df$mean[is.na(df$mean)] <- ifelse(df$param[is.na(df$mean)][df$param[is.na(df$mean)] %in% treetransf] %in% "OU", "0", "1.0")
 
+      # Adding back the value of tree transformation when not estimated
+      if (gsub(".+_|[[:alpha:]]", "", fnames[i]) != "") {
+        df$mean[df$param %in% gsub(".+_|[[:digit:]]|[.]|VR", "", fnames[i])] <- gsub(".+_|[[:alpha:]]", "", fnames[i])
+      }
+
     } else {
       df$mean[df$param %in% "Rsquared"] <- round(mean(BayesTraits_outs[[i]][["R.2"]]), digits=5)
       df$mean[df$param %in% paste0("mean", responvar)] <- round(10^(mean(BayesTraits_outs[[i]][["Alpha"]])), digits=2)
-      if (gsub(".+_", "", fnames)[i] == "VR") {
+      if (gsub(".+_|[[:digit:]]|[.]|Estimate", "", fnames)[i] == "VR") {
         if (!is.null(treetransf)) {
           df$mean[df$param %in% treetransf] <- ifelse(df$param[df$param %in% treetransf] %in% "OU", "0", "1.0")
         }
@@ -273,7 +278,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
 
   # Exclude models with uniform rates
   if (!unirates) {
-    output_log_df <- output_log_df[grepl("VR$|Fabric$|κ$|δ$|λ$|OU$", output_log_df$Model), ]
+    output_log_df <- output_log_df[grepl("\\S[+]VR[+]|VR$|Fabric$|κ|δ|λ|OU$|Estimate$", output_log_df$Model), ]
   }
 
 
@@ -323,7 +328,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
     colnames(output_bfactor_heat) <- gsub("_", "+", colnames(output_bfactor_heat))
 
     output_log_df$BF <- NA
-    tf <- grepl("VR$|Fabric$|κ$|δ$|λ$|OU$", output_log_df$Model)
+    tf <- grepl("\\S[+]VR[+]|VR$|Fabric$|κ|δ|λ|OU$|Estimate$", output_log_df$Model)
     n_var <- gsub("DBH\\s~\\s|\\s", "", output_log_df$Model[tf])
     n_uni <- gsub("DBH\\s~\\s|\\s|[+]\\sVR|[+]\\sFabric|[+]\\sκ|[+]\\sδ|[+]\\sλ|[+]\\sOU", "", output_log_df$Model[tf])
     n_var <- paste(n_var, "vs.", n_uni)
@@ -390,7 +395,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
     #___________________________________________________________________________
     # Plotting a general heatmap with values inside
     pdf(paste0(folder_name, "/Bayes_Factor_heatmap.pdf"), ...)
-    p <- ggplot(data = cormat, aes(Var1, Var2, fill = value)) +
+    p <- ggplot2::ggplot(data = cormat, aes(Var1, Var2, fill = value)) +
       geom_tile(color = "white") +
       geom_text(aes(label = value), color = "white",
                 size = ifelse(length(log_infiles)>10, 3, 6),

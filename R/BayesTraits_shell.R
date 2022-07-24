@@ -464,14 +464,14 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
     cat("mv", "*Log*", "BayesTraits_outputs_log_stone/", "\n", file = shellfile_bt, append=T)
     cat("mv", "*Stones*", "BayesTraits_outputs_log_stone/", "\n", "\n", file = shellfile_bt, append=T)
     cat("mv", "*Schedule*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
-    cat("mv", "*Output.VR.trees*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
+    cat("mv", "*Output.VR*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
     cat("mv", "*VarRates*", "BayesTraits_outputs_sch_trees/", file = shellfile_bt, append=T)
   }
   if (syst == "windows") {
     cat("Move-Item -Path", "*Log*", "-Destination", "BayesTraits_outputs_log_stone/", "\n", file = shellfile_bt, append=T)
     cat("Move-Item -Path", "*Stones*", "-Destination", "BayesTraits_outputs_log_stone/", "\n", "\n", file = shellfile_bt, append=T)
     cat("Move-Item -Path", "*Schedule*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
-    cat("Move-Item -Path", "*Output.VR.trees*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
+    cat("Move-Item -Path", "*Output.VR*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
     cat("Move-Item -Path", "*VarRates*", "-Destination", "BayesTraits_outputs_sch_trees/", file = shellfile_bt, append=T)
   }
   if (!is.null(dir_create)) {
@@ -479,14 +479,14 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
       cat("mv", "*Log*", "BayesTraits_outputs_log_stone/", "\n", file = shellfile_wd, append=T)
       cat("mv", "*Stones*", "BayesTraits_outputs_log_stone/", "\n", "\n", file = shellfile_wd, append=T)
       cat("mv", "*Schedule*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
-      cat("mv", "*Output.VR.trees*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
+      cat("mv", "*Output.VR*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
       cat("mv", "*VarRates*", "BayesTraits_outputs_sch_trees/", file = shellfile_wd, append=T)
     }
     if (syst == "windows") {
       cat("Move-Item -Path", "*Log*", "-Destination", "BayesTraits_outputs_log_stone/", "\n", file = shellfile_wd, append=T)
       cat("Move-Item -Path", "*Stones*", "-Destination", "BayesTraits_outputs_log_stone/", "\n", "\n", file = shellfile_wd, append=T)
       cat("Move-Item -Path", "*Schedule*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
-      cat("Move-Item -Path", "*Output.VR.trees*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
+      cat("Move-Item -Path", "*Output.VR*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
       cat("Move-Item -Path", "*VarRates*", "-Destination", "BayesTraits_outputs_sch_trees/", file = shellfile_wd, append=T)
     }
   }
