@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 
 
-# InNOutBT
+# InNOutBT <img src="man/figures/innoutbt.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -165,5 +165,4 @@ different [articles](https://dboslab.github.io/InNOutBT/).\
 Cardoso, D. & Lavin, M. (2022). InNOutBT: An R package for creating input data and
 processing output data required for BayesTraits analyses. https://github.com/dboslab/InNOutBT
 
-
-![](man/figures/DBOSlab_logo.png){width=30%}
+<img src="man/figures/DBOSlab_logo.png" align="left" alt="" width="120" />

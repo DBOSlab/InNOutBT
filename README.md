@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# InNOutBT
+# InNOutBT <img src="man/figures/innoutbt.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -177,4 +177,4 @@ Cardoso, D. & Lavin, M. (2022). InNOutBT: An R package for creating
 input data and processing output data required for BayesTraits analyses.
 <https://github.com/dboslab/InNOutBT>
 
-<img src="man/figures/DBOSlab_logo.png" style="width:30.0%" />
+<img src="man/figures/DBOSlab_logo.png" align="left" alt="" width="120" />
