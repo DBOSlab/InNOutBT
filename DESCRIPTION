@@ -12,7 +12,7 @@ Authors@R:
              role = c("aut", "ctb"),
              email = "mlavin@montana.edu",
              comment = c(ORCID = "0000-0003-4205-1802")))
-Description: What the package does (one paragraph).
+Description: This package helps to automate BayesTraits phylogenetic independent contrast regression analyses.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
