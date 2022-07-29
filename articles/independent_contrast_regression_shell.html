@@ -96,7 +96,7 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <h2 id="creating-unix-shell-script">Creating Unix shell script<a class="anchor" aria-label="anchor" href="#creating-unix-shell-script"></a>
 </h2>
 <p>Set the argument <code>syst = "unix"</code> to create a shell script for running the phylogenetic regressions with macOS Monterey.<br></p>
-<p>Note that you should give the name of the response variable of your analysis in the argument <code>responvar</code>. Also, you should use the argument <code>treetransf</code> to define any or all (listed as a vector) available tree transformation models that you want to run the phylogenetic regressions with your input data. As such, choose among the models <em>Kappa</em>, <em>Delta</em>, <em>Lambda</em>, <em>OU</em> (Ornstein–Uhlenbeck), <em>UNI</em> (if you have used an uniform tree transformation), <em>VR</em> (if you have used a variable rates) or <em>Fabric</em> (if you want to use the general statistical mode that accommodates uneven evolutionary landscape as described by <a href="https://doi.org/10.1038/s41467-022-28595-z" class="external-link">Pagel et al., 2022</a>).<br></p>
+<p>Note that you should give the name of the response variable of your analysis in the argument <code>responvar</code>. Also, you should use the argument <code>treetransf</code> to define any or all (listed as a vector) available tree transformation models that you want to run the phylogenetic regressions with your input data. As such, choose among the models <em>Kappa</em>, <em>Delta</em>, <em>Lambda</em>, <em>OU</em> (Ornstein–Uhlenbeck), <em>UNI</em> (if you have set a complete default BayesTraits regression analysis, i.e. assumed a uniform rates of evolution no other tree transformation models were estimated), <em>VR</em> (if you have used a variable rates) or <em>Fabric</em> (if you want to use the general statistical mode that accommodates uneven evolutionary landscape as described by <a href="https://doi.org/10.1038/s41467-022-28595-z" class="external-link">Pagel et al., 2022</a>).<br></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></span>
 <span></span>
@@ -106,6 +106,11 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <span>                  BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,</span>
 <span>                  responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
 <span>                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,</span>
+<span>                  Kappa <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                  Delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                  Lambda <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                  OU <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                  VRLambda <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                  bi <span class="op">=</span> <span class="st">"30000000"</span>,</span>
 <span>                  it <span class="op">=</span> <span class="st">"130000000"</span>,</span>
 <span>                  sa <span class="op">=</span> <span class="st">"100000"</span>,</span>
@@ -126,6 +131,11 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <span>                  BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,</span>
 <span>                  responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
 <span>                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,</span>
+<span>                  Kappa <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                  Delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                  Lambda <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                  OU <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                  VRLambda <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                  bi <span class="op">=</span> <span class="st">"30000000"</span>,</span>
 <span>                  it <span class="op">=</span> <span class="st">"130000000"</span>,</span>
 <span>                  sa <span class="op">=</span> <span class="st">"100000"</span>,</span>
@@ -137,9 +147,30 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <p><br><br>
 The function generates all running BayesTraits commands for the multiple regressions, depending on the parameters set in the arguments <code>treetransf</code>, <code>bi</code>, <code>it</code>, <code>sa</code>, and <code>st</code>.<br><br><img src="figures/shell_bayestraits_running_commands.png"><!-- --></p>
 <p><br><br>
-Note that because we have set the argument <code>cc_DataTree = TRUE</code>, then the tree, mean and linked data files were also copied directly into the BayesTraits folder.<br><br><img src="figures/bayestraits_folder.png"><!-- --></p>
-<p><br>
-See also an associated article on how to automatically <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html" class="external-link">create input files</a>) with <code>BayesTraits.inputs</code> for the phylogenetic regression analyses, as well as another article on how to use <code>BayesTraits.outputs</code> to <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html" class="external-link">process the resulting output files</a>) from the analyses.</p>
+Note that because we have set the argument <code>cc_DataTree = TRUE</code>, then the tree, mean data, and linked data files were also copied directly into the BayesTraits folder.<br><br><img src="figures/bayestraits_folder.png"><!-- --></p>
+<p><br><br>
+Note that if you set any of the arguments <code>Kappa</code>, <code>Delta</code>, <code>Lambda</code>, and <code>OU</code> as the default <code>NULL</code>, these tree transformation models will be estimated, provided that any of them were also listed in the argument <code>treetransf</code>. But you can also set them as a vector with any specific value between 0 and 1. For example, if you want to run analyses with both specific and estimated values for <code>Lambda</code>*<code>, then  you have to set a vector such as c("0.001", "1.0", "Estimate"). \ Also, if define the logical argument</code>VRLambda<code>as</code>TRUE<code>, then the specific values  set for the tree transformation models</code>Kappa<code>,</code>Delta<code>,</code>Lambda<code>or</code>OU<code>will be  considered as separate runs when using the model of variable rates *VR*, provided  that you have also chosen this model in the parameter</code>treetransf`.<br><br></p>
+</div>
+<div class="section level2">
+<h2 id="running-the-unix-shell-script">Running the Unix shell script<a class="anchor" aria-label="anchor" href="#running-the-unix-shell-script"></a>
+</h2>
+<p>After using the function <code>BayesTraits.shell</code> with all the needed parameters, you have to set permission to the shell script to run automatically all the phylogenetic regression analyses with BayesTraits program. You can just follow the steps below.<br></p>
+<p><strong>1.</strong> Open the terminal;<br></p>
+<p><strong>2.</strong> Go to the BayesTraits program folder where you have saved the shell script file <strong>.sh</strong> and the associated running and input data files with the function <code>BayesTraits.shell</code>. The shell script should be named <strong>run_BayesTraits_shell_unix.sh</strong>;<br></p>
+<p><strong>3.</strong> Execute the following line:<br><strong>chmod 777 run_BayesTraits_shell_unix.sh</strong></p>
+<p><strong>4.</strong> Then perform the BayesTraits run using the shell script by executing the following line:<br><strong>./run_BayesTraits_shell_unix.sh</strong><br><br></p>
+</div>
+<div class="section level2">
+<h2 id="running-the-windows-powershell-script">Running the Windows PowerShell script<a class="anchor" aria-label="anchor" href="#running-the-windows-powershell-script"></a>
+</h2>
+<p>After using the function <code>BayesTraits.shell</code> with all the needed parameters, you have to set permission to the PowerShell script to run automatically all the phylogenetic regression analyses with BayesTraits program. You can just follow the steps below, but you may also want to find <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.2" class="external-link">further information on how to use Windows PowerShell</a>.</p>
+<p><strong>1.</strong> Open PowerShell as Administrator;<br></p>
+<p><strong>2.</strong> Go to the BayesTraits program folder where you have saved the PowerShell script file <strong>.ps1</strong> and the associated running and input data files with the function <code>BayesTraits.shell</code>. The PowerShell script should be named <strong>run_BayesTraits_shell_windows.ps1</strong>;<br></p>
+<p><strong>3.</strong> Execute the following line and choose option <strong>[Y]Yes</strong>;<br><strong>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine</strong></p>
+<p><strong>4.</strong> Execute the following line:<br><strong>Unblock-File -Path .\run_BayesTraits_shell_windows.ps1</strong></p>
+<p><strong>5.</strong> Then perform the BayesTraits run using the PowerShell script by executing the following line:<br><strong>.\run_BayesTraits_shell_windows.ps1</strong></p>
+<p><br><br>
+See also an associated article on how to automatically <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html" class="external-link">create input files</a> with <code>BayesTraits.inputs</code> for the phylogenetic regression analyses, as well as another article on how to use <code>BayesTraits.outputs</code> to <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html" class="external-link">process the resulting output files</a> from the analyses.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
