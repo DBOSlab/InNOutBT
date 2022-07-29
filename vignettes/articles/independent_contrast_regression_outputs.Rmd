@@ -93,6 +93,6 @@ knitr::include_graphics("figures/word_table_model_comparisons.png", dpi = 300)
 ```
 
 \
-See also associated article on how to [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)) 
+See also associated article on how to [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html) 
 with `BayesTraits.inputs` for independent contrast regression analyses, as well as 
-another article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)) with `BayesTraits.shell` for the analysis of one or multiple models.
+another article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html) with `BayesTraits.shell` for the analysis of one or multiple models.

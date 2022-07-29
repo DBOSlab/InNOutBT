@@ -87,6 +87,9 @@ models that are most similar to the model with the highest likelihood score.
 See \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf}{BayesTraits V4.0.0 Manual}
 for details of the output files produced by BayesTraits, which may facilitate an
 understanding of how output files are processed with the function \code{BayesTraits.outputs}.
+See also a more complete article on how to use \code{BayesTraits.outputs} to
+\href{https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html}{process the resulting output files})
+from the phylogenetic regression analyses.
 }
 \seealso{
 \code{\link{BayesTraits.inputs}}

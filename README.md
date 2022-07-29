@@ -103,7 +103,8 @@ in the treefransf argument to indicate we want three separate sets of
 batch file commands all identical except one, designated as “UNI” will
 not estimate “Lambda” or “VR” (variable rates). We use “UNI” to indicate
 the assumption of uniform rates of evolution and no other tree
-transformation (e.g., such as estimating “Lambda”). In this case,
+transformation (e.g., such as estimating “Lambda”). In this case, “UNI”
+here will consider a default BayesTraits regression analysis where
 “Lambda” assumes the default setting of 1.0 (see the BayesTraits
 manual).  
   
@@ -177,4 +178,4 @@ Cardoso, D. & Lavin, M. (2022). InNOutBT: An R package for creating
 input data and processing output data required for BayesTraits analyses.
 <https://github.com/dboslab/InNOutBT>
 
-<img src="man/figures/DBOSlab_logo.png" align="left" alt="" width="120" />
+<img src="man/figures/DBOSlab_logo.png" align="left" alt="" width="150" />

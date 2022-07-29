@@ -65,9 +65,10 @@ the argument `responvar`. Also, you should use the argument `treetransf` to defi
 any or all (listed as a vector) available tree transformation models that you want
 to run the phylogenetic regressions with your input data. As such, choose among 
 the models *Kappa*, *Delta*, *Lambda*, *OU* (Ornstein–Uhlenbeck), *UNI* (if you 
-have used an uniform tree transformation), *VR* (if you have used a variable rates)
-or *Fabric* (if you want to use the general statistical mode that accommodates 
-uneven evolutionary landscape as described by [Pagel et al., 2022](https://doi.org/10.1038/s41467-022-28595-z)).\
+have set a complete default BayesTraits regression analysis, i.e. assumed a uniform
+rates of evolution no other tree transformation models were estimated), *VR* (if 
+you have used a variable rates) or *Fabric* (if you want to use the general statistical
+mode that accommodates uneven evolutionary landscape as described by [Pagel et al., 2022](https://doi.org/10.1038/s41467-022-28595-z)).\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
@@ -78,6 +79,11 @@ BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/09Jun2022",
                   BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
                   responvar = "DBH",
                   treetransf = c("UNI", "Lambda", "VR", "Fabric"),
+                  Kappa = NULL,
+                  Delta = NULL,
+                  Lambda = NULL,
+                  OU = NULL,
+                  VRLambda = FALSE,
                   bi = "30000000",
                   it = "130000000",
                   sa = "100000",
@@ -105,6 +111,11 @@ BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/09Jun2022",
                   BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
                   responvar = "DBH",
                   treetransf = c("UNI", "Lambda", "VR", "Fabric"),
+                  Kappa = NULL,
+                  Delta = NULL,
+                  Lambda = NULL,
+                  OU = NULL,
+                  VRLambda = FALSE,
                   bi = "30000000",
                   it = "130000000",
                   sa = "100000",
@@ -131,13 +142,72 @@ knitr::include_graphics("figures/shell_bayestraits_running_commands.png", dpi = 
 \
 \
 Note that because we have set the argument `cc_DataTree = TRUE`, then the tree, 
-mean and linked data files were also copied directly into the BayesTraits folder.\
+mean data, and linked data files were also copied directly into the BayesTraits folder.\
 \
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/bayestraits_folder.png", dpi = 300)
 ```
 
 \
-See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html))
+\
+Note that if you set any of the arguments `Kappa`, `Delta`, `Lambda`, and `OU` as
+the default `NULL`, these tree transformation models will be estimated, provided
+that any of them were also listed in the argument `treetransf`. But you can also
+set them as a vector with any specific value between 0 and 1. For example, if you 
+want to run analyses with both specific and estimated values for `Lambda`*`, then 
+you have to set a vector such as c("0.001", "1.0", "Estimate").
+\
+Also, if define the logical argument `VRLambda` as `TRUE`, then the specific values 
+set for the tree transformation models `Kappa`, `Delta`, `Lambda` or `OU` will be 
+considered as separate runs when using the model of variable rates *VR*, provided 
+that you have also chosen this model in the parameter `treetransf`.
+\
+\
+
+# Running the Unix shell script 
+
+After using the function `BayesTraits.shell` with all the needed parameters, you 
+have to set permission to the shell script to run automatically all the phylogenetic 
+regression analyses with BayesTraits program. You can just follow the steps below.\
+
+__1.__ Open the terminal;\
+
+__2.__ Go to the BayesTraits program folder where you have saved the shell script 
+file __.sh__ and the associated running and input data files with the function `BayesTraits.shell`.
+The shell script should be named __run_BayesTraits_shell_unix.sh__;\
+
+__3.__ Execute the following line:\
+__chmod 777 run_BayesTraits_shell_unix.sh__
+
+__4.__ Then perform the BayesTraits run using the shell script by executing the following line:\
+__./run_BayesTraits_shell_unix.sh__
+\
+\
+
+# Running the Windows PowerShell script 
+
+After using the function `BayesTraits.shell` with all the needed parameters, you 
+have to set permission to the PowerShell script to run automatically all the 
+phylogenetic regression analyses with BayesTraits program. You can just follow the
+steps below, but you may also want to find [further information on how to use Windows PowerShell](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.2).
+
+__1.__ Open PowerShell as Administrator;\
+
+__2.__ Go to the BayesTraits program folder where you have saved the PowerShell script
+file __.ps1__ and the associated running and input data files with the function `BayesTraits.shell`.
+The PowerShell script should be named __run_BayesTraits_shell_windows.ps1__;\
+
+__3.__ Execute the following line and choose option __[Y]Yes__;\
+__Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine__
+
+__4.__ Execute the following line:\
+__Unblock-File -Path .\\run_BayesTraits_shell_windows.ps1__
+
+__5.__ Then perform the BayesTraits run using the PowerShell script by executing the following line:\
+__.\\run_BayesTraits_shell_windows.ps1__
+
+\
+\
+See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)
 with `BayesTraits.inputs` for the phylogenetic regression analyses, as well as another 
-article on how to use `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)) from the analyses.
+article on how to use `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html) from the analyses.

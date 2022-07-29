@@ -16,6 +16,8 @@
 #' arguments of this function \code{BayesTraits.shell}. You might consider using
 #' the function \code{\link{BayesTraits.inputs}} to generate properly formatted
 #' input files of mean and linked samples of trait data prior to using \code{BayesTraits.shell}.
+#' See also a more complete article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html))
+#' with \code{BayesTraits.shell} for multiple phylogenetic regression analyses.
 #'
 #' @usage
 #' BayesTraits.shell(meanfile_dir = NULL,
@@ -57,31 +59,32 @@
 #' landscape, as described by [Pagel et al. (2022)](https://doi.org/10.1038/s41467-022-28595-z).
 #' We use *UNI* as a designation for uniform rates of evolution where *VR* is not
 #' estimated and no other tree transformation models are estimated (e.g., Lambda
-#' is assumed to be 1.0).
+#' is assumed to be 1.0). In this case, "UNI" here set a complete default BayesTraits
+#'  regression analysis.
 #'
 #' @param Kappa If set as default \code{NULL}, this tree transformation model will
-#' be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+#' be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 #' But here you can also set a vector with any specific value between 0 and 1. If
 #' you want to run analyses with both specific and estimated values for for *Kappa*,
 #' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
 #' any number as a character (i.e., in quotes).
 #'
 #' @param Delta If set as default \code{NULL}, this tree transformation model will
-#' be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+#' be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 #' But here you can also set a vector with any specific value between 0 and 1. If
 #' you want to run analyses with both specific and estimated values for for *Delta*,
 #' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
 #' any number as a character (i.e., in quotes).
 #'
 #' @param Lambda If set as default \code{NULL}, this tree transformation model will
-#' be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+#' be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 #' But here you can also set a vector with any specific value between 0 and 1. If
 #' you want to run analyses with both specific and estimated values for for *Lambda*,
 #' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
 #' any number as a character (i.e., in quotes).
 #'
 #' @param OU If set as default \code{NULL}, this tree transformation model will
-#' be estimated, provided it was also defined in the previous parameter \code{treetransf}.
+#' be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 #' But here you can also set a vector with any specific value between 0 and 1. If
 #' you want to run analyses with both specific and estimated values for for *OU*,
 #' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
@@ -90,7 +93,8 @@
 #' @param VRLambda Logical, the default is \code{FALSE}. If set as \code{TRUE},
 #' then the specific values set for the tree transformation models *Kappa*, *Delta*,
 #' *Lambda* or *OU* will be considered as separate runs when using the model of
-#' variable rates *VR*, provided this was also chosen in the parameter \code{treetransf}.
+#' variable rates *VR*, provided that you have also chosen this model in the parameter
+#' \code{treetransf}.
 #'
 #' @param bi Set the number of iterations for the MCMC burnin. Report this number
 #' as a character (i.e., in quotes).

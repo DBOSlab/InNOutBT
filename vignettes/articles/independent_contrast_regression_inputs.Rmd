@@ -184,7 +184,7 @@ BayesTraits.inputs(tree = phylo,
 
 \
 Once the above text files of mean and linked samples of trait data have been created,
-analyzing them can be facilitated by creating a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)) 
+analyzing them can be facilitated by creating a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html) 
 with `BayesTraits.shell` for multiple phylogenetic regression analyses. These BayesTraits
 runs are then followed by processing the Log and Stones files, which is detailed 
-in using `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)).
+in using `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html).
