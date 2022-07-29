@@ -118,7 +118,7 @@ independent contrast regression analysis so as to better understand how to set
 arguments of this function \code{BayesTraits.shell}. You might consider using
 the function \code{\link{BayesTraits.inputs}} to generate properly formatted
 input files of mean and linked samples of trait data prior to using \code{BayesTraits.shell}.
-See also a more complete article on how to create a \href{https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html}{shell script})
+See also a more complete article on how to create a \href{https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html}{shell script}
 with \code{BayesTraits.shell} for multiple phylogenetic regression analyses.
 }
 \seealso{

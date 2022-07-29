@@ -1,10 +1,10 @@
 ---
-title: "Creating input data for independent contrast regression analysis"
+title: "1. Creating input data for independent contrast regression analysis"
 output: rmarkdown::html_vignette
 resource_files:
     - vouchered_dataset.png
 vignette: >
-  %\VignetteIndexEntry{Creating input data for independent contrast regression analysis}
+  %\VignetteIndexEntry{1. Creating input data for independent contrast regression analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

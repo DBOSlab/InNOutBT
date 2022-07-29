@@ -98,7 +98,7 @@ variable to explore the effect of speciation rates on the response variable
 See \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf}{BayesTraits V4.0.0 Manual}
 for further details on the specific format of the input files that are required
 by BayesTraits. See also a more complete article on how to automatically
-\href{https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html}{create input files })
+\href{https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html}{create input files }
 with \code{BayesTraits.inputs} for the phylogenetic regression analyses.
 }
 \examples{

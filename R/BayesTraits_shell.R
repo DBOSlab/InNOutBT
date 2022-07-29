@@ -16,7 +16,7 @@
 #' arguments of this function \code{BayesTraits.shell}. You might consider using
 #' the function \code{\link{BayesTraits.inputs}} to generate properly formatted
 #' input files of mean and linked samples of trait data prior to using \code{BayesTraits.shell}.
-#' See also a more complete article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html))
+#' See also a more complete article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)
 #' with \code{BayesTraits.shell} for multiple phylogenetic regression analyses.
 #'
 #' @usage

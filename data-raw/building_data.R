@@ -10,4 +10,3 @@ usethis::use_data(vatsData, overwrite = TRUE)
 
 # Adding tree data
 usethis::use_data(vatsTree, overwrite = TRUE)
-

@@ -3,6 +3,7 @@
 export(BayesTraits.inputs)
 export(BayesTraits.outputs)
 export(BayesTraits.shell)
+export(BayesTraits.shell.reg.proj)
 importFrom(combinat,combn)
 importFrom(dplyr,arrange)
 importFrom(ggplot2,aes)

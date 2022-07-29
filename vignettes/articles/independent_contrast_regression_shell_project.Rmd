@@ -1,5 +1,5 @@
 ---
-title: "2. Shell scripts for independent contrast regression analysis"
+title: "Fully automated regression analysis and log processing with a shell script"
 output: rmarkdown::html_vignette
 resource_files:
     - shell_unix.png
@@ -7,7 +7,7 @@ resource_files:
     - shell_bayestraits_running_commands.png
     - bayestraits_folder.png
 vignette: >
-  %\VignetteIndexEntry{2. Shell scripts for independent contrast regression analysis}
+  %\VignetteIndexEntry{Fully automated regression analysis and log processing with a shell script}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,7 @@ The main goal of the __InNOutBT__ package is to readily create input data and
 process output data for Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
 program.\
 
-Here in this article, we show how to use __InNOutBT__'s function `BayesTraits.shell`
+Here in this article, we show how to use __InNOutBT__'s function `BayesTraits.shell.reg.proj`
 for producing shell scripts and associated run commands of BayesTraits phylogenetic 
 independent contrast regression analyses. Basically, the function `BayesTraits.shell`
 uses the directory paths to the tree, mean and linked data files as created with
@@ -55,7 +55,7 @@ library(InNOutBT)
 ```
 \
 
-# Creating Unix shell script
+# Creating a Unix shell project folder
 
 Set the argument `syst = "unix"` to create a shell script for running the phylogenetic
 regressions with macOS Monterey.\
@@ -73,24 +73,8 @@ mode that accommodates uneven evolutionary landscape as described by [Pagel et a
 ```{r, eval = FALSE}
 library(InNOutBT)
 
-BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/09Jun2022",
-                  linkfile_dir = "results_BayesTraits_input/09Jun2022",
-                  treefile_dir = "Data",
-                  BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
-                  responvar = "DBH",
-                  treetransf = c("UNI", "Lambda", "VR", "Fabric"),
-                  Kappa = NULL,
-                  Delta = NULL,
-                  Lambda = NULL,
-                  OU = NULL,
-                  VRLambda = FALSE,
-                  bi = "30000000",
-                  it = "130000000",
-                  sa = "100000",
-                  st = c("500", "50000"),
-                  syst = "unix",
-                  dir_create = "results_BayesTraits_shell",
-                  cc_DataTree = TRUE)
+BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso/Downloads",
+                           syst = "unix")
 ```
 
 ```{r, echo = FALSE}
@@ -99,31 +83,34 @@ knitr::include_graphics("figures/shell_unix.png", dpi = 300)
 \
 \
 
-# Creating Windows PowerShell script 
+# Running the Unix shell script 
+
+After using the function `BayesTraits.shell.reg.proj` with all the needed parameters, you 
+have to set permission to the shell script to run automatically all the phylogenetic 
+regression analyses with BayesTraits program. You can just follow the steps below.\
+
+__1.__ Open the terminal;\
+
+__2.__ Go to the BayesTraits program folder where you have saved the shell script 
+file __.sh__ and the associated running and input data files with the function `BayesTraits.shell`.
+The shell script should be named __BayesTraits_full_shell_unix.sh__;\
+
+__3.__ Execute the following line:\
+__chmod 777 BayesTraits_full_shell_unix.sh__
+
+__4.__ Then perform the BayesTraits run using the shell script by executing the following line:\
+__./BayesTraits_full_shell_unix.sh__
+\
+\
+
+# Creating a Windows PowerShell project folder
 
 Set the argument `syst = "windows"` to create a PowerShell script for running the 
 phylogenetic regressions with Windows. 
 
 ```{r, eval = FALSE}
-BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/09Jun2022",
-                  linkfile_dir = "results_BayesTraits_input/09Jun2022",
-                  treefile_dir = "Data",
-                  BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
-                  responvar = "DBH",
-                  treetransf = c("UNI", "Lambda", "VR", "Fabric"),
-                  Kappa = NULL,
-                  Delta = NULL,
-                  Lambda = NULL,
-                  OU = NULL,
-                  VRLambda = FALSE,
-                  bi = "30000000",
-                  it = "130000000",
-                  sa = "100000",
-                  st = c("500", "50000"),
-                  syst = "windows",
-                  dir_create = "results_BayesTraits_shell",
-                  cc_DataTree = TRUE)
-```
+BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso/Downloads",
+                           syst = "windows")```
 
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/shell_windows.png", dpi = 300)
@@ -164,29 +151,9 @@ or `OU` will be considered as separate runs when using the model of variable rat
 \
 \
 
-# Running the Unix shell script 
-
-After using the function `BayesTraits.shell` with all the needed parameters, you 
-have to set permission to the shell script to run automatically all the phylogenetic 
-regression analyses with BayesTraits program. You can just follow the steps below.\
-
-__1.__ Open the terminal;\
-
-__2.__ Go to the BayesTraits program folder where you have saved the shell script 
-file __.sh__ and the associated running and input data files with the function `BayesTraits.shell`.
-The shell script should be named __run_BayesTraits_shell_unix.sh__;\
-
-__3.__ Execute the following line:\
-__chmod 777 run_BayesTraits_shell_unix.sh__
-
-__4.__ Then perform the BayesTraits run using the shell script by executing the following line:\
-__./run_BayesTraits_shell_unix.sh__
-\
-\
-
 # Running the Windows PowerShell script 
 
-After using the function `BayesTraits.shell` with all the needed parameters, you 
+After using the function `BayesTraits.shell.reg.proj` with all the needed parameters, you 
 have to set permission to the PowerShell script to run automatically all the 
 phylogenetic regression analyses with BayesTraits program. You can just follow the
 steps below, but you may also want to find [further information on how to use Windows PowerShell](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.2).
@@ -195,19 +162,18 @@ __1.__ Open PowerShell as Administrator;\
 
 __2.__ Go to the BayesTraits program folder where you have saved the PowerShell script
 file __.ps1__ and the associated running and input data files with the function `BayesTraits.shell`.
-The PowerShell script should be named __run_BayesTraits_shell_windows.ps1__;\
+The PowerShell script should be named __BayesTraits_full_shell_windows.ps1__;\
 
 __3.__ Execute the following line and choose option __[Y]Yes__;\
 __Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine__
 
 __4.__ Execute the following line:\
-__Unblock-File -Path .\\run_BayesTraits_shell_windows.ps1__
+__Unblock-File -Path .\\BayesTraits_full_shell_windows.ps1__
 
 __5.__ Then perform the BayesTraits run using the PowerShell script by executing the following line:\
-__.\\run_BayesTraits_shell_windows.ps1__
+__.\\BayesTraits_full_shell_windows.ps1__
 
 \
 \
-See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)
-with `BayesTraits.inputs` for the phylogenetic regression analyses, as well as another 
-article on how to use `BayesTraits.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html) from the analyses.
+See also the associated articles on how to set the parameters to [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)
+with `BayesTraits.inputs` for the phylogenetic regression analyses, as well to [create the internal shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html) with `BayesTraits.shell` for the actual BayesTraits runs, and to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html) with `BayesTraits.outputs`.

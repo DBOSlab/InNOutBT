@@ -13,7 +13,7 @@
 #' See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
 #' for further details on the specific format of the input files that are required
 #' by BayesTraits. See also a more complete article on how to automatically
-#' [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html))
+#' [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)
 #' with \code{BayesTraits.inputs} for the phylogenetic regression analyses.
 #'
 #' @usage

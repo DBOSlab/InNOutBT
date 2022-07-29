@@ -18,7 +18,7 @@
 #' for details of the output files produced by BayesTraits, which may facilitate an
 #' understanding of how output files are processed with the function \code{BayesTraits.outputs}.
 #' See also a more complete article on how to use \code{BayesTraits.outputs} to
-#' [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html))
+#' [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)
 #' from the phylogenetic regression analyses.
 #'
 #' @usage

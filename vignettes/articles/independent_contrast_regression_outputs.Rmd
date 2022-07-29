@@ -1,12 +1,12 @@
 ---
-title: "Processing output data from independent contrast regression analysis"
+title: "3. Processing output data from independent contrast regression analysis"
 output: rmarkdown::html_vignette
 resource_files:
     - bayes_factor_heatmap.png
     - bayes_factor_heatmap_cluster.png
     - word_table_model_comparisons.png
 vignette: >
-  %\VignetteIndexEntry{Processing output data from independent contrast regression analysis}
+  %\VignetteIndexEntry{3. Processing output data from independent contrast regression analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
