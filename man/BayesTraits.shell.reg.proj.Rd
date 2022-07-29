@@ -31,7 +31,7 @@ directly opening the R or R Studio programs. Note that these files are just
 examples from an specific study of the Vataireoid legumes, and so you will have
 to edit the folder paths and analysis parameters in such example scripts according
 to your desired regression analyses. See also a more complete article
-\href{https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html}{describing a BayesTraits shell run project}
+\href{https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell_project.html}{describing a BayesTraits shell run project}
 that can be created with \code{BayesTraits.shell.reg.proj} for fully automated
 multiple phylogenetic regression analyses.
 }
