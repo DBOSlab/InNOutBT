@@ -39,7 +39,7 @@ multiple phylogenetic regression analyses.
 \dontrun{
 library(InNOutBT)
 
-BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso/Downloads",
+BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso",
                            syst = "unix")
 }
 

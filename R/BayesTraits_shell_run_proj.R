@@ -40,7 +40,7 @@
 #' \dontrun{
 #' library(InNOutBT)
 #'
-#' BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso/Downloads",
+#' BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso",
 #'                            syst = "unix")
 #'}
 #'
@@ -101,7 +101,7 @@ BayesTraits.shell.reg.proj <- function (dir_create_proj = NULL,
                           to = paste0(dir_create_proj, "/", "BayesTraits_shell_run_project/",
                                       gsub("_windows", "", winscripts[i]))))
     }
-    invisible(file.copy(from = paste0(systdir, "/", unishell),
+    invisible(file.copy(from = paste0(systdir, "/", winshell),
                         to = paste0(dir_create_proj, "/", "BayesTraits_shell_run_project/",
                                     winshell)))
   }

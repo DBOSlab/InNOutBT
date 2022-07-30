@@ -2,10 +2,10 @@
 title: "Fully automated regression analysis and log processing with a shell script"
 output: rmarkdown::html_vignette
 resource_files:
-    - shell_unix.png
-    - shell_windows.png
-    - shell_bayestraits_running_commands.png
-    - bayestraits_folder.png
+    - unix_shell_project.png
+    - unix_shell_project_script.png
+    - windows_powershell_project.png
+    - windows_powershell_project_script.png
 vignette: >
   %\VignetteIndexEntry{Fully automated regression analysis and log processing with a shell script}
   %\VignetteEngine{knitr::rmarkdown}
@@ -63,22 +63,25 @@ regressions with macOS Monterey.\
 Note that you should give the name of the response variable of your analysis in
 the argument `responvar`. Also, you should use the argument `treetransf` to define
 any or all (listed as a vector) available tree transformation models that you want
-to run the phylogenetic regressions with your input data. As such, choose among 
-the models *Kappa*, *Delta*, *Lambda*, *OU* (Ornstein–Uhlenbeck), *UNI* (if you 
-have set a complete default BayesTraits regression analysis, i.e. assumed a uniform
-rates of evolution no other tree transformation models were estimated), *VR* (if 
-you have used a variable rates) or *Fabric* (if you want to use the general statistical
-mode that accommodates uneven evolutionary landscape as described by [Pagel et al., 2022](https://doi.org/10.1038/s41467-022-28595-z)).\
+to run the phylogenetic regressions with your input data.\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
 
-BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso/Downloads",
+BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso",
                            syst = "unix")
 ```
 
 ```{r, echo = FALSE}
-knitr::include_graphics("figures/shell_unix.png", dpi = 300)
+knitr::include_graphics("figures/unix_shell_project.png", dpi = 300)
+```
+
+\
+\
+Note that...
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/unix_shell_project_script.png", dpi = 300)
 ```
 \
 \
@@ -109,45 +112,21 @@ Set the argument `syst = "windows"` to create a PowerShell script for running th
 phylogenetic regressions with Windows. 
 
 ```{r, eval = FALSE}
-BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso/Downloads",
-                           syst = "windows")```
+BayesTraits.shell.reg.proj(dir_create_proj = "/Users/domingoscardoso",
+                           syst = "windows")
+```
 
 ```{r, echo = FALSE}
-knitr::include_graphics("figures/shell_windows.png", dpi = 300)
+knitr::include_graphics("figures/windows_shell_project.png", dpi = 300)
 ```
 
 \
 \
-The function generates all running BayesTraits commands for the multiple regressions,
-depending on the parameters set in the arguments `treetransf`, `bi`, `it`, `sa`, 
-and `st`.\
+Note that...
 \
 ```{r, echo = FALSE}
-knitr::include_graphics("figures/shell_bayestraits_running_commands.png", dpi = 300)
+knitr::include_graphics("figures/windows_shell_project_script.png", dpi = 300)
 ```
-
-\
-\
-Note that because we have set the argument `cc_DataTree = TRUE`, then the tree, 
-mean data, and linked data files were also copied directly into the BayesTraits folder.\
-\
-```{r, echo = FALSE}
-knitr::include_graphics("figures/bayestraits_folder.png", dpi = 300)
-```
-
-\
-\
-Note that if you set any of the arguments `Kappa`, `Delta`, `Lambda`, and `OU` as
-the default *NULL*, these tree transformation models will be estimated, provided
-that any of them were also listed in the argument `treetransf`. But you can also
-set them as a vector with any specific value between 0 and 1. For example, if you 
-want to run analyses with both specific and estimated values for `Lambda`, then 
-you have to set a vector such as *c("0.001", "1.0", "Estimate")*.\
-\
-Also, if you define the logical argument `VRLambda` as *TRUE*, then the specific values 
-set for the tree transformation models at the parameters `Kappa`, `Delta`, `Lambda`
-or `OU` will be considered as separate runs when using the model of variable rates
-*VR*, provided that you have also chosen this model in the parameter `treetransf`.
 \
 \
 
