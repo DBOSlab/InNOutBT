@@ -41,10 +41,10 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/independent_contrast_regression_inputs.html">1. Creating input data for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="articles/independent_contrast_regression_outputs.html">3. Processing output data from independent contrast regression analysis</a>
-    <a class="dropdown-item" href="articles/independent_contrast_regression_shell.html">2. Shell scripts for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="articles/independent_contrast_regression_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
+    <a class="dropdown-item" href="articles/phyreg_inputs.html">1. Creating input data for independent contrast regression analysis</a>
+    <a class="dropdown-item" href="articles/phyreg_outputs.html">3. Processing output data from independent contrast regression analysis</a>
+    <a class="dropdown-item" href="articles/phyreg_shell.html">2. Shell scripts for independent contrast regression analysis</a>
+    <a class="dropdown-item" href="articles/phyreg_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
   </div>
 </li>
       </ul>
@@ -88,14 +88,14 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>A general description of each of the three available functions (<code>BayesTraits.inputs</code>, <code>BayesTraits.shell</code>, and <code>BayesTraits.outputs</code>) are provided below.</p>
+<p>A general description of each of the three available functions (<code>phyreg.inputs</code>, <code>phyreg.shell</code>, and <code>phyreg.outputs</code>) are provided below.</p>
 <div class="section level4">
-<h4 id="1-bayestraitsinputs-creating-input-mean-and-linked-data-for-phylogenetic-regression-analyses">
-<em>1. <code>BayesTraits.inputs</code>: Creating input mean and linked data for phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#1-bayestraitsinputs-creating-input-mean-and-linked-data-for-phylogenetic-regression-analyses"></a>
+<h4 id="1-phyreginputs-creating-input-mean-and-linked-data-for-phylogenetic-regression-analyses">
+<em>1. <code>phyreg.inputs</code>: Creating input mean and linked data for phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#1-phyreginputs-creating-input-mean-and-linked-data-for-phylogenetic-regression-analyses"></a>
 </h4>
 <p>This function produces the required BayesTraits input data of linked samples of trait/climate data (distribution data), by generating two text files, one of which includes the mean values associated with each trait associated with a terminal taxon and a second of which reports samples of trait values that are linked to each other because they were sampled from one accession of the associated terminal taxon. The function also includes an argument to calculate the net node count for each species/accession given a phylogenetic tree. Net node counts have been used to explore the effects of speciation rates on the response variable (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>).</p>
 <div class="section level5">
-<h5 id="example-of-using-bayestraitsinputs">Example of using <code>BayesTraits.inputs</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsinputs"></a>
+<h5 id="example-of-using-phyreginputs">Example of using <code>phyreg.inputs</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-phyreginputs"></a>
 </h5>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></span>
@@ -104,69 +104,69 @@
 <span><span class="va">traitdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"Data/vataireoids_1610_25May2022_BayesTraits.csv"</span><span class="op">)</span></span>
 <span><span class="va">phylo</span> <span class="op">&lt;-</span> <span class="fu">read.beast</span><span class="op">(</span><span class="st">"Data/vatcomb30_24May22_Yule.con.tree"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
-<span>                   data <span class="op">=</span> <span class="va">traitdata</span>,</span>
-<span>                   tipscol <span class="op">=</span> <span class="st">"terminal"</span>,</span>
-<span>                   NodeCount <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                   logtransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"NodeCount"</span><span class="op">)</span>,</span>
-<span>                   traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
-<span>                   addtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10NodeCount"</span>, <span class="st">"log10DBH"</span><span class="op">)</span>,</span>
-<span>                   ordtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"log10NodeCount"</span><span class="op">)</span>,</span>
-<span>                   dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_input"</span>,</span>
-<span>                   fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15_nnodes.txt"</span>,</span>
-<span>                   fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15_nnodes.txt"</span>,</span>
-<span>                   fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/phyreg.inputs.html">phyreg.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">traitdata</span>,</span>
+<span>              tipscol <span class="op">=</span> <span class="st">"terminal"</span>,</span>
+<span>              NodeCount <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>              logtransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"NodeCount"</span><span class="op">)</span>,</span>
+<span>              traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
+<span>              addtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10NodeCount"</span>, <span class="st">"log10DBH"</span><span class="op">)</span>,</span>
+<span>              ordtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"log10NodeCount"</span><span class="op">)</span>,</span>
+<span>              dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input"</span>,</span>
+<span>              fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15_nnodes.txt"</span>,</span>
+<span>              fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15_nnodes.txt"</span>,</span>
+<span>              fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
-<h4 id="2-bayestraitsshell-creating-shell-script-for-running-phylogenetic-regression-analyses">
-<em>2. <code>BayesTraits.shell</code>: Creating shell script for running phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#2-bayestraitsshell-creating-shell-script-for-running-phylogenetic-regression-analyses"></a>
+<h4 id="2-phyregshell-creating-shell-script-for-running-phylogenetic-regression-analyses">
+<em>2. <code>phyreg.shell</code>: Creating shell script for running phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#2-phyregshell-creating-shell-script-for-running-phylogenetic-regression-analyses"></a>
 </h4>
 <p>Using directory paths to the tree and the input files of mean and linked trait data, this function produces shell scripts in both Unix and Windows PowerShell formats for running one or multiple phylogenetic regression analyses. This function creates the necessary batch file commands, including the desired settings for the burnin, iterations, and stepping stones parameters (e.g., abbreviated as bi, it, sa, and st) for a given run, in addition to incorporating any model of tree transformation. In the example below, we use “UNI”, “Lambda”, and “VR” in the treefransf argument to indicate we want three separate sets of batch file commands all identical except one, designated as “UNI” will not estimate “Lambda” or “VR” (variable rates). We use “UNI” to indicate the assumption of uniform rates of evolution and no other tree transformation (e.g., such as estimating “Lambda”). In this case, “UNI” here will consider a default BayesTraits regression analysis where “Lambda” assumes the default setting of 1.0 (see the BayesTraits manual).</p>
 <div class="section level5">
-<h5 id="example-of-using-bayestraitsshell">Example of using <code>BayesTraits.shell</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsshell"></a>
+<h5 id="example-of-using-phyregshell">Example of using <code>phyreg.shell</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-phyregshell"></a>
 </h5>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,</span>
-<span>                  linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/03Jun2022"</span>,</span>
-<span>                  treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,</span>
-<span>                  BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,</span>
-<span>                  responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
-<span>                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Kappa"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,</span>
-<span>                  bi <span class="op">=</span> <span class="st">"30000000"</span>,</span>
-<span>                  it <span class="op">=</span> <span class="st">"130000000"</span>,</span>
-<span>                  sa <span class="op">=</span> <span class="st">"100000"</span>,</span>
-<span>                  st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"500"</span>, <span class="st">"50000"</span><span class="op">)</span>,</span>
-<span>                  syst <span class="op">=</span> <span class="st">"unix"</span>,</span>
-<span>                  dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_shell"</span>,</span>
-<span>                  cc_DataTree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/phyreg.shell.html">phyreg.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input/03Jun2022"</span>,</span>
+<span>             linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input/03Jun2022"</span>,</span>
+<span>             treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,</span>
+<span>             BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,</span>
+<span>             responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
+<span>             treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Kappa"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,</span>
+<span>             bi <span class="op">=</span> <span class="st">"30000000"</span>,</span>
+<span>             it <span class="op">=</span> <span class="st">"130000000"</span>,</span>
+<span>             sa <span class="op">=</span> <span class="st">"100000"</span>,</span>
+<span>             st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"500"</span>, <span class="st">"50000"</span><span class="op">)</span>,</span>
+<span>             syst <span class="op">=</span> <span class="st">"unix"</span>,</span>
+<span>             dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_shell"</span>,</span>
+<span>             cc_DataTree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level4">
-<h4 id="3-bayestraitsoutputs-processing-output-data-from-phylogenetic-regression-analyses">
-<em>3. <code>BayesTraits.outputs</code>: Processing output data from phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#3-bayestraitsoutputs-processing-output-data-from-phylogenetic-regression-analyses"></a>
+<h4 id="3-phyregoutputs-processing-output-data-from-phylogenetic-regression-analyses">
+<em>3. <code>phyreg.outputs</code>: Processing output data from phylogenetic regression analyses</em><a class="anchor" aria-label="anchor" href="#3-phyregoutputs-processing-output-data-from-phylogenetic-regression-analyses"></a>
 </h4>
 <p>This function processes the output Log and Stones .txt files from phylogenetic regression analyses. The resulting processed files are tables either in Word or CSV formats summarizing each model, including comparisons of Bayes Factors. Heatmaps using pairwise Bayes Factor comparisons are also produced in PDF format (we use heatmaps only to identify models similar to the model with the highest likelihood score).</p>
 <div class="section level5">
-<h5 id="example-of-using-bayestraitsoutputs">Example of using <code>BayesTraits.outputs</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-bayestraitsoutputs"></a>
+<h5 id="example-of-using-phyregoutputs">Example of using <code>phyreg.outputs</code>:<a class="anchor" aria-label="anchor" href="#example-of-using-phyregoutputs"></a>
 </h5>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/BayesTraits.outputs.html">BayesTraits.outputs</a></span><span class="op">(</span>logst_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/BayesTraits_outputs_log_stone"</span><span class="op">)</span>,</span>
-<span>                    responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
-<span>                    explanvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"nnodes"</span><span class="op">)</span>,</span>
-<span>                    treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Kappa"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,</span>
-<span>                    bayesfactor <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                    unirates <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                    outformat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"CSV"</span><span class="op">)</span>,</span>
-<span>                    tableleg <span class="op">=</span> <span class="st">"Phylogenetic regression in BayesTraits: models and coefficients."</span>,</span>
-<span>                    dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_output"</span>,</span>
-<span>                    outfile <span class="op">=</span> <span class="st">"BayesTraits_output_table"</span>,</span>
-<span>                    height <span class="op">=</span> <span class="fl">17</span>,</span>
-<span>                    width <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/phyreg.outputs.html">phyreg.outputs</a></span><span class="op">(</span>logst_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/BayesTraits_phyreg_outputs_log_stone"</span><span class="op">)</span>,</span>
+<span>               responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
+<span>               explanvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"nnodes"</span><span class="op">)</span>,</span>
+<span>               treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Kappa"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span><span class="op">)</span>,</span>
+<span>               bayesfactor <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>               unirates <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>               outformat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"CSV"</span><span class="op">)</span>,</span>
+<span>               tableleg <span class="op">=</span> <span class="st">"Phylogenetic regression in BayesTraits: models and coefficients."</span>,</span>
+<span>               dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_output"</span>,</span>
+<span>               outfile <span class="op">=</span> <span class="st">"BayesTraits_phyreg_output_table"</span>,</span>
+<span>               height <span class="op">=</span> <span class="fl">17</span>,</span>
+<span>               width <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>

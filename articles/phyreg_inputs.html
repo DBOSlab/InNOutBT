@@ -41,10 +41,10 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_inputs.html">1. Creating input data for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_outputs.html">3. Processing output data from independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_shell.html">2. Shell scripts for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
+    <a class="dropdown-item" href="../articles/phyreg_inputs.html">1. Creating input data for independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_outputs.html">3. Processing output data from independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_shell.html">2. Shell scripts for independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
   </div>
 </li>
       </ul>
@@ -68,20 +68,20 @@
 
 
 
-<script src="independent_contrast_regression_inputs_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+<script src="phyreg_inputs_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>1. Creating input data for independent contrast regression analysis</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/DBOSlab/InNOutBT/blob/HEAD/vignettes/articles/independent_contrast_regression_inputs.Rmd" class="external-link"><code>vignettes/articles/independent_contrast_regression_inputs.Rmd</code></a></small>
-      <div class="d-none name"><code>independent_contrast_regression_inputs.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/DBOSlab/InNOutBT/blob/HEAD/vignettes/articles/phyreg_inputs.Rmd" class="external-link"><code>vignettes/articles/phyreg_inputs.Rmd</code></a></small>
+      <div class="d-none name"><code>phyreg_inputs.Rmd</code></div>
     </div>
 
     
     
 <p><br>
 The main goal of the <strong>InNOutBT</strong> package is to readily create input data and process output data for Meade &amp; Pagel’s (2022) <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html" class="external-link">BayesTraits</a> program.<br></p>
-<p>We describe how the <strong>InNOutBT</strong>’s function <code>BayesTraits.inputs</code> creates two input text files representing samples of trait/climate data. One text file reports mean values for each sample of traits and a second text file reports linked samples of trait values in a format used in the phylogenetic independent contrast regression analyses. This function includes an argument to calculate the net node count for each species/accession given a phylogenetic tree, which is used to explore the effects of speciation rates on the response variable (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>).<br><br></p>
+<p>We describe how the <strong>InNOutBT</strong>’s function <code>phyreg.inputs</code> creates two input text files representing samples of trait/climate data. One text file reports mean values for each sample of traits and a second text file reports linked samples of trait values in a format used in the phylogenetic independent contrast regression analyses. This function includes an argument to calculate the net node count for each species/accession given a phylogenetic tree, which is used to explore the effects of speciation rates on the response variable (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>).<br><br></p>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
@@ -96,7 +96,7 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <div class="section level2">
 <h2 id="example-of-spreadsheet-with-georeferenced-data-and-associated-traits">Example of spreadsheet with georeferenced data and associated traits<a class="anchor" aria-label="anchor" href="#example-of-spreadsheet-with-georeferenced-data-and-associated-traits"></a>
 </h2>
-<p>Outputting longitude and latitude data (columns arranged in that order) with the terminal label column provides the required data formats of the mean and linked data that can be analyzed using the Geographical Model in BayesTraits. Before using <code>BayesTraits.inputs</code>, make sure your spreadsheet with georeferenced data and associated traits also includes a <strong>terminal</strong> column where each accession/sample is linked to the corresponding tip label in the input phylogenetic tree.<br><br><img src="figures/vouchered_dataset.png"><!-- --><br><br></p>
+<p>Outputting longitude and latitude data (columns arranged in that order) with the terminal label column provides the required data formats of the mean and linked data that can be analyzed using the Geographical Model in BayesTraits. Before using <code>phyreg.inputs</code>, make sure your spreadsheet with georeferenced data and associated traits also includes a <strong>terminal</strong> column where each accession/sample is linked to the corresponding tip label in the input phylogenetic tree.<br><br><img src="figures/vouchered_dataset.png"><!-- --><br><br></p>
 </div>
 <div class="section level2">
 <h2 id="create-sample-of-trait-data-using-a-subset-of-explanatory-variables">Create sample of trait data using a subset of explanatory variables<a class="anchor" aria-label="anchor" href="#create-sample-of-trait-data-using-a-subset-of-explanatory-variables"></a>
@@ -109,13 +109,13 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <span><span class="va">traitdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"Data/vataireoids_1610_25May2022_BayesTraits.csv"</span><span class="op">)</span></span>
 <span><span class="va">phylo</span> <span class="op">&lt;-</span> <span class="fu">read.beast</span><span class="op">(</span><span class="st">"Data/vatcomb30_24May22_Yule.con.tree"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
-<span>                   data <span class="op">=</span> <span class="va">traitdata</span>,</span>
-<span>                   tipscol <span class="op">=</span> <span class="st">"terminal"</span>,</span>
-<span>                   traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
-<span>                   dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_input"</span>,</span>
-<span>                   fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15.txt"</span>,</span>
-<span>                   fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15.txt"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/phyreg.inputs.html">phyreg.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">traitdata</span>,</span>
+<span>              tipscol <span class="op">=</span> <span class="st">"terminal"</span>,</span>
+<span>              traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
+<span>              dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input"</span>,</span>
+<span>              fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15.txt"</span>,</span>
+<span>              fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15.txt"</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -123,17 +123,17 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 </h2>
 <p>You may want to log-10 transform a variable before running the phylogenetic regression analysis. In the argument <code>logtransf</code>, just report the variables/traits to be log-transformed. The log-transformed trait will always result in a new column with a new name where the additional prefix “log10” is added, as in the following: “log10NAMEOFTHETRAIT”. The name(s) of the log-transformed trait(s) to be used in the analyses should then be listed in the argument <code>addtraits</code>. Note that in the example below, the variable “DBH” was chosen to be log-transformed and also as the response variable. In this case, we need to reorder the variables in the argument <code>ordtraits</code> so as to make sure your newly generated “log10DBH” variable will be reported first and thus serve as the response variable. You may also want to save a copy of the original spreadsheet that includes the new column of log-transformed DBH by reporting a name for the data file copy in the argument <code>fileOrigData</code>.<br></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
-<span>                   data <span class="op">=</span> <span class="va">traitdata</span>,</span>
-<span>                   tipscol <span class="op">=</span> <span class="st">"terminal"</span>,</span>
-<span>                   logtransf <span class="op">=</span> <span class="st">"DBH"</span>,</span>
-<span>                   traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
-<span>                   addtraits <span class="op">=</span> <span class="st">"log10DBH"</span>,</span>
-<span>                   ordtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
-<span>                   dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_input"</span>,</span>
-<span>                   fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15.txt"</span>,</span>
-<span>                   fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15.txt"</span>,</span>
-<span>                   fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_DBH_logtransf.csv"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phyreg.inputs.html">phyreg.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">traitdata</span>,</span>
+<span>              tipscol <span class="op">=</span> <span class="st">"terminal"</span>,</span>
+<span>              logtransf <span class="op">=</span> <span class="st">"DBH"</span>,</span>
+<span>              traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
+<span>              addtraits <span class="op">=</span> <span class="st">"log10DBH"</span>,</span>
+<span>              ordtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
+<span>              dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input"</span>,</span>
+<span>              fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15.txt"</span>,</span>
+<span>              fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15.txt"</span>,</span>
+<span>              fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_DBH_logtransf.csv"</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -141,18 +141,18 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 </h2>
 <p>By setting the argument <code>NodeCount = TRUE</code>, the function will calculate the net node count for each species/accession given the phylogenetic tree of reference. Net nodes or node count was used to explore the effects of speciation rates (e.g. <a href="https://doi.org/10.1038/s41559-017-0454-6" class="external-link">O’Donovan et al. 2018</a>) on the response variable. In the example below we chose to log10-transform both the response variable “DBH” and the newly created column of net nodes, all which were then listed in the arguments <code>addtraits</code> and <code>ordtraits</code>.<br></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
-<span>                   data <span class="op">=</span> <span class="va">traitdata</span>,</span>
-<span>                   tipscol <span class="op">=</span> <span class="st">"terminal"</span>,</span>
-<span>                   NodeCount <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                   logtransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"NodeCount"</span><span class="op">)</span>,</span>
-<span>                   traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
-<span>                   addtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10NodeCount"</span>, <span class="st">"log10DBH"</span><span class="op">)</span>,</span>
-<span>                   ordtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"log10NodeCount"</span><span class="op">)</span>,</span>
-<span>                   dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_input"</span>,</span>
-<span>                   fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15_nnodes.txt"</span>,</span>
-<span>                   fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15_nnodes.txt"</span>,</span>
-<span>                   fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phyreg.inputs.html">phyreg.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">traitdata</span>,</span>
+<span>              tipscol <span class="op">=</span> <span class="st">"terminal"</span>,</span>
+<span>              NodeCount <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>              logtransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"NodeCount"</span><span class="op">)</span>,</span>
+<span>              traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span><span class="op">)</span>,</span>
+<span>              addtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10NodeCount"</span>, <span class="st">"log10DBH"</span><span class="op">)</span>,</span>
+<span>              ordtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10DBH"</span>, <span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"log10NodeCount"</span><span class="op">)</span>,</span>
+<span>              dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input"</span>,</span>
+<span>              fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_bio12_bio15_nnodes.txt"</span>,</span>
+<span>              fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_bio12_bio15_nnodes.txt"</span>,</span>
+<span>              fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv"</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -160,18 +160,18 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 </h2>
 <p>You may want to square transform a variable before running the phylogenetic regressions. You just need to provide in the argument <code>sqrtransf</code> the variables/traits to be squared. The square-transformed trait will always result in a new column with a new name where the additional prefix “sqr” is added as following: “sqrNAMEOFTHETRAIT”. The name(s) of the square-transformed trait(s) to be used in the analyses should then be listed in the argument <code>addtraits</code>. Note that in the example below the newly created variable “NodeCount” was chosen to be both log10-transformed and log10-transformed squared.<br></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
-<span>                   data <span class="op">=</span> <span class="va">traitdata</span>,</span>
-<span>                   tips_colname <span class="op">=</span> <span class="st">"terminal"</span>,</span>
-<span>                   NodeCount <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                   logtransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"NodeCount"</span><span class="op">)</span>,</span>
-<span>                   sqrtransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NodeCount"</span><span class="op">)</span>,</span>
-<span>                   addtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sqrNodeCount"</span>, <span class="st">"log10DBH"</span><span class="op">)</span>,</span>
-<span>                   ordtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10DBH"</span>, <span class="st">"log10NodeCount"</span>, <span class="st">"sqrNodeCount"</span><span class="op">)</span>,</span>
-<span>                   dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_input"</span>,</span>
-<span>                   fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_nnodes_nnodes2.txt"</span>,</span>
-<span>                   fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_nnodes_nnodes2.txt"</span>,</span>
-<span>                   fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf_sqrtransf.csv"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phyreg.inputs.html">phyreg.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">traitdata</span>,</span>
+<span>              tips_colname <span class="op">=</span> <span class="st">"terminal"</span>,</span>
+<span>              NodeCount <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>              logtransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DBH"</span>, <span class="st">"NodeCount"</span><span class="op">)</span>,</span>
+<span>              sqrtransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NodeCount"</span><span class="op">)</span>,</span>
+<span>              addtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sqrNodeCount"</span>, <span class="st">"log10DBH"</span><span class="op">)</span>,</span>
+<span>              ordtraits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log10DBH"</span>, <span class="st">"log10NodeCount"</span>, <span class="st">"sqrNodeCount"</span><span class="op">)</span>,</span>
+<span>              dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input"</span>,</span>
+<span>              fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_nnodes_nnodes2.txt"</span>,</span>
+<span>              fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_nnodes_nnodes2.txt"</span>,</span>
+<span>              fileOrigData <span class="op">=</span> <span class="st">"vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf_sqrtransf.csv"</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -179,16 +179,16 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 </h2>
 <p>The example below uses columns of “longitude” and “latitude” in the original spreadsheet to generate input mean and linked data for use in the Geographical Model of BayesTraits.<br></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/BayesTraits.inputs.html">BayesTraits.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
-<span>                   data <span class="op">=</span> <span class="va">traitdata</span>,</span>
-<span>                   tips_colname <span class="op">=</span> <span class="st">"terminal"</span>,</span>
-<span>                   NodeCount <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                   traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>,</span>
-<span>                   dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_input"</span>,</span>
-<span>                   fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_GEO.txt"</span>,</span>
-<span>                   fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_GEO.txt"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phyreg.inputs.html">phyreg.inputs</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">phylo</span>,</span>
+<span>              data <span class="op">=</span> <span class="va">traitdata</span>,</span>
+<span>              tips_colname <span class="op">=</span> <span class="st">"terminal"</span>,</span>
+<span>              NodeCount <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>              traitcols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>,</span>
+<span>              dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input"</span>,</span>
+<span>              fileDistData <span class="op">=</span> <span class="st">"BayesTraits_linked_data_GEO.txt"</span>,</span>
+<span>              fileMeanData <span class="op">=</span> <span class="st">"BayesTraits_mean_data_GEO.txt"</span><span class="op">)</span></span></code></pre></div>
 <p><br>
-Once the above text files of mean and linked samples of trait data have been created, analyzing them can be facilitated by creating a <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html" class="external-link">shell script</a> with <code>BayesTraits.shell</code> for multiple phylogenetic regression analyses. These BayesTraits runs are then followed by processing the Log and Stones files, which is detailed in using <code>BayesTraits.outputs</code> to <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html" class="external-link">process the resulting output files</a>.</p>
+Once the above text files of mean and linked samples of trait data have been created, analyzing them can be facilitated by creating a <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html" class="external-link">shell script</a> with <code>phyreg.shell</code> for multiple phylogenetic regression analyses. These BayesTraits runs are then followed by processing the Log and Stones files, which is detailed in using <code>phyreg.outputs</code> to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html" class="external-link">process the resulting output files</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

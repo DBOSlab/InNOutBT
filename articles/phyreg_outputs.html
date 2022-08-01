@@ -41,10 +41,10 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_inputs.html">1. Creating input data for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_outputs.html">3. Processing output data from independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_shell.html">2. Shell scripts for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
+    <a class="dropdown-item" href="../articles/phyreg_inputs.html">1. Creating input data for independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_outputs.html">3. Processing output data from independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_shell.html">2. Shell scripts for independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
   </div>
 </li>
       </ul>
@@ -68,13 +68,13 @@
 
 
 
-<script src="independent_contrast_regression_outputs_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+<script src="phyreg_outputs_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>3. Processing output data from independent contrast regression analysis</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/DBOSlab/InNOutBT/blob/HEAD/vignettes/articles/independent_contrast_regression_outputs.Rmd" class="external-link"><code>vignettes/articles/independent_contrast_regression_outputs.Rmd</code></a></small>
-      <div class="d-none name"><code>independent_contrast_regression_outputs.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/DBOSlab/InNOutBT/blob/HEAD/vignettes/articles/phyreg_outputs.Rmd" class="external-link"><code>vignettes/articles/phyreg_outputs.Rmd</code></a></small>
+      <div class="d-none name"><code>phyreg_outputs.Rmd</code></div>
     </div>
 
     
@@ -100,18 +100,18 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/BayesTraits.outputs.html">BayesTraits.outputs</a></span><span class="op">(</span>logst_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/BayesTraits_outputs_log_stone"</span><span class="op">)</span>,</span>
-<span>                    responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
-<span>                    explanvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"nnodes"</span><span class="op">)</span>,</span>
-<span>                    treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kappa"</span>, <span class="st">"Delta"</span>, <span class="st">"Lambda"</span>, <span class="st">"OU"</span>, <span class="st">"UNI"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,</span>
-<span>                    bayesfactor <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                    unirates <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                    outformat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"CSV"</span><span class="op">)</span>,</span>
-<span>                    tableleg <span class="op">=</span> <span class="st">"Phylogenetic regression in BayesTraits: models and coefficients."</span>,</span>
-<span>                    dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_output"</span>,</span>
-<span>                    outfile <span class="op">=</span> <span class="st">"BayesTraits_output_table"</span>,</span>
-<span>                    height <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>                    width <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/phyreg.outputs.html">phyreg.outputs</a></span><span class="op">(</span>logst_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">"/BayesTraits_phyreg_outputs_log_stone"</span><span class="op">)</span>,</span>
+<span>               responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
+<span>               explanvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio12"</span>, <span class="st">"bio15"</span>, <span class="st">"nnodes"</span><span class="op">)</span>,</span>
+<span>               treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kappa"</span>, <span class="st">"Delta"</span>, <span class="st">"Lambda"</span>, <span class="st">"OU"</span>, <span class="st">"UNI"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,</span>
+<span>               bayesfactor <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>               unirates <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>               outformat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Word"</span>, <span class="st">"CSV"</span><span class="op">)</span>,</span>
+<span>               tableleg <span class="op">=</span> <span class="st">"Phylogenetic regression in BayesTraits: models and coefficients."</span>,</span>
+<span>               dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_output"</span>,</span>
+<span>               outfile <span class="op">=</span> <span class="st">"BayesTraits_phyreg_output_table"</span>,</span>
+<span>               height <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>               width <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span></code></pre></div>
 <p><br><br>
 Heatmap including Bayes Factor pairwise comparison:<br><br><img src="figures/bayes_factor_heatmap.png"><!-- --></p>
 <p><br><br>
@@ -119,7 +119,7 @@ Heatmap clustering models based on Bayes Factor values:<br><br><img src="figures
 <p><br><br>
 Table describing the models and coefficients:<br><br><img src="figures/word_table_model_comparisons.png"><!-- --></p>
 <p><br>
-See also associated article on how to <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html" class="external-link">create input files</a> with <code>BayesTraits.inputs</code> for independent contrast regression analyses, as well as another article on how to create a <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html" class="external-link">shell script</a> with <code>BayesTraits.shell</code> for the analysis of one or multiple models.</p>
+See also associated article on how to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">create input files</a> with <code>phyreg.inputs</code> for independent contrast regression analyses, as well as another article on how to create a <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html" class="external-link">shell script</a> with <code>phyreg.shell</code> for the analysis of one or multiple models.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

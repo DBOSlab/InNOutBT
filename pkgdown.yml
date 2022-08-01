@@ -2,11 +2,11 @@ pandoc: 2.7.3
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
-  independent_contrast_regression_inputs: independent_contrast_regression_inputs.html
-  independent_contrast_regression_outputs: independent_contrast_regression_outputs.html
-  independent_contrast_regression_shell: independent_contrast_regression_shell.html
-  independent_contrast_regression_shell_project: independent_contrast_regression_shell_project.html
-last_built: 2022-07-30T14:51Z
+  phyreg_inputs: phyreg_inputs.html
+  phyreg_outputs: phyreg_outputs.html
+  phyreg_shell: phyreg_shell.html
+  phyreg_shell_project: phyreg_shell_project.html
+last_built: 2022-08-01T19:18Z
 urls:
   reference: https://DBOSlab.github.io/InNOutBT/reference
   article: https://DBOSlab.github.io/InNOutBT/articles

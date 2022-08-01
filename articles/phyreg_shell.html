@@ -41,10 +41,10 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_inputs.html">1. Creating input data for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_outputs.html">3. Processing output data from independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_shell.html">2. Shell scripts for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/independent_contrast_regression_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
+    <a class="dropdown-item" href="../articles/phyreg_inputs.html">1. Creating input data for independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_outputs.html">3. Processing output data from independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_shell.html">2. Shell scripts for independent contrast regression analysis</a>
+    <a class="dropdown-item" href="../articles/phyreg_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
   </div>
 </li>
       </ul>
@@ -68,20 +68,20 @@
 
 
 
-<script src="independent_contrast_regression_shell_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+<script src="phyreg_shell_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>2. Shell scripts for independent contrast regression analysis</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/DBOSlab/InNOutBT/blob/HEAD/vignettes/articles/independent_contrast_regression_shell.Rmd" class="external-link"><code>vignettes/articles/independent_contrast_regression_shell.Rmd</code></a></small>
-      <div class="d-none name"><code>independent_contrast_regression_shell.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/DBOSlab/InNOutBT/blob/HEAD/vignettes/articles/phyreg_shell.Rmd" class="external-link"><code>vignettes/articles/phyreg_shell.Rmd</code></a></small>
+      <div class="d-none name"><code>phyreg_shell.Rmd</code></div>
     </div>
 
     
     
 <p><br>
 The main goal of the <strong>InNOutBT</strong> package is to readily create input data and process output data for Meade &amp; Pagel’s (2022) <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html" class="external-link">BayesTraits</a> program.<br></p>
-<p>Here in this article, we show how to use <strong>InNOutBT</strong>’s function <code>BayesTraits.shell</code> for producing shell scripts and associated run commands of BayesTraits phylogenetic independent contrast regression analyses. Basically, the function <code>BayesTraits.shell</code> uses the directory paths to the tree, mean and linked data files as created with <code>BayesTraits.inputs</code> (see article <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html" class="external-link">here</a>), to automatically produce shell scripts in both Unix and Windows PowerShell formats. The resulting single shell script file can then be used for running one or all-in-once multiple BayesTraits phylogenetic regressions, without manually setting new analyses with new parameters. The shell script produced with <code>BayesTraits.shell</code> should have thus all parameters for all analyses with any defined model. In addition to save the shell script directly in BayesTraits directory, the function saves all the separate running files with BayesTraits specified parameters (bi, it, sa, and st) for any run, depending on the chosen model of tree transformation. See <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf" class="external-link">BayesTraits V4.0.0 Manual</a> for further details on each of BayesTraits parameters available for phylogenetic regression so as to better understand how to set the arguments of <code>BayesTraits.shell</code>.<br><br></p>
+<p>Here in this article, we show how to use <strong>InNOutBT</strong>’s function <code>phyreg.shell</code> for producing shell scripts and associated run commands of BayesTraits phylogenetic independent contrast regression analyses. Basically, the function <code>phyreg.shell</code> uses the directory paths to the tree, mean and linked data files as created with <code>phyreg.inputs</code> (see article <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">here</a>), to automatically produce shell scripts in both Unix and Windows PowerShell formats. The resulting single shell script file can then be used for running one or all-in-once multiple BayesTraits phylogenetic regressions, without manually setting new analyses with new parameters. The shell script produced with <code>phyreg.shell</code> should have thus all parameters for all analyses with any defined model. In addition to save the shell script directly in BayesTraits directory, the function saves all the separate running files with BayesTraits specified parameters (bi, it, sa, and st) for any run, depending on the chosen model of tree transformation. See <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf" class="external-link">BayesTraits V4.0.0 Manual</a> for further details on each of BayesTraits parameters available for phylogenetic regression so as to better understand how to set the arguments of <code>phyreg.shell</code>.<br><br></p>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
@@ -97,28 +97,28 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <h2 id="creating-unix-shell-script">Creating Unix shell script<a class="anchor" aria-label="anchor" href="#creating-unix-shell-script"></a>
 </h2>
 <p>Set the argument <code>syst = "unix"</code> to create a shell script for running the phylogenetic regressions with macOS Monterey.<br></p>
-<p>Note that you should give the name of the response variable of your analysis in the argument <code>responvar</code>. Also, you should use the argument <code>treetransf</code> to define any or all (listed as a vector) available tree transformation models that you want to run the phylogenetic regressions with your input data. As such, choose among the models <em>Kappa</em>, <em>Delta</em>, <em>Lambda</em>, <em>OU</em> (Ornstein–Uhlenbeck), <em>UNI</em> (if you have set a complete default BayesTraits regression analysis, i.e. assumed a uniform rates of evolution no other tree transformation models were estimated), <em>VR</em> (if you have used a variable rates) or <em>Fabric</em> (if you want to use the general statistical mode that accommodates uneven evolutionary landscape as described by <a href="https://doi.org/10.1038/s41467-022-28595-z" class="external-link">Pagel et al., 2022</a>).<br></p>
+<p>Note that you should give the name of the response variable of your analysis in the argument <code>responvar</code>. Also, you should use the argument <code>treetransf</code> to define any or all (listed as a vector) available tree transformation models that you want to run the phylogenetic regressions with your input data. As such, choose among the models <em>Kappa</em>, <em>Delta</em>, <em>Lambda</em>, <em>OU</em> (Ornstein–Uhlenbeck), <em>UNI</em> (if you have set a complete default BayesTraits regression analysis, i.e. assumed a uniform rates of evolution no other tree transformation models were estimated), <em>VR</em> (if you have used a variable rates) or <em>Fabric</em> (if you want to use the general statistical mode that accommodates uneven evolutionary landscape as described by <a href="https://doi.org/10.1038/s41467-022-28595-z" class="external-link">Pagel et al. 2022</a>).<br></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/09Jun2022"</span>,</span>
-<span>                  linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/09Jun2022"</span>,</span>
-<span>                  treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,</span>
-<span>                  BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,</span>
-<span>                  responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
-<span>                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,</span>
-<span>                  Kappa <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                  Delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                  Lambda <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                  OU <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                  VRLambda <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                  bi <span class="op">=</span> <span class="st">"30000000"</span>,</span>
-<span>                  it <span class="op">=</span> <span class="st">"130000000"</span>,</span>
-<span>                  sa <span class="op">=</span> <span class="st">"100000"</span>,</span>
-<span>                  st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"500"</span>, <span class="st">"50000"</span><span class="op">)</span>,</span>
-<span>                  syst <span class="op">=</span> <span class="st">"unix"</span>,</span>
-<span>                  dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_shell"</span>,</span>
-<span>                  cc_DataTree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/phyreg.shell.html">phyreg.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input/09Jun2022"</span>,</span>
+<span>             linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input/09Jun2022"</span>,</span>
+<span>             treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,</span>
+<span>             BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,</span>
+<span>             responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
+<span>             treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,</span>
+<span>             Kappa <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>             Delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>             Lambda <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>             OU <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>             VRLambda <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             bi <span class="op">=</span> <span class="st">"30000000"</span>,</span>
+<span>             it <span class="op">=</span> <span class="st">"130000000"</span>,</span>
+<span>             sa <span class="op">=</span> <span class="st">"100000"</span>,</span>
+<span>             st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"500"</span>, <span class="st">"50000"</span><span class="op">)</span>,</span>
+<span>             syst <span class="op">=</span> <span class="st">"unix"</span>,</span>
+<span>             dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_shell"</span>,</span>
+<span>             cc_DataTree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="figures/shell_unix.png"><!-- --><br><br></p>
 </div>
 <div class="section level2">
@@ -126,24 +126,24 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 </h2>
 <p>Set the argument <code>syst = "windows"</code> to create a PowerShell script for running the phylogenetic regressions with Windows.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/BayesTraits.shell.html">BayesTraits.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/09Jun2022"</span>,</span>
-<span>                  linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_input/09Jun2022"</span>,</span>
-<span>                  treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,</span>
-<span>                  BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,</span>
-<span>                  responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
-<span>                  treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,</span>
-<span>                  Kappa <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                  Delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                  Lambda <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                  OU <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                  VRLambda <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                  bi <span class="op">=</span> <span class="st">"30000000"</span>,</span>
-<span>                  it <span class="op">=</span> <span class="st">"130000000"</span>,</span>
-<span>                  sa <span class="op">=</span> <span class="st">"100000"</span>,</span>
-<span>                  st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"500"</span>, <span class="st">"50000"</span><span class="op">)</span>,</span>
-<span>                  syst <span class="op">=</span> <span class="st">"windows"</span>,</span>
-<span>                  dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_shell"</span>,</span>
-<span>                  cc_DataTree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/phyreg.shell.html">phyreg.shell</a></span><span class="op">(</span>meanfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input/09Jun2022"</span>,</span>
+<span>             linkfile_dir <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_input/09Jun2022"</span>,</span>
+<span>             treefile_dir <span class="op">=</span> <span class="st">"Data"</span>,</span>
+<span>             BayesTraits_dir <span class="op">=</span> <span class="st">"/Users/domingoscardoso/BayesTraitsV4"</span>,</span>
+<span>             responvar <span class="op">=</span> <span class="st">"DBH"</span>,</span>
+<span>             treetransf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UNI"</span>, <span class="st">"Lambda"</span>, <span class="st">"VR"</span>, <span class="st">"Fabric"</span><span class="op">)</span>,</span>
+<span>             Kappa <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>             Delta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>             Lambda <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>             OU <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>             VRLambda <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             bi <span class="op">=</span> <span class="st">"30000000"</span>,</span>
+<span>             it <span class="op">=</span> <span class="st">"130000000"</span>,</span>
+<span>             sa <span class="op">=</span> <span class="st">"100000"</span>,</span>
+<span>             st <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"500"</span>, <span class="st">"50000"</span><span class="op">)</span>,</span>
+<span>             syst <span class="op">=</span> <span class="st">"windows"</span>,</span>
+<span>             dir_create <span class="op">=</span> <span class="st">"results_BayesTraits_phyreg_shell"</span>,</span>
+<span>             cc_DataTree <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="figures/shell_windows.png"><!-- --></p>
 <p><br><br>
 The function generates all running BayesTraits commands for the multiple regressions, depending on the parameters set in the arguments <code>treetransf</code>, <code>bi</code>, <code>it</code>, <code>sa</code>, and <code>st</code>.<br><br><img src="figures/shell_bayestraits_running_commands.png"><!-- --></p>
@@ -156,23 +156,23 @@ Also, if you define the logical argument <code>VRLambda</code> as <em>TRUE</em>,
 <div class="section level2">
 <h2 id="running-the-unix-shell-script">Running the Unix shell script<a class="anchor" aria-label="anchor" href="#running-the-unix-shell-script"></a>
 </h2>
-<p>After using the function <code>BayesTraits.shell</code> with all the needed parameters, you have to set permission to the shell script to run automatically all the phylogenetic regression analyses with BayesTraits program. You can just follow the steps below.<br></p>
+<p>After using the function <code>phyreg.shell</code> with all the needed parameters, you have to set permission to the shell script to run automatically all the phylogenetic regression analyses with BayesTraits program. You can just follow the steps below.<br></p>
 <p><strong>1.</strong> Open the terminal;<br></p>
-<p><strong>2.</strong> Go to the BayesTraits program folder where you have saved the shell script file <strong>.sh</strong> and the associated running and input data files with the function <code>BayesTraits.shell</code>. The shell script should be named <strong>run_BayesTraits_shell_unix.sh</strong>;<br></p>
-<p><strong>3.</strong> Execute the following line:<br><strong>chmod 777 run_BayesTraits_shell_unix.sh</strong></p>
-<p><strong>4.</strong> Then perform the BayesTraits run using the shell script by executing the following line:<br><strong>./run_BayesTraits_shell_unix.sh</strong><br><br></p>
+<p><strong>2.</strong> Go to the BayesTraits program folder where you have saved the shell script file <strong>.sh</strong> and the associated running and input data files with the function <code>phyreg.shell</code>. The shell script should be named <strong>run_BayesTraits_phyreg_shell_unix.sh</strong>;<br></p>
+<p><strong>3.</strong> Execute the following line:<br><strong>chmod 777 run_BayesTraits_phyreg_shell_unix.sh</strong></p>
+<p><strong>4.</strong> Then perform the BayesTraits run using the shell script by executing the following line:<br><strong>./run_BayesTraits_phyreg_shell_unix.sh</strong><br><br></p>
 </div>
 <div class="section level2">
 <h2 id="running-the-windows-powershell-script">Running the Windows PowerShell script<a class="anchor" aria-label="anchor" href="#running-the-windows-powershell-script"></a>
 </h2>
 <p>After using the function <code>BayesTraits.shell</code> with all the needed parameters, you have to set permission to the PowerShell script to run automatically all the phylogenetic regression analyses with BayesTraits program. You can just follow the steps below, but you may also want to find <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.2" class="external-link">further information on how to use Windows PowerShell</a>.</p>
 <p><strong>1.</strong> Open PowerShell as Administrator;<br></p>
-<p><strong>2.</strong> Go to the BayesTraits program folder where you have saved the PowerShell script file <strong>.ps1</strong> and the associated running and input data files with the function <code>BayesTraits.shell</code>. The PowerShell script should be named <strong>run_BayesTraits_shell_windows.ps1</strong>;<br></p>
+<p><strong>2.</strong> Go to the BayesTraits program folder where you have saved the PowerShell script file <strong>.ps1</strong> and the associated running and input data files with the function <code>phyreg.shell</code>. The PowerShell script should be named <strong>run_BayesTraits_phyreg_shell_windows.ps1</strong>;<br></p>
 <p><strong>3.</strong> Execute the following line and choose option <strong>[Y]Yes</strong>;<br><strong>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine</strong></p>
-<p><strong>4.</strong> Execute the following line:<br><strong>Unblock-File -Path .\run_BayesTraits_shell_windows.ps1</strong></p>
-<p><strong>5.</strong> Then perform the BayesTraits run using the PowerShell script by executing the following line:<br><strong>.\run_BayesTraits_shell_windows.ps1</strong></p>
+<p><strong>4.</strong> Execute the following line:<br><strong>Unblock-File -Path .\run_BayesTraits_phyreg_shell_windows.ps1</strong></p>
+<p><strong>5.</strong> Then perform the BayesTraits run using the PowerShell script by executing the following line:<br><strong>.\run_BayesTraits_phyreg_shell_windows.ps1</strong></p>
 <p><br><br>
-See also an associated article on how to automatically <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html" class="external-link">create input files</a> with <code>BayesTraits.inputs</code> for the phylogenetic regression analyses, as well as another article on how to use <code>BayesTraits.outputs</code> to <a href="https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html" class="external-link">process the resulting output files</a> from the analyses.</p>
+See also an associated article on how to automatically <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">create input files</a> with <code>phyreg.inputs</code> for the phylogenetic regression analyses, as well as another article on how to use <code>phyreg.outputs</code> to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html" class="external-link">process the resulting output files</a> from the analyses.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
