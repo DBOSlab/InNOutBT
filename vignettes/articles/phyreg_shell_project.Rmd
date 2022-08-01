@@ -1,0 +1,216 @@
+---
+title: "Fully automated regression analysis and log processing with a shell script"
+output: rmarkdown::html_vignette
+resource_files:
+    - unix_shell_project.png
+    - unix_shell_project_script.png
+    - windows_powershell_project.png
+    - windows_powershell_project_script.png
+vignette: >
+  %\VignetteIndexEntry{Fully automated regression analysis and log processing with a shell script}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+\
+The main goal of the __InNOutBT__ package is to readily create input data and
+process output data for Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
+program.\
+
+Here in this article, we show how to use __InNOutBT__'s function `shell.phyreg.proj`
+for a full shell script run and log processing multiple phylogenetic regression 
+analyses with Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
+program. By reporting a directory path and the computer's operating system 
+("unix" or "windows"), this function creates the project folder __BayesTraits_shell_phyreg_project__
+with associated example scripts.\
+
+The available example of a shell script in Unix or Windows PowerShell helps to 
+fully automatize both the complete BayesTraits regression analyses and processing 
+of the resulting log and stones files, by automatically running the three main 
+__InNOutBT__ functions `phyreg.inputs`, `phyreg.shell`, and `phyreg.outputs`, 
+without directly opening the R or R Studio programs.\
+
+Note that  the __BayesTraits_shell_phyreg_project__ folder that comes with __InNOutBT__ 
+package was originally used in our recently  published specific study on the ecological 
+diversification of the Vataireoid legumes. So, you will have to edit the folder 
+paths and analysis parameters in such example scripts according to your desired 
+regression analyses. See the associated articles on how to set the parameters to 
+[create input files ](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)
+with `phyreg.inputs` for the phylogenetic regression analyses, as well to 
+[create the internal shell script](https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html) 
+with `phyreg.shell` for the actual BayesTraits runs, and to 
+[process the resulting output files](https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html)
+with `phyreg.outputs`. You might also want to see [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
+for further details on each of BayesTraits parameters available for phylogenetic
+regressions so as to better understand how to set the arguments available in the
+__InNOutBT__ functions.\
+\
+
+# Setup
+
+__InNOutBT__ is not on CRAN yet but you can install the latest development version 
+from [GitHub](https://github.com/):
+
+``` r
+#install.packages("devtools")
+devtools::install_github("DBOSlab/InNOutBT")
+```
+```{r, eval = FALSE}
+library(InNOutBT)
+```
+\
+
+# Creating a Unix shell project folder
+
+The `shell.phyreg.proj` function is very simple and has only two arguments. By just 
+setting any path in your computer and the argument `syst = "unix"`, you can readily
+create the project folder __BayesTraits_shell_phyreg_project__ with associate 
+example files (R scripts, shell script, and data folder) for running the phylogenetic
+regressions of the Vataireoid legumes with macOS Monterey. But then you can easily 
+modify such available scripts for your specific analyses.\
+
+```{r, eval = FALSE}
+library(InNOutBT)
+
+shell.phyreg.proj(dir_create_proj = "/Users/domingoscardoso",
+                  syst = "unix")
+```
+
+After running `shell.phyreg.proj` function, it will readily create the project folder __BayesTraits_shell_phyreg_project__, a data folder with the input data files 
+__vataireoids_1610_25May2022_BayesTraits.csv__ and __vatcomb30_24May22_Yule.con.tree__,
+as well as the main shell script __BayesTraits_full_phyreg_shell_unix.sh__ and R 
+scripts __1_producing_BayesTraits_phyreg_inputs.R__, __2_producing_BayesTraits_phyreg_shell.R__,
+and __3_processing_BayesTraits_phyreg_outputs.R__.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/unix_shell_project.png", dpi = 300)
+```
+\
+\
+You should see the associated articles on how to set the parameters to 
+[create input files ](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)
+with `phyreg.inputs` for the phylogenetic regression analyses, as well to 
+[create the internal shell script](https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html) 
+with `phyreg.shell` for the actual BayesTraits runs, and to 
+[process the resulting output files](https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html)
+with `phyreg.outputs`. In these articles, you will find how to fully edit the R 
+scripts __1_producing_BayesTraits_phyreg_inputs.R__, __2_producing_BayesTraits_phyreg_shell.R__,
+and __3_processing_BayesTraits_phyreg_outputs.R__ according to your particular study.
+Otherwise, if you run the example files with the same parameter settings, you will 
+be able to fully reproduce the analysis of our Vataireoid legume study.\
+
+Note that for running the main shell script file __BayesTraits_full_phyreg_shell_unix.sh__,
+which performs the full phylogenetic regression analysis and processing of results,
+you will just need to give the path to both the project run folder __BayesTraits_shell_phyreg_project__, 
+and the BayesTraits program folder where the executable program is installed. These
+should be set as the variables __PROJECTFOLDER__ and __BAYESTRFOLDER__, as shown
+in the image bellow. Also, if you define your e-mail address at the variable __EMAIL__,
+then you will receive an automatic e-mail message when your analyses are finished.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/unix_shell_project_script.png", dpi = 300)
+```
+\
+\
+
+# Running the Unix shell script 
+
+After using the function `shell.phyreg.proj` with all the needed parameters, you 
+have to set permission to the main shell script file so as to run automatically 
+all the three R scripts and the phylogenetic regression analyses with BayesTraits 
+program. To do that, please follow the steps below.\
+
+__1.__ Open the terminal;\
+
+__2.__ Move your current working directory to the project folder __BayesTraits_shell_phyreg_project__, 
+i.e. the same where you should have the main shell script file __BayesTraits_full_phyreg_shell_unix.sh__;\
+
+__3.__ Execute the following line:\
+__chmod 777 BayesTraits_full_phyreg_shell_unix.sh__
+
+__4.__ Then perform the full R and BayesTraits run using the shell script by executing the following line:\
+__./BayesTraits_full_phyreg_shell_unix.sh__
+\
+\
+
+# Creating a Windows PowerShell project folder
+
+In the `shell.phyreg.proj` function, you can set any path in your PC and the argument
+`syst = "windows"` to readily create the project folder __BayesTraits_shell_phyreg_project__ 
+with associate example files (R scripts, PowerShell script, and data folder) for running
+the phylogenetic regressions of the Vataireoid legumes with Windows PC. But then you 
+can easily modify such available scripts for your specific analyses.\
+
+```{r, eval = FALSE}
+library(InNOutBT)
+
+shell.phyreg.proj(dir_create_proj = "/Users/domingoscardoso",
+                  syst = "windows")
+```
+
+After running `shell.phyreg.proj` function, it will readily create the project folder __BayesTraits_shell_phyreg_project__, a data folder with the input data files 
+__vataireoids_1610_25May2022_BayesTraits.csv__ and __vatcomb30_24May22_Yule.con.tree__,
+as well as the main PowerShell script __BayesTraits_full_phyreg_shell_windows.ps1__ 
+and R scripts __1_producing_BayesTraits_phyreg_inputs.R__, __2_producing_BayesTraits_phyreg_shell.R__,
+and __3_processing_BayesTraits_phyreg_outputs.R__.\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/windows_shell_project.png", dpi = 300)
+```
+\
+\
+You should see the associated articles on how to set the parameters to 
+[create input files ](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)
+with `phyreg.inputs` for the phylogenetic regression analyses, as well to 
+[create the internal shell script](https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html) 
+with `phyreg.shell` for the actual BayesTraits runs, and to 
+[process the resulting output files](https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html)
+with `phyreg.outputs`. In these articles, you will find how to fully edit the R 
+scripts __1_producing_BayesTraits_phyreg_inputs.R__, __2_producing_BayesTraits_phyreg_shell.R__,
+and __3_processing_BayesTraits_phyreg_outputs.R__ according to your particular study.
+Otherwise, if you run the example files with the same parameter settings, you will 
+be able to fully reproduce the analysis of our Vataireoid legume study.\
+
+Note that for running the main PowerShell script file __BayesTraits_full_phyreg_shell_windows.ps1__
+which performs the full phylogenetic regression analyses and processing of results,
+you will just need to give the path to the project run folder __BayesTraits_shell_phyreg_project__, 
+the BayesTraits, R, Adobe Acrobat, and Microsoft Office program folders where their 
+corresponding executable programs are installed. These should be set, respectively,
+as the variables __$PROJECTFOLDER__, __$BAYESTRFOLDER__, __$RFOLDER__, __$ACROBATFOLDER__,
+and __$WORDFOLDER__, as shown in the image bellow:\
+\
+```{r, echo = FALSE}
+knitr::include_graphics("figures/windows_shell_project_script.png", dpi = 300)
+```
+\
+\
+
+# Running the Windows PowerShell script 
+
+After using the function `shell.phyreg.proj` with all the needed parameters, you 
+have to set permission to the main PowerShell script so as to run automatically 
+all the three R scripts and the phylogenetic regression analyses with BayesTraits 
+program. To do that, please follow the steps below, but you may also want to find
+[further information on how to use Windows PowerShell](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.2).\
+
+__1.__ Open PowerShell as Administrator;\
+
+__2.__ Move your current working directory to the project folder __BayesTraits_shell_phyreg_project__, 
+i.e. the same where you should have the main shell script file __BayesTraits_full_phyreg_shell_windows.ps1__;\
+
+__3.__ Execute the following line and choose option __[Y]Yes__;\
+__Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine__
+
+__4.__ Execute the following line:\
+__Unblock-File -Path .\\BayesTraits_full_phyreg_shell_windows.ps1__
+
+__5.__ Then perform the full R and BayesTraits run using the PowerShell script by executing the following line:\
+__.\\BayesTraits_full_phyreg_shell_windows.ps1__
+

@@ -54,18 +54,18 @@ to the model with the highest log likelihood score.\
 ```{r, eval = FALSE}
 library(InNOutBT)
 
-BayesTraits.outputs(logst_dir = paste0(getwd(),"/BayesTraits_outputs_log_stone"),
-                    responvar = "DBH",
-                    explanvar = c("bio12", "bio15", "nnodes"),
-                    treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
-                    bayesfactor = TRUE,
-                    unirates = FALSE,
-                    outformat = c("Word", "CSV"),
-                    tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
-                    dir_create = "results_BayesTraits_output",
-                    outfile = "BayesTraits_output_table",
-                    height = 12,
-                    width = 15)
+phyreg.outputs(logst_dir = paste0(getwd(),"/BayesTraits_phyreg_outputs_log_stone"),
+               responvar = "DBH",
+               explanvar = c("bio12", "bio15", "nnodes"),
+               treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
+               bayesfactor = TRUE,
+               unirates = FALSE,
+               outformat = c("Word", "CSV"),
+               tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
+               dir_create = "results_BayesTraits_phyreg_output",
+               outfile = "BayesTraits_phyreg_output_table",
+               height = 12,
+               width = 15)
 ```
 
 \
@@ -93,6 +93,6 @@ knitr::include_graphics("figures/word_table_model_comparisons.png", dpi = 300)
 ```
 
 \
-See also associated article on how to [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html) 
-with `BayesTraits.inputs` for independent contrast regression analyses, as well as 
-another article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html) with `BayesTraits.shell` for the analysis of one or multiple models.
+See also associated article on how to [create input files ](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html) 
+with `phyreg.inputs` for independent contrast regression analyses, as well as 
+another article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html) with `phyreg.shell` for the analysis of one or multiple models.

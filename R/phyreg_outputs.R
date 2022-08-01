@@ -1,4 +1,4 @@
-#' Process BayesTraits output data
+#' Process BayesTraits phylogenetic regression output data
 #'
 #' @author Domingos Cardoso & Matt Lavin
 #'
@@ -16,23 +16,23 @@
 #' models that are most similar to the model with the highest likelihood score.
 #' See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
 #' for details of the output files produced by BayesTraits, which may facilitate an
-#' understanding of how output files are processed with the function \code{BayesTraits.outputs}.
-#' See also a more complete article on how to use \code{BayesTraits.outputs} to
-#' [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_outputs.html)
+#' understanding of how output files are processed with the function \code{phyreg.outputs}.
+#' See also a more complete article on how to use \code{phyreg.outputs} to
+#' [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html)
 #' from the phylogenetic regression analyses.
 #'
 #' @usage
-#' BayesTraits.outputs(logst_dir = NULL,
-#'                     responvar = NULL,
-#'                     explanvar = NULL,
-#'                     treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
-#'                     bayesfactor = FALSE,
-#'                     unirates = TRUE,
-#'                     outformat = c("Word", "CSV"),
-#'                     tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
-#'                     dir_create = "results_BayesTraits_output",
-#'                     outfile = "BayesTraits_output_table",
-#'                     ...)
+#' phyreg.outputs(logst_dir = NULL,
+#'                responvar = NULL,
+#'                explanvar = NULL,
+#'                treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
+#'                bayesfactor = FALSE,
+#'                unirates = TRUE,
+#'                outformat = c("Word", "CSV"),
+#'                tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
+#'                dir_create = "results_BayesTraits_phyreg_output",
+#'                outfile = "BayesTraits_phyreg_output_table",
+#'                ...)
 #'
 #' @param logst_dir Path to the directory where are stored the log and stepping stones files
 #' generated during the independent contrast regression analysis. The log file(s) contain
@@ -75,19 +75,19 @@
 #' table will have the default legend **Phylogenetic regression in BayesTraits: models and coefficients**.
 #'
 #' @param dir_create Path to the directory where the file(s) will be saved. the default
-#' setting creates a directory named **results_BayesTraits_output** where the results
+#' setting creates a directory named **results_BayesTraits_phyreg_output** where the results
 #' will be saved in a subfolder named by the current date.
 #'
 #' @param outfile Name of the resulting table-formatted files in either "Word", "CSV",
 #' or both (depending on the specified argument \code{outformat}). If no name is reported,
 #' the default setting creates a file named
-#' *BayesTraits_output_table.docx* and/or *BayesTraits_output_table.csv*.
+#' *BayesTraits_phyreg_output_table.docx* and/or *BayesTraits_phyreg_output_table.csv*.
 #'
 #' @param ... Additional parameters passed to pdf.
 #'
 #' @return Table in dataframe format, which is also saved in .csv format.
 #'
-#' @seealso \code{\link{BayesTraits.inputs}}
+#' @seealso \code{\link{phyreg.inputs}}
 #'
 #' @importFrom dplyr arrange
 #' @importFrom magrittr "%>%"
@@ -104,17 +104,17 @@
 #' @export
 #'
 
-BayesTraits.outputs <- function(logst_dir = NULL,
-                                responvar = NULL,
-                                explanvar = NULL,
-                                treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
-                                bayesfactor = FALSE,
-                                unirates = TRUE,
-                                outformat = c("Word", "CSV"),
-                                tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
-                                dir_create = "results_BayesTraits_output",
-                                outfile = "BayesTraits_output_table",
-                                ...) {
+phyreg.outputs <- function(logst_dir = NULL,
+                           responvar = NULL,
+                           explanvar = NULL,
+                           treetransf = c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric"),
+                           bayesfactor = FALSE,
+                           unirates = TRUE,
+                           outformat = c("Word", "CSV"),
+                           tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
+                           dir_create = "results_BayesTraits_phyreg_output",
+                           outfile = "BayesTraits_phyreg_output_table",
+                           ...) {
 
   # Input data
   tf <- grepl("Log", list.files(logst_dir))
@@ -374,7 +374,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
     row.names(output_bfactor_heat_csv) <- greekLetters(row.names(output_bfactor_heat_csv))
 
     write.csv(output_bfactor_heat_csv,
-              file = paste0(folder_name, "/Bayes_Factor_heatmap_matrix.csv"))
+              file = paste0(folder_name, "/Bayes_Factor_phyreg_heatmap_matrix.csv"))
 
     cormat <- reshape2::melt(output_bfactor_heat)
     cormat$value <- round(cormat$value, 1)
@@ -397,7 +397,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
 
     #___________________________________________________________________________
     # Plotting a general heatmap with values inside
-    pdf(paste0(folder_name, "/Bayes_Factor_heatmap.pdf"), ...)
+    pdf(paste0(folder_name, "/Bayes_Factor_phyreg_heatmap.pdf"), ...)
     p <- ggplot2::ggplot(data = cormat, aes(Var1, Var2, fill = value)) +
       geom_tile(color = "white") +
       geom_text(aes(label = value), color = "white",
@@ -446,7 +446,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
     pcor$gtable$grobs[[4]]$gp=grid::gpar(font="1") # control for site labels in columns
     pcor$gtable$grobs[[5]]$gp=grid::gpar(font="1") # control for site labels in columns
 
-    pdf(paste0(folder_name, "/Bayes_Factor_heatmap_cluster.pdf"), ...)
+    pdf(paste0(folder_name, "/Bayes_Factor_phyreg_heatmap_cluster.pdf"), ...)
     print(pcor)
     dev.off()
   }
@@ -464,7 +464,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
   #_____________________________________________________________________________
   # Save the output table in Word .docx format using rmarkdown
   if (any(outformat == "Word")) {
-    title = "Processed BayesTraits outputs"
+    title = "Processed BayesTraits phylogenetic regression outputs"
     cat(  "---\n", "title: ", "\"", title, "\"\n", file = "temp.Rmd", sep="")
 
     fpath <- system.file("extdata", "word-styles-reference-01.docx", package="InNOutBT")
@@ -494,7 +494,7 @@ BayesTraits.outputs <- function(logst_dir = NULL,
 
     # Deleting the temp R markdown file
     unlink("temp.Rmd")
-    cat("The Table skeleton of the processed BayesTraits outputs was saved in the disk folder:")
+    cat("The Table skeleton of the processed BayesTraits phylogenetic regression outputs was saved in the disk folder:")
     cat("\n", folder_name)
   }
 

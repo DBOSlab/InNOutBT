@@ -1,4 +1,5 @@
-#' Create shell scripts to run BayesTraits phylogenetic regression analyses using samples of trait data
+#' Create shell scripts to run BayesTraits phylogenetic regression analyses using
+#' samples of trait data
 #'
 #' @author Domingos Cardoso & Matt Lavin
 #'
@@ -13,31 +14,31 @@
 #' tree transformations can be specified. See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
 #' for further details involving BayesTraits parameters and default settings for
 #' independent contrast regression analysis so as to better understand how to set
-#' arguments of this function \code{BayesTraits.shell}. You might consider using
-#' the function \code{\link{BayesTraits.inputs}} to generate properly formatted
-#' input files of mean and linked samples of trait data prior to using \code{BayesTraits.shell}.
-#' See also a more complete article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_shell.html)
-#' with \code{BayesTraits.shell} for multiple phylogenetic regression analyses.
+#' arguments of this function \code{phyreg.shell}. You might consider using
+#' the function \code{\link{phyreg.inputs}} to generate properly formatted
+#' input files of mean and linked samples of trait data prior to using \code{phyreg.shell}.
+#' See also a more complete article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html)
+#' with \code{phyreg.shell} for multiple phylogenetic regression analyses.
 #'
 #' @usage
-#' BayesTraits.shell(meanfile_dir = NULL,
-#'                   linkfile_dir = NULL,
-#'                   treefile_dir = NULL,
-#'                   BayesTraits_dir = NULL,
-#'                   responvar = NULL,
-#'                   treetransf = NULL,
-#'                   Kappa = NULL,
-#'                   Delta = NULL,
-#'                   Lambda = NULL,
-#'                   OU = NULL,
-#'                   VRLambda = FALSE,
-#'                   bi = "30000000",
-#'                   it = "130000000",
-#'                   sa = "100000",
-#'                   st = c("500", "50000"),
-#'                   syst = NULL,
-#'                   dir_create = "results_BayesTraits_shell",
-#'                   cc_DataTree = TRUE)
+#' phyreg.shell(meanfile_dir = NULL,
+#'              linkfile_dir = NULL,
+#'              treefile_dir = NULL,
+#'              BayesTraits_dir = NULL,
+#'              responvar = NULL,
+#'              treetransf = NULL,
+#'              Kappa = NULL,
+#'              Delta = NULL,
+#'              Lambda = NULL,
+#'              OU = NULL,
+#'              VRLambda = FALSE,
+#'              bi = "30000000",
+#'              it = "130000000",
+#'              sa = "100000",
+#'              st = c("500", "50000"),
+#'              syst = NULL,
+#'              dir_create = "results_BayesTraits_phyreg_shell",
+#'              cc_DataTree = TRUE)
 #'
 #' @param meanfile_dir Path to the folder directory where the data file(s)
 #' containing trait means for samples of trait data is(are) stored.
@@ -111,37 +112,37 @@
 #' @param syst Report the operating system ("unix" or "windows").
 #'
 #' @param dir_create Path to the computer's working directory or where the file(s)
-#' will be saved. The default setting creates a directory "results_BayesTraits_output"
+#' will be saved. The default setting creates a directory "results_BayesTraits_phyreg_output"
 #' in which the results will be saved within a subfolder named by the current date.
 #'
 #' @param cc_DataTree Logical, the default is \code{TRUE}. A copy of the tree file
 #' and the mean and linked data files will be made in the BayesTraits folder where
 #' the BayesTraits executable file is located.
 #'
-#' @seealso \code{\link{BayesTraits.inputs}}
-#' @seealso \code{\link{BayesTraits.outputs}}
+#' @seealso \code{\link{phyreg.inputs}}
+#' @seealso \code{\link{phyreg.outputs}}
 #'
 #' @export
 #'
 
-BayesTraits.shell <- function (meanfile_dir = NULL,
-                               linkfile_dir = NULL,
-                               treefile_dir = NULL,
-                               BayesTraits_dir = NULL,
-                               responvar = NULL,
-                               treetransf = NULL,
-                               Kappa = NULL,
-                               Delta = NULL,
-                               Lambda = NULL,
-                               OU = NULL,
-                               VRLambda = FALSE,
-                               bi = "30000000",
-                               it = "130000000",
-                               sa = "100000",
-                               st = c("500", "50000"),
-                               syst = NULL,
-                               dir_create = "results_BayesTraits_shell",
-                               cc_DataTree = TRUE) {
+phyreg.shell <- function (meanfile_dir = NULL,
+                          linkfile_dir = NULL,
+                          treefile_dir = NULL,
+                          BayesTraits_dir = NULL,
+                          responvar = NULL,
+                          treetransf = NULL,
+                          Kappa = NULL,
+                          Delta = NULL,
+                          Lambda = NULL,
+                          OU = NULL,
+                          VRLambda = FALSE,
+                          bi = "30000000",
+                          it = "130000000",
+                          sa = "100000",
+                          st = c("500", "50000"),
+                          syst = NULL,
+                          dir_create = "results_BayesTraits_phyreg_shell",
+                          cc_DataTree = TRUE) {
 
   #_____________________________________________________________________________
   # Create a new directory with current date to save the shell script and run command
@@ -166,16 +167,16 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
   # Start creating the shell script
   if (syst == "unix"){
     title = "#!/bin/zsh"
-    shellfile_bt = paste0(BayesTraits_dir, "/run_BayesTraits_shell_", syst, ".sh")
+    shellfile_bt = paste0(BayesTraits_dir, "/run_BayesTraits_phyreg_shell_", syst, ".sh")
     if (!is.null(dir_create)) {
-      shellfile_wd = paste0(folder_name, "/run_BayesTraits_shell_", syst, ".sh")
+      shellfile_wd = paste0(folder_name, "/run_BayesTraits_phyreg_shell_", syst, ".sh")
     }
   }
   if (syst == "windows"){
     title = "#!/bin/bash"
-    shellfile_bt = paste0(BayesTraits_dir, "/run_BayesTraits_shell_", syst, ".ps1")
+    shellfile_bt = paste0(BayesTraits_dir, "/run_BayesTraits_phyreg_shell_", syst, ".ps1")
     if (!is.null(dir_create)) {
-      shellfile_wd = paste0(folder_name, "/run_BayesTraits_shell_", syst, ".ps1")
+      shellfile_wd = paste0(folder_name, "/run_BayesTraits_phyreg_shell_", syst, ".ps1")
     }
   }
 
@@ -231,11 +232,11 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
     cat("\n", file = shellfile_wd, append=T)
   }
 
-  cat("mkdir", "BayesTraits_outputs_log_stone", "\n", file = shellfile_bt, append=T)
-  cat("mkdir", "BayesTraits_outputs_sch_trees", "\n", file = shellfile_bt, append=T)
+  cat("mkdir", "BayesTraits_phyreg_outputs_log_stone", "\n", file = shellfile_bt, append=T)
+  cat("mkdir", "BayesTraits_phyreg_outputs_sch_trees", "\n", file = shellfile_bt, append=T)
   if (!is.null(dir_create)) {
-    cat("mkdir", "BayesTraits_outputs_log_stone", "\n", file = shellfile_wd, append=T)
-    cat("mkdir", "BayesTraits_outputs_sch_trees", "\n", file = shellfile_wd, append=T)
+    cat("mkdir", "BayesTraits_phyreg_outputs_log_stone", "\n", file = shellfile_wd, append=T)
+    cat("mkdir", "BayesTraits_phyreg_outputs_sch_trees", "\n", file = shellfile_wd, append=T)
   }
 
   cat("\n", file = shellfile_bt, append=T)
@@ -465,33 +466,33 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
   #_____________________________________________________________________________
   # Moving specific files to specific folders after analysis is complete
   if (syst == "unix") {
-    cat("mv", "*Log*", "BayesTraits_outputs_log_stone/", "\n", file = shellfile_bt, append=T)
-    cat("mv", "*Stones*", "BayesTraits_outputs_log_stone/", "\n", "\n", file = shellfile_bt, append=T)
-    cat("mv", "*Schedule*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
-    cat("mv", "*Output.VR*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
-    cat("mv", "*VarRates*", "BayesTraits_outputs_sch_trees/", file = shellfile_bt, append=T)
+    cat("mv", "*Log*", "BayesTraits_phyreg_outputs_log_stone/", "\n", file = shellfile_bt, append=T)
+    cat("mv", "*Stones*", "BayesTraits_phyreg_outputs_log_stone/", "\n", "\n", file = shellfile_bt, append=T)
+    cat("mv", "*Schedule*", "BayesTraits_phyreg_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
+    cat("mv", "*Output.VR*", "BayesTraits_phyreg_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
+    cat("mv", "*VarRates*", "BayesTraits_phyreg_outputs_sch_trees/", file = shellfile_bt, append=T)
   }
   if (syst == "windows") {
-    cat("Move-Item -Path", "*Log*", "-Destination", "BayesTraits_outputs_log_stone/", "\n", file = shellfile_bt, append=T)
-    cat("Move-Item -Path", "*Stones*", "-Destination", "BayesTraits_outputs_log_stone/", "\n", "\n", file = shellfile_bt, append=T)
-    cat("Move-Item -Path", "*Schedule*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
-    cat("Move-Item -Path", "*Output.VR*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
-    cat("Move-Item -Path", "*VarRates*", "-Destination", "BayesTraits_outputs_sch_trees/", file = shellfile_bt, append=T)
+    cat("Move-Item -Path", "*Log*", "-Destination", "BayesTraits_phyreg_outputs_log_stone/", "\n", file = shellfile_bt, append=T)
+    cat("Move-Item -Path", "*Stones*", "-Destination", "BayesTraits_phyreg_outputs_log_stone/", "\n", "\n", file = shellfile_bt, append=T)
+    cat("Move-Item -Path", "*Schedule*", "-Destination", "BayesTraits_phyreg_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
+    cat("Move-Item -Path", "*Output.VR*", "-Destination", "BayesTraits_phyreg_outputs_sch_trees/", "\n", file = shellfile_bt, append=T)
+    cat("Move-Item -Path", "*VarRates*", "-Destination", "BayesTraits_phyreg_outputs_sch_trees/", file = shellfile_bt, append=T)
   }
   if (!is.null(dir_create)) {
     if (syst == "unix") {
-      cat("mv", "*Log*", "BayesTraits_outputs_log_stone/", "\n", file = shellfile_wd, append=T)
-      cat("mv", "*Stones*", "BayesTraits_outputs_log_stone/", "\n", "\n", file = shellfile_wd, append=T)
-      cat("mv", "*Schedule*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
-      cat("mv", "*Output.VR*", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
-      cat("mv", "*VarRates*", "BayesTraits_outputs_sch_trees/", file = shellfile_wd, append=T)
+      cat("mv", "*Log*", "BayesTraits_phyreg_outputs_log_stone/", "\n", file = shellfile_wd, append=T)
+      cat("mv", "*Stones*", "BayesTraits_phyreg_outputs_log_stone/", "\n", "\n", file = shellfile_wd, append=T)
+      cat("mv", "*Schedule*", "BayesTraits_phyreg_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
+      cat("mv", "*Output.VR*", "BayesTraits_phyreg_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
+      cat("mv", "*VarRates*", "BayesTraits_phyreg_outputs_sch_trees/", file = shellfile_wd, append=T)
     }
     if (syst == "windows") {
-      cat("Move-Item -Path", "*Log*", "-Destination", "BayesTraits_outputs_log_stone/", "\n", file = shellfile_wd, append=T)
-      cat("Move-Item -Path", "*Stones*", "-Destination", "BayesTraits_outputs_log_stone/", "\n", "\n", file = shellfile_wd, append=T)
-      cat("Move-Item -Path", "*Schedule*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
-      cat("Move-Item -Path", "*Output.VR*", "-Destination", "BayesTraits_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
-      cat("Move-Item -Path", "*VarRates*", "-Destination", "BayesTraits_outputs_sch_trees/", file = shellfile_wd, append=T)
+      cat("Move-Item -Path", "*Log*", "-Destination", "BayesTraits_phyreg_outputs_log_stone/", "\n", file = shellfile_wd, append=T)
+      cat("Move-Item -Path", "*Stones*", "-Destination", "BayesTraits_phyreg_outputs_log_stone/", "\n", "\n", file = shellfile_wd, append=T)
+      cat("Move-Item -Path", "*Schedule*", "-Destination", "BayesTraits_phyreg_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
+      cat("Move-Item -Path", "*Output.VR*", "-Destination", "BayesTraits_phyreg_outputs_sch_trees/", "\n", file = shellfile_wd, append=T)
+      cat("Move-Item -Path", "*VarRates*", "-Destination", "BayesTraits_phyreg_outputs_sch_trees/", file = shellfile_wd, append=T)
     }
   }
 
@@ -605,17 +606,17 @@ BayesTraits.shell <- function (meanfile_dir = NULL,
   }
 
   if (syst == "unix") {
-    cat(paste0("rm run_BayesTraits_shell_unix.sh"), "\n", file = shellfile_bt, append=T)
+    cat(paste0("rm run_BayesTraits_phyreg_shell_unix.sh"), "\n", file = shellfile_bt, append=T)
   }
   if (syst == "windows") {
-    cat(paste0("Remove-Item run_BayesTraits_shell_windows.ps1"), "\n", file = shellfile_bt, append=T)
+    cat(paste0("Remove-Item run_BayesTraits_phyreg_shell_windows.ps1"), "\n", file = shellfile_bt, append=T)
   }
   if (!is.null(dir_create)) {
     if (syst == "unix") {
-      cat(paste0("rm run_BayesTraits_shell_unix.sh"), "\n", file = shellfile_wd, append=T)
+      cat(paste0("rm run_BayesTraits_phyreg_shell_unix.sh"), "\n", file = shellfile_wd, append=T)
     }
     if (syst == "windows") {
-      cat(paste0("Remove-Item run_BayesTraits_shell_windows.ps1"), "\n", file = shellfile_wd, append=T)
+      cat(paste0("Remove-Item run_BayesTraits_phyreg_shell_windows.ps1"), "\n", file = shellfile_wd, append=T)
     }
   }
 

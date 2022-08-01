@@ -44,11 +44,11 @@ library(InNOutBT)
 ## Usage
 
 A general description of each of the three available functions
-(`BayesTraits.inputs`, `BayesTraits.shell`, and `BayesTraits.outputs`)
-are provided below.  
+(`phyreg.inputs`, `phyreg.shell`, and `phyreg.outputs`) are provided
+below.  
   
 
-#### *1. `BayesTraits.inputs`: Creating input mean and linked data for phylogenetic regression analyses*
+#### *1. `phyreg.inputs`: Creating input mean and linked data for phylogenetic regression analyses*
 
 This function produces the required BayesTraits input data of linked
 samples of trait/climate data (distribution data), by generating two
@@ -63,7 +63,7 @@ variable (e.g. [O’Donovan et
 al. 2018](https://doi.org/10.1038/s41559-017-0454-6)).  
   
 
-##### Example of using `BayesTraits.inputs`:
+##### Example of using `phyreg.inputs`:
 
 ``` r
 library(InNOutBT)
@@ -72,24 +72,24 @@ library(treeio)
 traitdata <- read.csv("Data/vataireoids_1610_25May2022_BayesTraits.csv")
 phylo <- read.beast("Data/vatcomb30_24May22_Yule.con.tree")
 
-BayesTraits.inputs(tree = phylo,
-                   data = traitdata,
-                   tipscol = "terminal",
-                   NodeCount = TRUE,
-                   logtransf = c("DBH", "NodeCount"),
-                   traitcols = c("bio12", "bio15"),
-                   addtraits = c("log10NodeCount", "log10DBH"),
-                   ordtraits = c("log10DBH", "bio12", "bio15", "log10NodeCount"),
-                   dir_create = "results_BayesTraits_input",
-                   fileDistData = "BayesTraits_linked_data_bio12_bio15_nnodes.txt",
-                   fileMeanData = "BayesTraits_mean_data_bio12_bio15_nnodes.txt",
-                   fileOrigData = "vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv")
+phyreg.inputs(tree = phylo,
+              data = traitdata,
+              tipscol = "terminal",
+              NodeCount = TRUE,
+              logtransf = c("DBH", "NodeCount"),
+              traitcols = c("bio12", "bio15"),
+              addtraits = c("log10NodeCount", "log10DBH"),
+              ordtraits = c("log10DBH", "bio12", "bio15", "log10NodeCount"),
+              dir_create = "results_BayesTraits_phyreg_input",
+              fileDistData = "BayesTraits_linked_data_bio12_bio15_nnodes.txt",
+              fileMeanData = "BayesTraits_mean_data_bio12_bio15_nnodes.txt",
+              fileOrigData = "vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv")
 ```
 
   
   
 
-#### *2. `BayesTraits.shell`: Creating shell script for running phylogenetic regression analyses*
+#### *2. `phyreg.shell`: Creating shell script for running phylogenetic regression analyses*
 
 Using directory paths to the tree and the input files of mean and linked
 trait data, this function produces shell scripts in both Unix and
@@ -109,30 +109,30 @@ here will consider a default BayesTraits regression analysis where
 manual).  
   
 
-##### Example of using `BayesTraits.shell`:
+##### Example of using `phyreg.shell`:
 
 ``` r
 library(InNOutBT)
 
-BayesTraits.shell(meanfile_dir = "results_BayesTraits_input/03Jun2022",
-                  linkfile_dir = "results_BayesTraits_input/03Jun2022",
-                  treefile_dir = "Data",
-                  BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
-                  responvar = "DBH",
-                  treetransf = c("UNI", "Kappa", "Lambda", "VR"),
-                  bi = "30000000",
-                  it = "130000000",
-                  sa = "100000",
-                  st = c("500", "50000"),
-                  syst = "unix",
-                  dir_create = "results_BayesTraits_shell",
-                  cc_DataTree = TRUE)
+phyreg.shell(meanfile_dir = "results_BayesTraits_phyreg_input/03Jun2022",
+             linkfile_dir = "results_BayesTraits_phyreg_input/03Jun2022",
+             treefile_dir = "Data",
+             BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
+             responvar = "DBH",
+             treetransf = c("UNI", "Kappa", "Lambda", "VR"),
+             bi = "30000000",
+             it = "130000000",
+             sa = "100000",
+             st = c("500", "50000"),
+             syst = "unix",
+             dir_create = "results_BayesTraits_phyreg_shell",
+             cc_DataTree = TRUE)
 ```
 
   
   
 
-#### *3. `BayesTraits.outputs`: Processing output data from phylogenetic regression analyses*
+#### *3. `phyreg.outputs`: Processing output data from phylogenetic regression analyses*
 
 This function processes the output Log and Stones .txt files from
 phylogenetic regression analyses. The resulting processed files are
@@ -143,23 +143,23 @@ identify models similar to the model with the highest likelihood
 score).  
   
 
-##### Example of using `BayesTraits.outputs`:
+##### Example of using `phyreg.outputs`:
 
 ``` r
 library(InNOutBT)
 
-BayesTraits.outputs(logst_dir = paste0(getwd(),"/BayesTraits_outputs_log_stone"),
-                    responvar = "DBH",
-                    explanvar = c("bio12", "bio15", "nnodes"),
-                    treetransf = c("UNI", "Kappa", "Lambda", "VR"),
-                    bayesfactor = TRUE,
-                    unirates = FALSE,
-                    outformat = c("Word", "CSV"),
-                    tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
-                    dir_create = "results_BayesTraits_output",
-                    outfile = "BayesTraits_output_table",
-                    height = 17,
-                    width = 20)
+phyreg.outputs(logst_dir = paste0(getwd(),"/BayesTraits_phyreg_outputs_log_stone"),
+               responvar = "DBH",
+               explanvar = c("bio12", "bio15", "nnodes"),
+               treetransf = c("UNI", "Kappa", "Lambda", "VR"),
+               bayesfactor = TRUE,
+               unirates = FALSE,
+               outformat = c("Word", "CSV"),
+               tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
+               dir_create = "results_BayesTraits_phyreg_output",
+               outfile = "BayesTraits_phyreg_output_table",
+               height = 17,
+               width = 20)
 ```
 
   

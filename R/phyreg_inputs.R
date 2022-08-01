@@ -1,4 +1,5 @@
-#' Produces BayesTraits mean and linked input data comprising samples of trait data
+#' Produces BayesTraits phylogenetic regression mean and linked input data comprising
+#' samples of trait data
 #'
 #' @author Domingos Cardoso & Matt Lavin
 #'
@@ -13,23 +14,23 @@
 #' See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
 #' for further details on the specific format of the input files that are required
 #' by BayesTraits. See also a more complete article on how to automatically
-#' [create input files ](https://dboslab.github.io/InNOutBT/articles/independent_contrast_regression_inputs.html)
-#' with \code{BayesTraits.inputs} for the phylogenetic regression analyses.
+#' [create input files ](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)
+#' with \code{phyreg.inputs} for the phylogenetic regression analyses.
 #'
 #' @usage
-#' BayesTraits.inputs(tree,
-#'                    data,
-#'                    tipscol = NULL,
-#'                    NodeCount = FALSE,
-#'                    logtransf = NULL,
-#'                    sqrtransf = NULL,
-#'                    traitcols = NULL,
-#'                    addtraits = NULL,
-#'                    ordtraits = NULL,
-#'                    dir_create = "results_BayesTraits_input",
-#'                    fileDistData = "BayesTraits_linked_input.txt",
-#'                    fileMeanData = "BayesTraits_mean_input.txt",
-#'                    fileOrigData = NULL)
+#' phyreg.inputs(tree,
+#'               data,
+#'               tipscol = NULL,
+#'               NodeCount = FALSE,
+#'               logtransf = NULL,
+#'               sqrtransf = NULL,
+#'               traitcols = NULL,
+#'               addtraits = NULL,
+#'               ordtraits = NULL,
+#'               dir_create = "results_BayesTraits_phyreg_input",
+#'               fileDistData = "BayesTraits_linked_input.txt",
+#'               fileMeanData = "BayesTraits_mean_input.txt",
+#'               fileOrigData = NULL)
 #'
 #' @param tree The input tree file. This can be either a Newick-formatted tree
 #' imported by \code{ape}'s function \code{\link{read.tree}} or a treedata-formatted
@@ -83,7 +84,7 @@
 #' coefficient estimates reported for Beta1, Beta2, etc. in the BayesTraits log files.
 #'
 #' @param dir_create Path to directory where results will be saved. The default
-#' creates a directory named **results_BayesTraits_input** and the results will
+#' creates a directory named **results_BayesTraits_phyreg_input** and the results will
 #' be saved within a subfolder of that directory named with the current date.
 #'
 #' @param fileDistData Name of the resulting text file containing linked samples
@@ -98,8 +99,8 @@
 #' columns. This new file of trait data will be written to the directory as set
 #' in the argument \code{dir_create}, but outside the current-date subfolder.
 #'
-#' @seealso \code{\link{BayesTraits.shell}}
-#' @seealso \code{\link{BayesTraits.outputs}}
+#' @seealso \code{\link{phyreg.shell}}
+#' @seealso \code{\link{phyreg.outputs}}
 #'
 #' @examples
 #' \dontrun{
@@ -111,7 +112,7 @@
 #' ## Loading a example tree file
 #' data(vatsTree)
 #'
-#' BayesTraits.inputs(tree = vatsTree,
+#' phyreg.inputs(tree = vatsTree,
 #'                    data = vatsData,
 #'                    tipscol = "terminal",
 #'                    NodeCount = TRUE,
@@ -119,7 +120,7 @@
 #'                    traitcols = c("bio12", "bio15"),
 #'                    addtraits = c("log10NodeCount", "log10DBH"),
 #'                    ordtraits = c("log10DBH", "bio12", "bio15", "log10NodeCount"),
-#'                    dir_create = "results_BayesTraits_input",
+#'                    dir_create = "results_BayesTraits_phyreg_input",
 #'                    fileDistData = "BayesTraits_linked_data_bio12_bio15_nnodes.txt",
 #'                    fileMeanData = "BayesTraits_mean_data_bio12_bio15_nnodes.txt",
 #'                    fileOrigData = "vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv")
@@ -133,19 +134,19 @@
 #' @export
 #'
 
-BayesTraits.inputs <- function(tree,
-                               data,
-                               tipscol = NULL,
-                               NodeCount = FALSE,
-                               logtransf = NULL,
-                               sqrtransf = NULL,
-                               traitcols = NULL,
-                               addtraits = NULL,
-                               ordtraits = NULL,
-                               dir_create = "results_BayesTraits_input",
-                               fileDistData = "BayesTraits_linked_input.txt",
-                               fileMeanData = "BayesTraits_mean_input.txt",
-                               fileOrigData = NULL) {
+phyreg.inputs <- function(tree,
+                          data,
+                          tipscol = NULL,
+                          NodeCount = FALSE,
+                          logtransf = NULL,
+                          sqrtransf = NULL,
+                          traitcols = NULL,
+                          addtraits = NULL,
+                          ordtraits = NULL,
+                          dir_create = "results_BayesTraits_phyreg_input",
+                          fileDistData = "BayesTraits_linked_input.txt",
+                          fileMeanData = "BayesTraits_mean_input.txt",
+                          fileOrigData = NULL) {
 
   # Get just the tree file if it is as Formal class treedata
   if (class(tree) == "treedata") {
