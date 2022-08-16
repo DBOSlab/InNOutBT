@@ -183,8 +183,8 @@ which performs the full phylogenetic regression analyses and processing of resul
 you will just need to give the path to the project run folder __BayesTraits_shell_phyreg_project__, 
 the BayesTraits, R, Adobe Acrobat, and Microsoft Office program folders where their 
 corresponding executable programs are installed. These should be set, respectively,
-as the variables __$PROJECTFOLDER__, __$BAYESTRFOLDER__, __$RFOLDER__, __$ACROBATFOLDER__, 
-and __$WORDFOLDER__, as shown in the image bellow:\
+as the variables __\$PROJECTFOLDER__, __\$BAYESTRFOLDER__, __\$RFOLDER__, __\$ACROBATFOLDER__, 
+and __\$WORDFOLDER__, as shown in the image bellow:\
 \
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/windows_shell_project_script.png", dpi = 300)
