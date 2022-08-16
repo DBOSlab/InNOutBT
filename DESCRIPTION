@@ -16,24 +16,28 @@ Description: This package helps to automate BayesTraits phylogenetic independent
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Depends: 
     R (>= 3.5.0)
 Imports: 
     combinat,
     dplyr,
     ggplot2,
+    grDevices,
     grid,
     knitr,
     magrittr,
     phangorn,
     pheatmap,
     reshape2,
+    rlang,
     rmarkdown,
+    stats,
     stringr,
     tibble,
+    utils,
     wesanderson
-Suggests: 
+Suggests:
     testthat (>= 3.0.0)
 URL: https://DBOSlab.github.io/InNOutBT,
     https://github.com/DBOSlab/InNOutBT,

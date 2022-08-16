@@ -11,7 +11,7 @@ phyreg.outputs(logst_dir = NULL,
                bayesfactor = FALSE,
                unirates = TRUE,
                outformat = c("Word", "CSV"),
-               tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
+               tableleg = "Phylogenetic regression in BayesTraits",
                dir_create = "results_BayesTraits_phyreg_output",
                outfile = "BayesTraits_phyreg_output_table",
                ...)
@@ -55,7 +55,7 @@ for writing the results in such formats.}
 
 \item{tableleg}{A legend for the main table, provided that you have also chosen
 \code{outformat = "Word"}. If you do not report a legend, then the Word-formatted
-table will have the default legend \strong{Phylogenetic regression in BayesTraits: models and coefficients}.}
+table will have the default legend \strong{Phylogenetic regression in BayesTraits}.}
 
 \item{dir_create}{Path to the directory where the file(s) will be saved. the default
 setting creates a directory named \strong{results_BayesTraits_phyreg_output} where the results

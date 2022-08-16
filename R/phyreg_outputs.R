@@ -29,7 +29,7 @@
 #'                bayesfactor = FALSE,
 #'                unirates = TRUE,
 #'                outformat = c("Word", "CSV"),
-#'                tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
+#'                tableleg = "Phylogenetic regression in BayesTraits",
 #'                dir_create = "results_BayesTraits_phyreg_output",
 #'                outfile = "BayesTraits_phyreg_output_table",
 #'                ...)
@@ -72,7 +72,7 @@
 #'
 #' @param tableleg A legend for the main table, provided that you have also chosen
 #' \code{outformat = "Word"}. If you do not report a legend, then the Word-formatted
-#' table will have the default legend **Phylogenetic regression in BayesTraits: models and coefficients**.
+#' table will have the default legend **Phylogenetic regression in BayesTraits**.
 #'
 #' @param dir_create Path to the directory where the file(s) will be saved. the default
 #' setting creates a directory named **results_BayesTraits_phyreg_output** where the results
@@ -89,7 +89,7 @@
 #'
 #' @seealso \code{\link{phyreg.inputs}}
 #'
-#' @importFrom dplyr arrange
+#' @importFrom dplyr arrange desc
 #' @importFrom magrittr "%>%"
 #' @importFrom tibble tibble add_column
 #' @importFrom combinat combn
@@ -100,6 +100,10 @@
 #' @importFrom ggplot2 ggplot aes geom_tile geom_text scale_x_discrete scale_y_discrete scale_fill_gradientn theme_minimal theme element_text xlab ylab
 #' @importFrom rmarkdown word_document render
 #' @importFrom knitr kable
+#' @importFrom rlang :=
+#' @importFrom stats na.omit
+#' @importFrom grDevices pdf dev.off
+#' @importFrom utils read.delim write.csv
 #'
 #' @export
 #'
@@ -111,7 +115,7 @@ phyreg.outputs <- function(logst_dir = NULL,
                            bayesfactor = FALSE,
                            unirates = TRUE,
                            outformat = c("Word", "CSV"),
-                           tableleg = "Phylogenetic regression in BayesTraits: models and coefficients.",
+                           tableleg = "Phylogenetic regression in BayesTraits",
                            dir_create = "results_BayesTraits_phyreg_output",
                            outfile = "BayesTraits_phyreg_output_table",
                            ...) {
@@ -169,8 +173,8 @@ phyreg.outputs <- function(logst_dir = NULL,
 
     skiplines <- (34+ntaxa+(2*nrates))+trtransf_value+VR+Fabric
 
-    BayesTraits_outs[[i]] <- read.delim(paste0(logst_dir, "/", log_infiles[i]),
-                                        skip = skiplines, sep="\t", header=TRUE)
+    BayesTraits_outs[[i]] <- utils::read.delim(paste0(logst_dir, "/", log_infiles[i]),
+                                               skip = skiplines, sep="\t", header=TRUE)
   }
   names(BayesTraits_outs) <- fnames
 
@@ -273,7 +277,7 @@ phyreg.outputs <- function(logst_dir = NULL,
       output_log_df[i, c(temp, "Rsquared", paste0("mean", responvar))] <- mean_pMCMC[[i]][["mean"]]
     }
     output_log_df[i, temp] <- paste(output_log_df[i, temp], paste0("(",
-                                                                   na.omit(mean_pMCMC[[i]][["pMCMC"]]),
+                                                                   stats::na.omit(mean_pMCMC[[i]][["pMCMC"]]),
                                                                    ")"))
   }
   output_log_df <- output_log_df %>% arrange(desc(LL))
@@ -373,8 +377,8 @@ phyreg.outputs <- function(logst_dir = NULL,
     colnames(output_bfactor_heat_csv) <- greekLetters(colnames(output_bfactor_heat_csv))
     row.names(output_bfactor_heat_csv) <- greekLetters(row.names(output_bfactor_heat_csv))
 
-    write.csv(output_bfactor_heat_csv,
-              file = paste0(folder_name, "/Bayes_Factor_phyreg_heatmap_matrix.csv"))
+    utils::write.csv(output_bfactor_heat_csv,
+                     file = paste0(folder_name, "/Bayes_Factor_phyreg_heatmap_matrix.csv"))
 
     cormat <- reshape2::melt(output_bfactor_heat)
     cormat$value <- round(cormat$value, 1)
@@ -397,7 +401,7 @@ phyreg.outputs <- function(logst_dir = NULL,
 
     #___________________________________________________________________________
     # Plotting a general heatmap with values inside
-    pdf(paste0(folder_name, "/Bayes_Factor_phyreg_heatmap.pdf"), ...)
+    grDevices::pdf(paste0(folder_name, "/Bayes_Factor_phyreg_heatmap.pdf"), ...)
     p <- ggplot2::ggplot(data = cormat, aes(Var1, Var2, fill = value)) +
       geom_tile(color = "white") +
       geom_text(aes(label = value), color = "white",
@@ -417,7 +421,7 @@ phyreg.outputs <- function(logst_dir = NULL,
       xlab("") +
       ylab("")
     print(p)
-    dev.off()
+    grDevices::dev.off()
 
 
     #___________________________________________________________________________
@@ -446,9 +450,9 @@ phyreg.outputs <- function(logst_dir = NULL,
     pcor$gtable$grobs[[4]]$gp=grid::gpar(font="1") # control for site labels in columns
     pcor$gtable$grobs[[5]]$gp=grid::gpar(font="1") # control for site labels in columns
 
-    pdf(paste0(folder_name, "/Bayes_Factor_phyreg_heatmap_cluster.pdf"), ...)
+    grDevices::pdf(paste0(folder_name, "/Bayes_Factor_phyreg_heatmap_cluster.pdf"), ...)
     print(pcor)
-    dev.off()
+    grDevices::dev.off()
   }
 
 
@@ -457,8 +461,8 @@ phyreg.outputs <- function(logst_dir = NULL,
   if (any(outformat == "CSV")) {
     print(paste0("Writing the table-formatted output ", paste0(outfile, ".csv"),
                  " file on the disk folder ", folder_name))
-    write.csv(output_log_df,
-              file = paste0(folder_name, "/", outfile, ".csv"))
+    utils::write.csv(output_log_df,
+                     file = paste0(folder_name, "/", outfile, ".csv"))
   }
 
   #_____________________________________________________________________________
