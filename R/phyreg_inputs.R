@@ -151,7 +151,8 @@ phyreg.inputs <- function(tree,
                           fileOrigData = NULL) {
 
   # Get just the tree file if it is as Formal class treedata
-  if (inherits(tree, "treedata")) {
+  # (inherits() would need the tidytree package to look up this S4 class)
+  if ("treedata" %in% class(tree)) {
     tree <- tree@phylo
   }
 

@@ -14,7 +14,8 @@ todaydate <- function() format(Sys.time(), "%d%b%Y")
 # The fixtures are real BayesTraits V4 Log and Stones files, reduced to their full
 # header plus six MCMC samples (Log) or their last lines (Stones).
 # The root is found here, because tests later change the working directory.
-fixture_root <- normalizePath(testthat::test_path("fixtures"))
+# Its name is short to keep the file paths under 100 characters in the package.
+fixture_root <- normalizePath(testthat::test_path("fx"))
 fixture_dir <- function(set) file.path(fixture_root, set)
 
 # Copy only some models of a fixture set, e.g. pattern = "bio12[.]txt"

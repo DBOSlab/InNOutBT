@@ -38,7 +38,8 @@ Imports:
     wesanderson
 Suggests:
     ape,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tidytree
 URL: https://DBOSlab.github.io/InNOutBT,
     https://github.com/DBOSlab/InNOutBT,
     https://dboslab.github.io/InNOutBT/

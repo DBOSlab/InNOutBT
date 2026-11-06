@@ -285,7 +285,7 @@ phyreg.outputs <- function(logst_dir = NULL,
 
   # Exclude models with uniform rates
   if (!unirates) {
-    output_log_df <- output_log_df[grepl("\\S[+]VR[+]|VR$|Fabric$|κ|δ|λ|OU$|Estimate$", output_log_df$Model), ]
+    output_log_df <- output_log_df[grepl("\\S[+]VR[+]|VR$|Fabric$|\u03ba|\u03b4|\u03bb|OU$|Estimate$", output_log_df$Model), ]
   }
 
 
@@ -335,9 +335,9 @@ phyreg.outputs <- function(logst_dir = NULL,
     colnames(output_bfactor_heat) <- gsub("_", "+", colnames(output_bfactor_heat))
 
     output_log_df$BF <- NA
-    tf <- grepl("\\S[+]VR[+]|VR$|Fabric$|κ|δ|λ|OU$|Estimate$", output_log_df$Model)
+    tf <- grepl("\\S[+]VR[+]|VR$|Fabric$|\u03ba|\u03b4|\u03bb|OU$|Estimate$", output_log_df$Model)
     n_var <- gsub("DBH\\s~\\s|\\s", "", output_log_df$Model[tf])
-    n_uni <- gsub("DBH\\s~\\s|\\s|[+]\\sVR|[+]\\sFabric|[+]\\sκ|[+]\\sδ|[+]\\sλ|[+]\\sOU", "", output_log_df$Model[tf])
+    n_uni <- gsub("DBH\\s~\\s|\\s|[+]\\sVR|[+]\\sFabric|[+]\\s\u03ba|[+]\\s\u03b4|[+]\\s\u03bb|[+]\\sOU", "", output_log_df$Model[tf])
     n_var <- paste(n_var, "vs.", n_uni)
 
     for (i in seq_along(n_var)) {
@@ -508,9 +508,9 @@ phyreg.outputs <- function(logst_dir = NULL,
 
 # Auxiliary function for writing Greek letters
 greekLetters <- function(x) {
-  x <- gsub("Kappa", "κ", x)
-  x <- gsub("Delta", "δ", x)
-  x <- gsub("Lmda|Lambda", "λ", x)
+  x <- gsub("Kappa", "\u03ba", x)
+  x <- gsub("Delta", "\u03b4", x)
+  x <- gsub("Lmda|Lambda", "\u03bb", x)
   return(x)
 }
 

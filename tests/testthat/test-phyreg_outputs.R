@@ -1,7 +1,7 @@
 all_transf <- c("Kappa", "Delta", "Lambda", "OU", "UNI", "VR", "Fabric")
 
 run_models <- function(...) {
-  phyreg.outputs(logst_dir = fixture_dir("logs_models"),
+  phyreg.outputs(logst_dir = fixture_dir("models"),
                  responvar = "DBH",
                  explanvar = c("bio12", "bio15"),
                  dir_create = "out",
@@ -33,18 +33,18 @@ test_that("phyreg.outputs reports the values found in the Log and Stones files",
                  c("DBH ~ bio12", "bio12.txt.Log.UNI.txt", "bio12.txt.Stones.UNI.txt"),
                  c("DBH ~ bio12 + VR", "bio12.txt.Log.VR.txt", "bio12.txt.Stones.VR.txt"),
                  c("DBH ~ bio15 + Fabric", "bio15.txt.Log.Fabric.txt", "bio15.txt.Stones.Fabric.txt"))) {
-    s <- read_samples("logs_models", m[2])
+    s <- read_samples("models", m[2])
     row <- model_row(res, m[1])
     expect_equal(as.numeric(row$Rsquared), round(mean(s$R.2), 5))
     expect_equal(as.numeric(row$meanDBH), round(10^mean(s$Alpha), 2))
-    expect_equal(as.numeric(row$LL), read_ll("logs_models", m[3]))
+    expect_equal(as.numeric(row$LL), read_ll("models", m[3]))
   }
 })
 
 test_that("phyreg.outputs reports each beta with its pMCMC", {
   res <- in_tempdir(run_models(treetransf = all_transf, outformat = "CSV"))
 
-  s <- read_samples("logs_models", "bio12.txt.Log.UNI.txt")
+  s <- read_samples("models", "bio12.txt.Log.UNI.txt")
   beta <- round(mean(s$Beta.1), 5)
   p <- if (beta >= 0) mean(s$Beta.1 <= 0) else mean(s$Beta.1 >= 0)
   expect_equal(model_row(res, "DBH ~ bio12")$bio12, paste0(beta, " (", p, ")"))
@@ -57,7 +57,7 @@ test_that("phyreg.outputs reports estimated and default tree transformations", {
   # Estimated parameter comes from the samples, the others keep their defaults
   for (m in list(c("DBH ~ bio15 + κ", "Kappa"), c("DBH ~ bio15 + δ", "Delta"),
                  c("DBH ~ bio15 + λ", "Lambda"), c("DBH ~ bio15 + OU", "OU"))) {
-    s <- read_samples("logs_models", paste0("bio15.txt.Log.", m[2], ".txt"))
+    s <- read_samples("models", paste0("bio15.txt.Log.", m[2], ".txt"))
     row <- model_row(res, m[1])
     expect_equal(as.numeric(row[[m[2]]]), round(mean(s[[m[2]]]), 5))
     others <- setdiff(c("Kappa", "Delta", "Lambda"), m[2])
@@ -74,7 +74,7 @@ test_that("phyreg.outputs reports estimated and default tree transformations", {
 })
 
 test_that("phyreg.outputs keeps fixed values of a tree transformation", {
-  res <- in_tempdir(phyreg.outputs(logst_dir = fixture_dir("logs_values"),
+  res <- in_tempdir(phyreg.outputs(logst_dir = fixture_dir("values"),
                                    responvar = "DBH",
                                    explanvar = c("bio12", "bio15"),
                                    treetransf = c("Lambda", "VR"),
@@ -87,9 +87,9 @@ test_that("phyreg.outputs keeps fixed values of a tree transformation", {
   expect_equal(unname(lambda["DBH ~ bio12 + bio15 + λ1.0"]), "1.0")
   expect_equal(unname(lambda["DBH ~ bio12 + bio15 + VRλ0.001"]), "0.001")
   expect_equal(unname(lambda["DBH ~ bio12 + bio15 + VRλ1.0"]), "1.0")
-  s <- read_samples("logs_values", "bio12_bio15.txt.Log.LambdaEstimate.txt")
+  s <- read_samples("values", "bio12_bio15.txt.Log.LambdaEstimate.txt")
   expect_equal(as.numeric(lambda["DBH ~ bio12 + bio15 + λEstimate"]), round(mean(s$Lambda), 5))
-  s <- read_samples("logs_values", "bio12_bio15.txt.Log.VRLambdaEstimate.txt")
+  s <- read_samples("values", "bio12_bio15.txt.Log.VRLambdaEstimate.txt")
   expect_equal(as.numeric(lambda["DBH ~ bio12 + bio15 + VRλEstimate"]), round(mean(s$Lambda), 5))
 })
 
@@ -101,7 +101,7 @@ test_that("phyreg.outputs drops uniform models when unirates = FALSE", {
 })
 
 test_that("phyreg.outputs works with only VR, Fabric and UNI models", {
-  dir <- fixture_subset("logs_models", "bio12[.]txt[.](Log|Stones)[.](UNI|VR)")
+  dir <- fixture_subset("models", "bio12[.]txt[.](Log|Stones)[.](UNI|VR)")
   res <- in_tempdir(phyreg.outputs(logst_dir = dir,
                                    responvar = "DBH",
                                    explanvar = "bio12",
@@ -124,7 +124,7 @@ test_that("phyreg.outputs calculates Bayes Factors and writes all its files", {
   folder <- file.path(dir, todaydate())
 
   # Compared with the uniform model: twice the difference in log likelihood
-  ll <- function(m) read_ll("logs_models", paste0("bio12.txt.Stones.", m, ".txt"))
+  ll <- function(m) read_ll("models", paste0("bio12.txt.Stones.", m, ".txt"))
   expect_equal(as.numeric(model_row(res, "DBH ~ bio12 + VR")$BF),
                round(2 * abs(ll("VR") - ll("UNI")), 5))
   expect_equal(as.numeric(model_row(res, "DBH ~ bio12 + λ")$BF),

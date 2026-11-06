@@ -93,7 +93,8 @@ test_that("phyreg.inputs output errors for wrong inputs", {
                              dir_create = "results_BayesTraits_phyreg_input",
                              fileDistData = "BayesTraits_linked_data_bio12_bio15.txt",
                              fileMeanData = "BayesTraits_mean_data_bio12_bio15.txt",
-                             fileOrigData = "vataireoids_1610_25May2022_BayesTraits.csv"))
+                             fileOrigData = "vataireoids_1610_25May2022_BayesTraits.csv"),
+               "does not match with the tiplabels")
 })
 
 # A small example where the expected values are easy to check by hand
