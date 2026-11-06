@@ -4,7 +4,7 @@
 ## Give the paths to both the project run folder where the R scripts are, 
 ## and the BayesTraits folder where the executable program is installed.
 $PROJECTFOLDER="C:\Users\Matt_\Documents\BayesTraits_shell_phyreg_project"
-$BAYESTRFOLDER="C:\Users\Matt_\Documents\BayesTraitsV4.0.0"
+$BAYESTRFOLDER="C:\Users\Matt_\Documents\BayesTraits"
 
 ## Give the paths to the Rscript, Adobe and Microsoft Word executable files 
 $RFOLDER="C:\'Program Files'\R\R-4.2.0\bin\Rscript"
@@ -52,7 +52,7 @@ Invoke-Expression "$RFOLDER .\3_processing_BayesTraits_phyreg_outputs.R"
 
 ## Opening automatically the resulting .pdf and .docx files
 $CURRENTDATE=Get-Date -UFormat "%d%b%Y"
-cd results_BayesTraits_output/"$CURRENTDATE"
+cd results_BayesTraits_phyreg_output/"$CURRENTDATE"
 
 Invoke-Expression "$ACROBATFOLDER Bayes_Factor_phyreg_heatmap_cluster.pdf"
 Invoke-Expression "$ACROBATFOLDER Bayes_Factor_phyreg_heatmap.pdf"

@@ -1,13 +1,12 @@
-pandoc: '2.18'
-pkgdown: 2.0.6
+pandoc: '3.11'
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
-  phyreg_inputs: phyreg_inputs.html
-  phyreg_outputs: phyreg_outputs.html
-  phyreg_shell: phyreg_shell.html
-  phyreg_shell_project: phyreg_shell_project.html
-last_built: 2022-08-16T01:40Z
+  articles/phyreg_inputs: phyreg_inputs.html
+  articles/phyreg_outputs: phyreg_outputs.html
+  articles/phyreg_shell_project: phyreg_shell_project.html
+  articles/phyreg_shell: phyreg_shell.html
+last_built: 2026-11-06T11:48Z
 urls:
   reference: https://DBOSlab.github.io/InNOutBT/reference
   article: https://DBOSlab.github.io/InNOutBT/articles
-

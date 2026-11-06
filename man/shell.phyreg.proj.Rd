@@ -10,7 +10,7 @@ shell.phyreg.proj(dir_create_proj = NULL,
                   syst = NULL)
 }
 \arguments{
-\item{dir_create_proj}{Path to any computer's directory where an example
+\item{dir_create_proj}{Path to any directory on your computer where an example
 of a BayesTraits shell project folder and associated files for a full run with
 shell script should be saved.}
 
@@ -20,20 +20,67 @@ shell script should be saved.}
 By reporting a directory path and the computer's operating system
 ("unix" or "windows"), this function creates a BayesTraits project folder with
 associated example scripts and input data for a full shell script run and log
-processing multiple phylogenetic regression analyses with Meade & Pagel's
-(2022) \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html}{BayesTraits}
+processing of multiple phylogenetic regression analyses with Meade & Pagel's
+(2022) \href{https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html}{BayesTraits}
 program. The function produces an example of a shell script in Unix or Windows PowerShell
-that helps to fully automatize both the complete BayesTraits regression analysis
-and processing of the resulting log and stones files, by automatically running
+that helps to fully automate both the complete BayesTraits regression analysis
+and the processing of the resulting log and stones files, by automatically running
 the three main \code{InNOutBT} functions \code{\link{phyreg.inputs}},
 \code{\link{phyreg.shell}}, and \code{\link{phyreg.outputs}}, without
-directly opening the R or R Studio programs. Note that these files are just
-examples from an specific study of the Vataireoid legumes, and so you will have
-to edit the folder paths and analysis parameters in such example scripts according
+directly opening the R or RStudio programs. Note that these files are just
+examples from a specific study of the Vataireoid legumes, and so you will have
+to edit the folder paths and analysis parameters in these example scripts according
 to your desired regression analyses. See also a more complete article
 \href{https://dboslab.github.io/InNOutBT/articles/phyreg_shell_project.html}{describing a BayesTraits shell run project}
 that can be created with \code{shell.phyreg.proj} for fully automated
 multiple phylogenetic regression analyses.
+}
+\details{
+After creating the project folder with this function, follow these steps to
+run the project. These steps are for macOS (\code{syst = "unix"}); see the
+article linked above for the steps in Windows PowerShell.
+
+\strong{Before the first run}
+\enumerate{
+\item Install the BayesTraits program in any folder and note the path to that
+folder and the name of the executable file (e.g., \code{BayesTraitsV5}).
+\item Check that the executable file starts by running its full path in the Terminal.
+If macOS stops it (e.g., the message \code{killed}), remove the block that macOS
+adds to downloaded files, provided that you trust the source of the download:
+\code{xattr -d com.apple.quarantine /path/to/BayesTraits/BayesTraitsV5}.
+\item Check that the R packages \code{InNOutBT} and \code{treeio} are installed, and
+that \code{pandoc} is available in the Terminal, as the Word table needs it:
+\code{Rscript -e 'rmarkdown::pandoc_available()'}.
+}
+
+\strong{Edit the project files in any text editor}
+\enumerate{
+\item In \code{BayesTraits_full_phyreg_shell_unix.sh}, set \code{PROJECTFOLDER} to the
+path of the project folder, \code{BAYESTRFOLDER} to the path of the folder that
+contains the BayesTraits executable file, and \code{EMAIL} to your e-mail address.
+\item In \code{2_producing_BayesTraits_phyreg_shell.R}, set \code{BayesTraits_dir} to the
+same path as \code{BAYESTRFOLDER}, and \code{BayesTraits_exe} to the name of the
+executable file.
+\item To run your own study, also edit the three numbered R scripts and replace the
+files in the \code{Data} folder.
+}
+
+\strong{Run the project in the Terminal}
+\enumerate{
+\item Move to the project folder, not to the BayesTraits folder, because the main shell
+script moves to the BayesTraits folder by itself:
+\code{cd /path/to/BayesTraits_shell_phyreg_project}.
+\item Allow the main shell script to run, which is needed only once:
+\code{chmod 777 BayesTraits_full_phyreg_shell_unix.sh}.
+\item Start the full analysis: \code{./BayesTraits_full_phyreg_shell_unix.sh}. Keep the
+Terminal open until it finishes, which can take a long time with the default
+number of iterations.
+}
+
+The script then produces the input files, creates and runs the BayesTraits
+analyses, moves the resulting log and stones files to the project folder, and
+processes them. The final table and heatmaps are saved in the project folder, in
+\code{results_BayesTraits_phyreg_output}, within a subfolder named with the current date.
 }
 \examples{
 \dontrun{

@@ -4,7 +4,7 @@
 ## Give the path to both  the project run folder where the R scripts are, and the BayesTraits
 ## folder where the executable program is installed.
 PROJECTFOLDER="/Users/domingoscardoso/BayesTraits_shell_phyreg_project"
-BAYESTRFOLDER="/Users/domingoscardoso/BayesTraitsV4"
+BAYESTRFOLDER="/Users/domingoscardoso/BayesTraits"
 
 EMAIL="cardosobot@gmail.com"
 

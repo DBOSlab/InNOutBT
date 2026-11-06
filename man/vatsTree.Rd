@@ -5,7 +5,7 @@
 \alias{vatsTree}
 \title{BEAST-dated phylogeny or time-tree of the Vataireoid legumes}
 \format{
-Treedata file in nexus format as resulting from BEAST analysis
+Treedata file in Nexus format resulting from a BEAST analysis
 }
 \source{
 \href{https://doi.org/10.12705/675.6}{Cruz et al. (2018)}

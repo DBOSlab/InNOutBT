@@ -1,20 +1,20 @@
-#' Produces BayesTraits phylogenetic regression mean and linked input data comprising
+#' Produce BayesTraits phylogenetic regression mean and linked input data comprising
 #' samples of trait data
 #'
 #' @author Domingos Cardoso & Matt Lavin
 #'
-#' @description This script produces BayesTraits input data that comprise samples
-#' of trait data for phylogenetic regression analyses with Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html)
+#' @description This function produces BayesTraits input data that comprise samples
+#' of trait data for phylogenetic regression analyses with Meade & Pagel's (2022) [BayesTraits](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html)
 #' program. The function generates two text files. One includes linked samples of
 #' trait data and the other the mean values for samples of trait data. The function
 #' also includes an argument to calculate the net node count for each species or
 #' terminal taxon given a phylogenetic tree. Net nodes can serve as an explanatory
 #' variable to explore the effect of speciation rates on the response variable
 #' (e.g., [O’Donovan et al. 2018](https://doi.org/10.1038/s41559-017-0454-6)).
-#' See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
+#' See the [BayesTraits 5.0.3 Manual](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/Files/BayesTraitsV5.0.2-Manual.pdf)
 #' for further details on the specific format of the input files that are required
 #' by BayesTraits. See also a more complete article on how to automatically
-#' [create input files ](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)
+#' [create input files](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)
 #' with \code{phyreg.inputs} for the phylogenetic regression analyses.
 #'
 #' @usage
@@ -43,26 +43,26 @@
 #'
 #' @param tipscol Report the name of the column with terminal or tip labels to be
 #' included in the input file containing the mean and linked samples of trait data.
-#' Terminal labels on the phylogeny tree have to match row labels in the data files
+#' Terminal labels on the phylogenetic tree have to match row labels in the data files
 #' containing mean and linked samples of trait data.
 #'
-#' @param NodeCount Logical, the default is \code{FALSE}. The function will create
-#' a new column NodeCount, or net nodes, for each terminal label. Net nodes or
+#' @param NodeCount Logical, the default is \code{FALSE}. If \code{TRUE}, the function will create
+#' a new column, NodeCount (net nodes), for each terminal label. Net nodes or
 #' node count will be reported in the mean of the samples of trait data and will
 #' be replicated for every accession of each terminal label in the linked samples
 #' of trait data.
 #'
 #' @param logtransf A vector with the name of the column(s) in the original trait
 #' data to be log10-transformed. For example, if you report the columns c("DBH", "NodeCount")
-#' to be log10-transformed, the function will generate log10DBH and logNodeCount
+#' to be log10-transformed, the function will generate log10DBH and log10NodeCount
 #' for the BayesTraits input data files.
 #'
 #' @param sqrtransf A vector with the name of the column(s) in the original trait
-#' data to be log10-transformed squared. For example, if you define Nodecount to
+#' data to be log10-transformed squared. For example, if you define NodeCount to
 #' be log10-transformed squared because speciation rates may have recently slowed,
 #' the function will generate sqrNodeCount for the BayesTraits input data containing
 #' samples of traits. If sqrNodeCount is to be included in an analysis, list it
-#' as argument in \code{addtraits} (see below).
+#' in the argument \code{addtraits} (see below).
 #'
 #' @param traitcols A vector with the name of the column(s) in the original trait
 #' data that will serve as the response or dependent variable (first column name)
@@ -83,7 +83,7 @@
 #' among competing nested and non-nested models will facilitate the interpretation of
 #' coefficient estimates reported for Beta1, Beta2, etc. in the BayesTraits log files.
 #'
-#' @param dir_create Path to directory where results will be saved. The default
+#' @param dir_create Path to the directory where results will be saved. The default
 #' creates a directory named **results_BayesTraits_phyreg_input** and the results will
 #' be saved within a subfolder of that directory named with the current date.
 #'
@@ -106,10 +106,10 @@
 #' \dontrun{
 #' library(InNOutBT)
 #'
-#' ## Loading a example data file
+#' ## Loading an example data file
 #' data(vatsData)
 #'
-#' ## Loading a example tree file
+#' ## Loading an example tree file
 #' data(vatsTree)
 #'
 #' phyreg.inputs(tree = vatsTree,

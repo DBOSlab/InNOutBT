@@ -17,7 +17,8 @@ todaydate <- format(Sys.time(), "%d%b%Y")
 phyreg.shell(meanfile_dir = paste0("results_BayesTraits_phyreg_input/", todaydate),
              linkfile_dir = paste0("results_BayesTraits_phyreg_input/", todaydate),
              treefile_dir = "Data",
-             BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
+             BayesTraits_dir = "/Users/domingoscardoso/BayesTraits",
+             BayesTraits_exe = "BayesTraitsV5",
              responvar = "DBH",
              treetransf = c("Lambda", "VR"),
              Kappa = NULL,
@@ -29,7 +30,7 @@ phyreg.shell(meanfile_dir = paste0("results_BayesTraits_phyreg_input/", todaydat
              it = "130000000",
              sa = "100000",
              st = c("500", "5000"),
-             syst = "windows",
+             syst = "unix",
              dir_create = "results_BayesTraits_phyreg_shell",
              cc_DataTree = TRUE)
 

@@ -20,17 +20,17 @@ knitr::opts_chunk$set(
 
 \
 The main goal of the __InNOutBT__ package is to readily create input data and
-process output data for Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
+process output data for Meade & Pagel's (2022) [BayesTraits](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html) 
 program.\
 
-Here we show how to use the package's function `BayesTraits.outputs`
+Here we show how to use the package's function `phyreg.outputs`
 for processing all Log and Stones output text files from BayesTraits phylogenetic 
 independent contrast regression analyses.\
 \
 
 # Setup
 
-__InNOutBT__ is not on CRAN yet but you can install the latest development version 
+__InNOutBT__ is not on CRAN yet, but you can install the latest development version 
 from [GitHub](https://github.com/):
 
 ``` r
@@ -42,13 +42,13 @@ library(InNOutBT)
 ```
 \
 
-# Processing Log and Stone output files
+# Processing Log and Stones output files
 
-The function `BayesTraits.outputs` reads and processes the Log and Stones .txt 
+The function `phyreg.outputs` reads and processes the Log and Stones .txt 
 output files resulting from the independent contrast regression analyses and generates 
-tables in Word or CSV formats, which summarizes competing model and ranks them by
-log likelihood scores. Heatmaps derived from pairwise Bayes Factors are generated 
-in PDF format and these can be used to identify competing modes that are most similar
+tables in Word or CSV format, which summarize competing models and rank them by
+their log likelihood scores. Heatmaps derived from pairwise Bayes Factors are generated 
+in PDF format and these can be used to identify competing models that are most similar
 to the model with the highest log likelihood score.\
 
 ```{r, eval = FALSE}
@@ -70,7 +70,7 @@ phyreg.outputs(logst_dir = paste0(getwd(),"/BayesTraits_phyreg_outputs_log_stone
 
 \
 \
-Heatmap including Bayes Factor pairwise comparison:\
+Heatmap including pairwise Bayes Factor comparisons:\
 \
 ```{r, echo = FALSE}
 knitr::include_graphics("figures/bayes_factor_heatmap.png", dpi = 300)
@@ -93,6 +93,6 @@ knitr::include_graphics("figures/word_table_model_comparisons.png", dpi = 300)
 ```
 
 \
-See also associated article on how to [create input files ](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html) 
+See also the associated article on how to [create input files](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html) 
 with `phyreg.inputs` for independent contrast regression analyses, as well as 
 another article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html) with `phyreg.shell` for the analysis of one or multiple models.

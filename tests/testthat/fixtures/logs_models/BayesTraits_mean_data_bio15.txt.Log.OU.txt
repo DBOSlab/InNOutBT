@@ -1,0 +1,73 @@
+Options:
+Model:                           Independent Contrasts: Regression
+Tree File Name:                  vatcomb30_24May22_Yule.con.tree
+Data File Name:                  BayesTraits_mean_data_bio15.txt
+Log File Name:                   BayesTraits_mean_data_bio15.txt.Log.txt
+Save Initial Trees:              False
+Save Trees:                      False
+Summary:                         False
+Seed:                            1232685359
+Precision:                       64 bits
+Cores:                           1
+Analysis Type:                   MCMC
+Sample Period:                   100000
+Iterations:                      130000000
+Burn in:                         30000000
+MCMC ML Start:                   False
+Schedule File:                   BayesTraits_mean_data_bio15.txt.Schedule.txt
+Rate Dev:                        AutoTune
+No of Rates:                     1
+Test for trait correlation:      True
+Kappa:                           Not in use
+Delta:                           Not in use
+Lambda:                          Not in use
+OU:                              Estimate
+Restrictions:
+    Beta-1                       None
+Prior Information:
+    Priors
+        Beta-1 - uniform -100.00 100.00 
+        OU - exp 1.00 
+Distribution Data:
+             No Taxa 30
+             Luetzelburgia_amazonica_Cardoso2920 5 Linked samples
+             Luetzelburgia_andina_Cayola2358 14 Linked samples
+             Luetzelburgia_andradelimae_Cardoso2518 36 Linked samples
+             Luetzelburgia_auriculata_Cardoso2385 216 Linked samples
+             Luetzelburgia_bahiensis_Cardoso2942 108 Linked samples
+             Luetzelburgia_guaissara_Cardoso2202 29 Linked samples
+             Luetzelburgia_guianensis_Cardoso2857 5 Linked samples
+             Luetzelburgia_harleyi_Cardoso2076 7 Linked samples
+             Luetzelburgia_jacana_Banda386 9 Linked samples
+             Luetzelburgia_neurocarpa_Cardoso1853 2 Linked samples
+             Luetzelburgia_praecox_Cardoso2545 21 Linked samples
+             Luetzelburgia_purpurea_Cardoso2103 30 Linked samples
+             Luetzelburgia_sotoi_Soto1135 12 Linked samples
+             Luetzelburgia_trialata_Cardoso2196 11 Linked samples
+             Sweetia_fruticosa_Queiroz12778 14 Linked samples
+             Sweetia_fruticosa_Fuentes5632 166 Linked samples
+             Vatairea_erythrocarpa_Neill6727 58 Linked samples
+             Vatairea_fusca_Cardoso2939 43 Linked samples
+             Vatairea_guianensis_Cardoso2865 174 Linked samples
+             Vatairea_heteroptera_Cardoso2176 49 Linked samples
+             Vatairea_lundellii_Morales1125 72 Linked samples
+             Vatairea_macrocarpa_Cardoso2388 289 Linked samples
+             Vatairea_paraensis_Queiroz13039 20 Linked samples
+             Vatairea_sericea_Queiroz13919 64 Linked samples
+             Vatairea_tobyi_sp_nov_Foster2933 10 Linked samples
+             Vatairea_morii_sp_nov_Sabatier3763 7 Linked samples
+             Vataireopsis_araroba_Cardoso2348 63 Linked samples
+             Vataireopsis_iglesiasii_Froes12149 16 Linked samples
+             Vataireopsis_speciosa_Cardoso2208 44 Linked samples
+             Vataireopsis_surinamensis_Mori15090 16 Linked samples
+Tree Information
+     Trees:                      1
+     Taxa:                       30
+     Sites:                      2
+Iteration	Lh	Tree No	Alpha	Beta 1	Var	R^2	s.e. Alpha	s.e. Beta-1	OU	Luetzelburgia_amazonica_Cardoso2920-1	Luetzelburgia_amazonica_Cardoso2920-2	Luetzelburgia_andina_Cayola2358-1	Luetzelburgia_andina_Cayola2358-2	Luetzelburgia_andradelimae_Cardoso2518-1	Luetzelburgia_andradelimae_Cardoso2518-2	Luetzelburgia_auriculata_Cardoso2385-1	Luetzelburgia_auriculata_Cardoso2385-2	Luetzelburgia_bahiensis_Cardoso2942-1	Luetzelburgia_bahiensis_Cardoso2942-2	Luetzelburgia_guaissara_Cardoso2202-1	Luetzelburgia_guaissara_Cardoso2202-2	Luetzelburgia_guianensis_Cardoso2857-1	Luetzelburgia_guianensis_Cardoso2857-2	Luetzelburgia_harleyi_Cardoso2076-1	Luetzelburgia_harleyi_Cardoso2076-2	Luetzelburgia_jacana_Banda386-1	Luetzelburgia_jacana_Banda386-2	Luetzelburgia_neurocarpa_Cardoso1853-1	Luetzelburgia_neurocarpa_Cardoso1853-2	Luetzelburgia_praecox_Cardoso2545-1	Luetzelburgia_praecox_Cardoso2545-2	Luetzelburgia_purpurea_Cardoso2103-1	Luetzelburgia_purpurea_Cardoso2103-2	Luetzelburgia_sotoi_Soto1135-1	Luetzelburgia_sotoi_Soto1135-2	Luetzelburgia_trialata_Cardoso2196-1	Luetzelburgia_trialata_Cardoso2196-2	Sweetia_fruticosa_Queiroz12778-1	Sweetia_fruticosa_Queiroz12778-2	Sweetia_fruticosa_Fuentes5632-1	Sweetia_fruticosa_Fuentes5632-2	Vatairea_erythrocarpa_Neill6727-1	Vatairea_erythrocarpa_Neill6727-2	Vatairea_fusca_Cardoso2939-1	Vatairea_fusca_Cardoso2939-2	Vatairea_guianensis_Cardoso2865-1	Vatairea_guianensis_Cardoso2865-2	Vatairea_heteroptera_Cardoso2176-1	Vatairea_heteroptera_Cardoso2176-2	Vatairea_lundellii_Morales1125-1	Vatairea_lundellii_Morales1125-2	Vatairea_macrocarpa_Cardoso2388-1	Vatairea_macrocarpa_Cardoso2388-2	Vatairea_paraensis_Queiroz13039-1	Vatairea_paraensis_Queiroz13039-2	Vatairea_sericea_Queiroz13919-1	Vatairea_sericea_Queiroz13919-2	Vatairea_tobyi_sp_nov_Foster2933-1	Vatairea_tobyi_sp_nov_Foster2933-2	Vatairea_morii_sp_nov_Sabatier3763-1	Vatairea_morii_sp_nov_Sabatier3763-2	Vataireopsis_araroba_Cardoso2348-1	Vataireopsis_araroba_Cardoso2348-2	Vataireopsis_iglesiasii_Froes12149-1	Vataireopsis_iglesiasii_Froes12149-2	Vataireopsis_speciosa_Cardoso2208-1	Vataireopsis_speciosa_Cardoso2208-2	Vataireopsis_surinamensis_Mori15090-1	Vataireopsis_surinamensis_Mori15090-2	
+30100000	-0.924285	1	1.836050418183	-0.006570079778	0.115993662090	0.279036914400	N\A	0.002323465898	0.892937119823	1.602060	69.080318	1.562293	54.185167	1.079181	91.312786	0.991226	102.434377	0.716003	90.752959	1.494155	36.215423	0.845098	89.963774	0.845098	82.441623	1.450249	39.523515	0.845098	90.752959	0.845098	84.216913	1.012837	46.779401	0.845098	58.353485	1.477121	36.247632	1.382017	91.635913	1.382017	82.146594	1.767156	46.513813	1.502427	55.424996	1.750508	33.873193	1.797960	68.341216	1.811575	44.982058	1.365488	71.721011	1.676694	76.225618	1.474216	41.299388	1.477121	66.134411	1.720159	55.988064	1.594393	17.689053	1.781755	23.490451	1.696356	69.331609	1.511883	67.629070	
+30200000	1.438703	1	1.931859201632	-0.008045421087	0.050889242186	0.237222496181	N\A	0.002001499363	0.393892796358	1.602060	69.080318	1.230449	45.957899	1.079181	90.752959	0.991226	100.906442	0.716003	91.622112	1.494155	41.658814	0.845098	89.963774	0.845098	82.441623	1.450249	35.143603	0.845098	90.752959	0.845098	68.831933	1.012837	40.270268	0.845098	59.139685	1.477121	36.247632	1.382017	91.635913	1.227887	54.324470	1.767156	20.002940	1.255273	71.171075	1.750508	54.475366	1.797960	47.153496	1.811575	52.868229	1.365488	68.984882	1.676694	41.933867	1.474216	52.711649	1.477121	62.100609	1.720159	57.112101	1.594393	59.408780	1.781755	31.082039	1.696356	73.757730	1.781755	22.895317	
+30300000	5.102503	1	1.932292521110	-0.008233764882	0.034603189822	0.359939008549	N\A	0.001819729149	0.319493658476	1.602060	69.080318	1.311754	55.182907	1.079181	90.752959	0.991226	107.323805	0.716003	98.283423	1.494155	26.348297	0.845098	68.402242	0.845098	84.664439	1.397940	48.954600	0.845098	90.752959	0.845098	84.174461	1.012837	56.799767	0.845098	52.390871	1.477121	36.247632	1.382017	86.737700	1.382017	81.154398	1.767156	21.476150	1.502427	63.263276	1.750508	18.539092	1.797960	59.712937	1.811575	49.011009	1.365488	54.159174	1.676694	43.084602	1.474216	72.737794	1.477121	73.684512	1.720159	34.142545	1.594393	30.405603	1.781755	23.490451	1.696356	48.937719	1.511883	37.272034	
+30400000	1.842843	1	1.770264600919	-0.004867776480	0.030520887490	0.355239387355	N\A	0.001794905956	0.171627681524	1.653213	65.595441	1.506505	53.237859	1.079181	99.936024	0.991226	111.124009	0.716003	87.733145	1.494155	42.919293	0.845098	89.963774	0.845098	84.664439	1.450249	39.523515	0.845098	90.752959	0.845098	68.831933	1.012837	43.527084	0.845098	64.196107	1.397940	61.448028	1.382017	86.737700	1.382017	79.442783	1.767156	46.513813	1.502427	57.324889	1.875061	19.474121	1.797960	23.771793	1.811575	67.703328	1.365488	80.119438	1.676694	48.937719	1.474216	75.640475	1.477121	73.684512	1.720159	57.112101	1.594393	26.108359	1.781755	18.689577	1.696356	48.937719	1.511883	37.272034	
+30500000	3.617025	1	2.076653665842	-0.009560741084	0.038856607995	0.314234144451	N\A	0.002068298475	0.327931981901	1.602060	69.080318	1.413300	52.636875	1.079181	90.752959	0.991226	101.631593	0.716003	93.026512	1.494155	36.215423	0.845098	89.963774	0.845098	82.441623	1.450249	35.143603	0.845098	90.752959	0.845098	84.174461	1.012837	52.434136	0.845098	64.196107	1.477121	36.247632	1.382017	96.748968	1.382017	84.341820	1.767156	55.988064	1.502427	64.593401	1.750508	55.988064	1.797960	48.092951	1.811575	94.625137	1.365488	74.959508	1.676694	45.090312	1.474216	69.495173	1.477121	69.232224	1.720159	55.988064	1.594393	48.601577	1.781755	27.891690	1.505150	69.288199	1.511883	41.836468	
+30600000	6.135124	1	1.854920956275	-0.006650245918	0.032982166638	0.385968790358	N\A	0.001834402057	0.329927383307	1.602060	69.080318	1.281033	59.633938	1.079181	87.692054	0.991226	93.876611	0.716003	97.321420	1.494155	64.918835	0.845098	89.963774	0.845098	82.441623	1.450249	35.143603	0.845098	90.752959	0.845098	84.216913	1.012837	46.212024	0.845098	66.953268	1.397940	53.490598	1.382017	91.886534	1.382017	51.276265	1.767156	30.265245	1.502427	57.324889	1.602060	51.940713	1.797960	48.092951	1.811575	54.393981	1.365488	65.531911	1.676694	41.299388	1.474216	65.753793	1.477121	73.684512	1.720159	34.142545	1.594393	53.388382	1.781755	16.830973	1.696356	32.294890	1.511883	58.873688	

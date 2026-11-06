@@ -9,6 +9,7 @@ phyreg.shell(meanfile_dir = NULL,
              linkfile_dir = NULL,
              treefile_dir = NULL,
              BayesTraits_dir = NULL,
+             BayesTraits_exe = "BayesTraitsV5",
              responvar = NULL,
              treetransf = NULL,
              Kappa = NULL,
@@ -26,54 +27,59 @@ phyreg.shell(meanfile_dir = NULL,
 }
 \arguments{
 \item{meanfile_dir}{Path to the folder directory where the data file(s)
-containing trait means for samples of trait data is(are) stored.}
+containing trait means for samples of trait data are stored.}
 
 \item{linkfile_dir}{Path to the folder directory where the data file(s)
-containing samples of linked trait data is(are) stored.}
+containing samples of linked trait data are stored.}
 
 \item{treefile_dir}{Path to the folder directory where the tree file is stored.}
 
 \item{BayesTraits_dir}{Path to the folder directory where the BayesTraits
 executable file is stored.}
 
+\item{BayesTraits_exe}{Name of the BayesTraits executable file stored in
+\code{BayesTraits_dir}, which depends on the installed version of the program.
+The default is "BayesTraitsV5". For example, set "BayesTraitsV4" if you are
+running BayesTraits V4.}
+
 \item{responvar}{Report the name of the response variable of your analysis.}
 
 \item{treetransf}{In vector format, report tree transformation models to be
-estimated, such as \emph{Kappa}, \emph{Delta}, \emph{Lambda}, \emph{OU} (Ornstein–Uhlenbeck).
+estimated, such as \emph{Kappa}, \emph{Delta}, \emph{Lambda}, or \emph{OU} (Ornstein–Uhlenbeck).
 A model of variable rates \emph{VR} or the \emph{Fabric} model can be reported here,
 the latter of which is a statistical model accommodating an uneven evolutionary
 landscape, as described by \href{https://doi.org/10.1038/s41467-022-28595-z}{Pagel et al. (2022)}.
 We use \emph{UNI} as a designation for uniform rates of evolution where \emph{VR} is not
 estimated and no other tree transformation models are estimated (e.g., Lambda
-is assumed to be 1.0). In this case, "UNI" here set a complete default BayesTraits
+is assumed to be 1.0). In this case, "UNI" sets a complete default BayesTraits
 regression analysis.}
 
-\item{Kappa}{If set as default \code{NULL}, this tree transformation model will
+\item{Kappa}{If left as the default \code{NULL}, this tree transformation model will
 be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 But here you can also set a vector with any specific value between 0 and 1. If
-you want to run analyses with both specific and estimated values for for \emph{Kappa},
-then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+you want to run analyses with both specific and estimated values for \emph{Kappa},
+then you have to set a vector here, such as c("0.001", "1.0", "Estimate"). Report
 any number as a character (i.e., in quotes).}
 
-\item{Delta}{If set as default \code{NULL}, this tree transformation model will
+\item{Delta}{If left as the default \code{NULL}, this tree transformation model will
 be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 But here you can also set a vector with any specific value between 0 and 1. If
-you want to run analyses with both specific and estimated values for for \emph{Delta},
-then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+you want to run analyses with both specific and estimated values for \emph{Delta},
+then you have to set a vector here, such as c("0.001", "1.0", "Estimate"). Report
 any number as a character (i.e., in quotes).}
 
-\item{Lambda}{If set as default \code{NULL}, this tree transformation model will
+\item{Lambda}{If left as the default \code{NULL}, this tree transformation model will
 be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 But here you can also set a vector with any specific value between 0 and 1. If
-you want to run analyses with both specific and estimated values for for \emph{Lambda},
-then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+you want to run analyses with both specific and estimated values for \emph{Lambda},
+then you have to set a vector here, such as c("0.001", "1.0", "Estimate"). Report
 any number as a character (i.e., in quotes).}
 
-\item{OU}{If set as default \code{NULL}, this tree transformation model will
+\item{OU}{If left as the default \code{NULL}, this tree transformation model will
 be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 But here you can also set a vector with any specific value between 0 and 1. If
-you want to run analyses with both specific and estimated values for for \emph{OU},
-then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+you want to run analyses with both specific and estimated values for \emph{OU},
+then you have to set a vector here, such as c("0.001", "1.0", "Estimate"). Report
 any number as a character (i.e., in quotes).}
 
 \item{VRLambda}{Logical, the default is \code{FALSE}. If set as \code{TRUE},
@@ -85,7 +91,7 @@ variable rates \emph{VR}, provided that you have also chosen this model in the p
 \item{bi}{Set the number of iterations for the MCMC burnin. Report this number
 as a character (i.e., in quotes).}
 
-\item{it}{Set the number of total iterations for the MCMC chain. Report this
+\item{it}{Set the total number of iterations for the MCMC chain. Report this
 number as a character (i.e., in quotes).}
 
 \item{sa}{Set the sample frequency. Report this number as a character (i.e., in quotes).}
@@ -96,9 +102,10 @@ characters (i.e., a vector of numbers each in quotes).}
 
 \item{syst}{Report the operating system ("unix" or "windows").}
 
-\item{dir_create}{Path to the computer's working directory or where the file(s)
-will be saved. The default setting creates a directory "results_BayesTraits_phyreg_output"
-in which the results will be saved within a subfolder named by the current date.}
+\item{dir_create}{Path to the computer's working directory or to the directory where
+the file(s) will be saved. The default setting creates a directory named
+"results_BayesTraits_phyreg_shell", in which the results will be saved within a
+subfolder named with the current date.}
 
 \item{cc_DataTree}{Logical, the default is \code{TRUE}. A copy of the tree file
 and the mean and linked data files will be made in the BayesTraits folder where
@@ -108,15 +115,15 @@ the BayesTraits executable file is located.}
 By reporting the directory paths to the tree and data files, this
 function produces shell scripts in both Unix and Windows PowerShell formats
 for running one or multiple phylogenetic regression analyses with Meade & Pagel's
-(2022) \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html}{BayesTraits}
+(2022) \href{https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html}{BayesTraits}
 program. In addition to generating the shell script directly in the BayesTraits
 directory, the function also creates BayesTraits batch files with specified
 parameters, including generations set for burnin, iterations, and the stepping
 stones sampler (e.g., bi, it, sa, and st). In addition, models involving alternative
-tree transformations can be specified. See \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf}{BayesTraits V4.0.0 Manual}
+tree transformations can be specified. See the \href{https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/Files/BayesTraitsV5.0.2-Manual.pdf}{BayesTraits 5.0.3 Manual}
 for further details involving BayesTraits parameters and default settings for
 independent contrast regression analysis so as to better understand how to set
-arguments of this function \code{phyreg.shell}. You might consider using
+the arguments of this function \code{phyreg.shell}. You might consider using
 the function \code{\link{phyreg.inputs}} to generate properly formatted
 input files of mean and linked samples of trait data prior to using \code{phyreg.shell}.
 See also a more complete article on how to create a \href{https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html}{shell script}

@@ -5,38 +5,54 @@ export(phyreg.outputs)
 export(phyreg.shell)
 export(shell.phyreg.proj)
 importFrom(combinat,combn)
-importFrom(dplyr,arrange)
-importFrom(dplyr,desc)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,element_text)
-importFrom(ggplot2,geom_text)
-importFrom(ggplot2,geom_tile)
-importFrom(ggplot2,ggplot)
-importFrom(ggplot2,scale_fill_gradientn)
-importFrom(ggplot2,scale_x_discrete)
-importFrom(ggplot2,scale_y_discrete)
-importFrom(ggplot2,theme)
-importFrom(ggplot2,theme_minimal)
-importFrom(ggplot2,xlab)
-importFrom(ggplot2,ylab)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,pdf)
-importFrom(grid,gpar)
-importFrom(grid,unit)
+importFrom(dplyr,
+  arrange,
+  desc
+)
+importFrom(ggplot2,
+  aes,
+  element_text,
+  geom_text,
+  geom_tile,
+  ggplot,
+  scale_fill_gradientn,
+  scale_x_discrete,
+  scale_y_discrete,
+  theme,
+  theme_minimal,
+  xlab,
+  ylab
+)
+importFrom(grDevices,
+  dev.off,
+  pdf
+)
+importFrom(grid,
+  gpar,
+  unit
+)
 importFrom(knitr,kable)
 importFrom(magrittr,"%>%")
 importFrom(phangorn,Ancestors)
 importFrom(pheatmap,pheatmap)
 importFrom(reshape2,melt)
 importFrom(rlang,":=")
-importFrom(rmarkdown,render)
-importFrom(rmarkdown,word_document)
+importFrom(rmarkdown,
+  render,
+  word_document
+)
 importFrom(stats,na.omit)
-importFrom(stringr,str_pad)
-importFrom(stringr,str_trunc)
-importFrom(tibble,add_column)
-importFrom(tibble,tibble)
-importFrom(utils,read.delim)
-importFrom(utils,write.csv)
-importFrom(utils,write.table)
+importFrom(stringr,
+  str_pad,
+  str_trunc
+)
+importFrom(tibble,
+  add_column,
+  tibble
+)
+importFrom(utils,
+  read.delim,
+  write.csv,
+  write.table
+)
 importFrom(wesanderson,wes_palette)

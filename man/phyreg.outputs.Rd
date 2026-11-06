@@ -17,49 +17,49 @@ phyreg.outputs(logst_dir = NULL,
                ...)
 }
 \arguments{
-\item{logst_dir}{Path to the directory where are stored the log and stepping stones files
-generated during the independent contrast regression analysis. The log file(s) contain
+\item{logst_dir}{Path to the directory where the log and stepping stones files
+generated during the independent contrast regression analysis are stored. The log file(s) contain
 the model options and output. The stepping stones file(s) contain the marginal log
 likelihood for a given model. These files are labeled with the explanatory variable(s)
 of the relevant model, where each variable is separated by an underscore. Explanatory
 variables include any tree transformation included in a model, and these can include
 \emph{Kappa}, \emph{Delta}, \emph{Lambda}, \emph{OU} (Ornstein–Uhlenbeck), \emph{UNI} (for no tree transformation),
-\emph{VR} (variable rates) or \emph{Fabric} (for a model that accommodates uneven evolutionary
-landscape, as described by \href{https://doi.org/10.1038/s41467-022-28595-z}{Pagel et al. (2022)}.
-Thus, Log file(s) have a format like "BayesTraits_mean_data_bio12_bio15_VR.log.txt" and
+\emph{VR} (variable rates) or \emph{Fabric} (for a model that accommodates an uneven evolutionary
+landscape, as described by \href{https://doi.org/10.1038/s41467-022-28595-z}{Pagel et al. (2022)}).
+Thus, log file(s) have a format like "BayesTraits_mean_data_bio12_bio15_VR.log.txt" and
 "BayesTraits_mean_data_bio12_bio15_nnodes_Lambda.log.txt" (where nnodes signifies net
 nodes). This indicates that the first log file contains three explanatory variables
 ("bio12", "bio15", and variable rates), and the second log file contains four explanatory
 variables ("bio12", "bio15", "nnodes", and Lambda). Stepping stones file(s) should be
 named correspondingly (e.g., "BayesTraits_mean_data_bio12_bio15_VR.stones.txt" and
-"BayesTraits_mean_data_bio12_bio15_nnodes_Lambda.stones.txt".)}
+"BayesTraits_mean_data_bio12_bio15_nnodes_Lambda.stones.txt").}
 
 \item{responvar}{Report the name of the response variable.}
 
 \item{explanvar}{Report the name(s) of the explanatory variable(s) exactly as
-they are also written in the names of the log and stones files being processed.}
+they are written in the names of the log and stones files being processed.}
 
 \item{treetransf}{Select any of the available BayesTraits tree transformations
 (\emph{Kappa}, \emph{Delta}, \emph{Lambda}, \emph{OU}, \emph{UNI}, \emph{VR} or \emph{Fabric}) that are included
 among the competing models.}
 
 \item{bayesfactor}{Logical, if \code{FALSE}, then no Bayes Factor pairwise comparisons
-will performed among the models.}
+will be performed among the models.}
 
 \item{unirates}{Logical, if \code{FALSE}, then models lacking tree transformations
-(\emph{Kappa}, \emph{Delta}, \emph{Lambda} or \emph{OU}) and variable rates and Fabric (i.e., default values
+(\emph{Kappa}, \emph{Delta}, \emph{Lambda} or \emph{OU}), variable rates, and Fabric (i.e., default values
 and uniform rates of evolution are assumed) will not be displayed in the main table.}
 
-\item{outformat}{Define either "Word" or "CSV", or both, a vector c("Word", "CSV"),
-for writing the results in such formats.}
+\item{outformat}{Define either "Word" or "CSV", or both as a vector c("Word", "CSV"),
+for writing the results in those formats.}
 
 \item{tableleg}{A legend for the main table, provided that you have also chosen
 \code{outformat = "Word"}. If you do not report a legend, then the Word-formatted
 table will have the default legend \strong{Phylogenetic regression in BayesTraits}.}
 
-\item{dir_create}{Path to the directory where the file(s) will be saved. the default
+\item{dir_create}{Path to the directory where the file(s) will be saved. The default
 setting creates a directory named \strong{results_BayesTraits_phyreg_output} where the results
-will be saved in a subfolder named by the current date.}
+will be saved in a subfolder named with the current date.}
 
 \item{outfile}{Name of the resulting table-formatted files in either "Word", "CSV",
 or both (depending on the specified argument \code{outformat}). If no name is reported,
@@ -69,22 +69,22 @@ the default setting creates a file named
 \item{...}{Additional parameters passed to pdf.}
 }
 \value{
-Table in dataframe format, which is also saved in .csv format.
+Table in data frame format, which is also saved in .csv format.
 }
 \description{
 This function processes the output reported in the log and stones .txt files,
 which are generated from the phylogenetic regression analyses in Meade & Pagel's (2022)
-\href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html}{BayesTraits}
-program. The resulting files are tables either Word or CSV formats and these rank
+\href{https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html}{BayesTraits}
+program. The resulting files are tables in either Word or CSV format, and these rank
 competing models by their likelihood scores. Bayes Factors can also be reported in the
 case where models with tree transformations (e.g., either Lambda or variable rates are
-estimated) always have high likelihood scores than simpler models (e.g., those with neither
+estimated) always have higher likelihood scores than simpler models (e.g., those with neither
 Lambda nor variable rates estimated). In this case, the reported Bayes Factors pertain
-to the more complex model listed in the table and the simpler nested model that didn't
-involve a tree transformation. Heatmaps based on pairwise Bayes Factor comparison
+to the more complex model listed in the table and the simpler nested model that did not
+involve a tree transformation. Heatmaps based on pairwise Bayes Factor comparisons
 are also automatically produced in PDF format. These are intended to identify
 models that are most similar to the model with the highest likelihood score.
-See \href{http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf}{BayesTraits V4.0.0 Manual}
+See the \href{https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/Files/BayesTraitsV5.0.2-Manual.pdf}{BayesTraits 5.0.3 Manual}
 for details of the output files produced by BayesTraits, which may facilitate an
 understanding of how output files are processed with the function \code{phyreg.outputs}.
 See also a more complete article on how to use \code{phyreg.outputs} to

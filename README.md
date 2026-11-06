@@ -4,25 +4,31 @@
 # InNOutBT <img src="man/figures/innoutbt.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/DBOSlab/InNOutBT/graph/badge.svg)](https://app.codecov.io/gh/DBOSlab/InNOutBT)
+[![Test
+Coverage](https://github.com/DBOSlab/InNOutBT/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/DBOSlab/InNOutBT/actions/workflows/test-coverage.yaml)
+[![R-CMD-check](https://github.com/DBOSlab/InNOutBT/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/DBOSlab/InNOutBT/actions/workflows/R-CMD-check.yaml)
+[![License:
+MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 <!-- badges: end -->
 
-An R package for creating input data and processing output data in
-formats required of Meade & Pagel’s (2022)
-[BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html)
-computer package.  
-  
+An R package for creating input data and processing output data in the
+formats required by Meade & Pagel’s (2022)
+[BayesTraits](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html)
+computer package.
 
 ## Overview
 
 The package **InNOutBT** remains under development. Currently, it has
 three major functions that help to automate BayesTraits phylogenetic
 independent contrast regression analyses. To better understand how these
-functions work, see [BayesTraits V4.0.0
-Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
+functions work, see the [BayesTraits 5.0.3
+Manual](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/Files/BayesTraitsV5.0.2-Manual.pdf)
 for further details on the specific format of the input files that are
-required by BayesTraits, as well as the BayesTraits strucuture of
-resulting output files.  
-  
+required by BayesTraits, as well as the structure of the resulting
+BayesTraits output files.
 
 ## Installation
 
@@ -38,30 +44,25 @@ devtools::install_github("DBOSlab/InNOutBT")
 library(InNOutBT)
 ```
 
-  
-  
-
 ## Usage
 
 A general description of each of the three available functions
-(`phyreg.inputs`, `phyreg.shell`, and `phyreg.outputs`) are provided
-below.  
-  
+(`phyreg.inputs`, `phyreg.shell`, and `phyreg.outputs`) is provided
+below.
 
 #### *1. `phyreg.inputs`: Creating input mean and linked data for phylogenetic regression analyses*
 
 This function produces the required BayesTraits input data of linked
 samples of trait/climate data (distribution data), by generating two
-text files, one of which includes the mean values associated with each
-trait associated with a terminal taxon and a second of which reports
-samples of trait values that are linked to each other because they were
-sampled from one accession of the associated terminal taxon. The
-function also includes an argument to calculate the net node count for
-each species/accession given a phylogenetic tree. Net node counts have
-been used to explore the effects of speciation rates on the response
-variable (e.g. [O’Donovan et
-al. 2018](https://doi.org/10.1038/s41559-017-0454-6)).  
-  
+text files, one of which includes the mean value of each trait
+associated with a terminal taxon, and the other of which reports samples
+of trait values that are linked to each other because they were sampled
+from one accession of the associated terminal taxon. The function also
+includes an argument to calculate the net node count for each
+species/accession given a phylogenetic tree. Net node counts have been
+used to explore the effects of speciation rates on the response variable
+(e.g., [O’Donovan et
+al. 2018](https://doi.org/10.1038/s41559-017-0454-6)).
 
 ##### Example of using `phyreg.inputs`:
 
@@ -86,28 +87,23 @@ phyreg.inputs(tree = phylo,
               fileOrigData = "vataireoids_1610_25May2022_BayesTraits_netnodes_logtransf.csv")
 ```
 
-  
-  
-
 #### *2. `phyreg.shell`: Creating shell script for running phylogenetic regression analyses*
 
 Using directory paths to the tree and the input files of mean and linked
 trait data, this function produces shell scripts in both Unix and
 Windows PowerShell formats for running one or multiple phylogenetic
 regression analyses. This function creates the necessary batch file
-commands, including the desired settings for the burnin, iterations, and
-stepping stones parameters (e.g., abbreviated as bi, it, sa, and st) for
-a given run, in addition to incorporating any model of tree
-transformation. In the example below, we use “UNI”, “Lambda”, and “VR”
-in the treefransf argument to indicate we want three separate sets of
-batch file commands all identical except one, designated as “UNI” will
-not estimate “Lambda” or “VR” (variable rates). We use “UNI” to indicate
-the assumption of uniform rates of evolution and no other tree
-transformation (e.g., such as estimating “Lambda”). In this case, “UNI”
-here will consider a default BayesTraits regression analysis where
-“Lambda” assumes the default setting of 1.0 (see the BayesTraits
-manual).  
-  
+commands, including the desired settings for the burnin, iterations,
+sample frequency, and stepping stones parameters (abbreviated as bi, it,
+sa, and st) for a given run, in addition to incorporating any model of
+tree transformation. In the example below, we use “UNI”, “Kappa”,
+“Lambda”, and “VR” in the `treetransf` argument to indicate that we want
+four separate sets of batch file commands, one of which, designated as
+“UNI”, will not estimate “Kappa”, “Lambda”, or “VR” (variable rates). We
+use “UNI” to indicate the assumption of uniform rates of evolution and
+no other tree transformation (e.g., estimating “Lambda”). In this case,
+“UNI” specifies a default BayesTraits regression analysis where “Lambda”
+assumes the default setting of 1.0 (see the BayesTraits manual).
 
 ##### Example of using `phyreg.shell`:
 
@@ -117,7 +113,8 @@ library(InNOutBT)
 phyreg.shell(meanfile_dir = "results_BayesTraits_phyreg_input/03Jun2022",
              linkfile_dir = "results_BayesTraits_phyreg_input/03Jun2022",
              treefile_dir = "Data",
-             BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
+             BayesTraits_dir = "/Users/domingoscardoso/BayesTraits",
+             BayesTraits_exe = "BayesTraitsV5",
              responvar = "DBH",
              treetransf = c("UNI", "Kappa", "Lambda", "VR"),
              bi = "30000000",
@@ -129,19 +126,14 @@ phyreg.shell(meanfile_dir = "results_BayesTraits_phyreg_input/03Jun2022",
              cc_DataTree = TRUE)
 ```
 
-  
-  
-
 #### *3. `phyreg.outputs`: Processing output data from phylogenetic regression analyses*
 
 This function processes the output Log and Stones .txt files from
 phylogenetic regression analyses. The resulting processed files are
-tables either in Word or CSV formats summarizing each model, including
+tables in either Word or CSV format summarizing each model, including
 comparisons of Bayes Factors. Heatmaps using pairwise Bayes Factor
 comparisons are also produced in PDF format (we use heatmaps only to
-identify models similar to the model with the highest likelihood
-score).  
-  
+identify models similar to the model with the highest likelihood score).
 
 ##### Example of using `phyreg.outputs`:
 
@@ -162,20 +154,13 @@ phyreg.outputs(logst_dir = paste0(getwd(),"/BayesTraits_phyreg_outputs_log_stone
                width = 20)
 ```
 
-  
-  
-
 ## Documentation
 
-A detailed description of the **InNOutBT**’s full functionality is
-available in different
-[articles](https://dboslab.github.io/InNOutBT/).  
-  
+A detailed description of **InNOutBT**’s full functionality is available
+in different [articles](https://dboslab.github.io/InNOutBT/).
 
 ## Citation
 
 Cardoso, D. & Lavin, M. (2022). InNOutBT: An R package for creating
 input data and processing output data required for BayesTraits analyses.
 <https://github.com/dboslab/InNOutBT>
-
-<img src="man/figures/DBOSlab_logo.png" align="left" alt="" width="150" />

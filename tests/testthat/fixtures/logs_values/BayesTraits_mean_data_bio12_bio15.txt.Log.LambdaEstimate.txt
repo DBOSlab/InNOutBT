@@ -1,0 +1,75 @@
+Options:
+Model:                           Independent Contrasts: Regression
+Tree File Name:                  vatcomb30_24May22_Yule.con.tree
+Data File Name:                  BayesTraits_mean_data_bio12_bio15.txt
+Log File Name:                   BayesTraits_mean_data_bio12_bio15.txt.Log.txt
+Save Initial Trees:              False
+Save Trees:                      False
+Summary:                         False
+Seed:                            3600439662
+Precision:                       64 bits
+Cores:                           1
+Analysis Type:                   MCMC
+Sample Period:                   1000
+Iterations:                      1300000
+Burn in:                         300000
+MCMC ML Start:                   False
+Schedule File:                   BayesTraits_mean_data_bio12_bio15.txt.Schedule.txt
+Rate Dev:                        AutoTune
+No of Rates:                     2
+Test for trait correlation:      True
+Kappa:                           Not in use
+Delta:                           Not in use
+Lambda:                          Estimate
+OU:                              Not in use
+Restrictions:
+    Beta-1                       None
+    Beta-2                       None
+Prior Information:
+    Priors
+        Beta-1 - uniform -100.00 100.00 
+        Beta-2 - uniform -100.00 100.00 
+        Lambda - uniform 0.00 1.00 
+Distribution Data:
+             No Taxa 30
+             Luetzelburgia_amazonica_Cardoso2920 5 Linked samples
+             Luetzelburgia_andina_Cayola2358 14 Linked samples
+             Luetzelburgia_andradelimae_Cardoso2518 36 Linked samples
+             Luetzelburgia_auriculata_Cardoso2385 216 Linked samples
+             Luetzelburgia_bahiensis_Cardoso2942 108 Linked samples
+             Luetzelburgia_guaissara_Cardoso2202 29 Linked samples
+             Luetzelburgia_guianensis_Cardoso2857 5 Linked samples
+             Luetzelburgia_harleyi_Cardoso2076 7 Linked samples
+             Luetzelburgia_jacana_Banda386 9 Linked samples
+             Luetzelburgia_neurocarpa_Cardoso1853 2 Linked samples
+             Luetzelburgia_praecox_Cardoso2545 21 Linked samples
+             Luetzelburgia_purpurea_Cardoso2103 30 Linked samples
+             Luetzelburgia_sotoi_Soto1135 12 Linked samples
+             Luetzelburgia_trialata_Cardoso2196 11 Linked samples
+             Sweetia_fruticosa_Queiroz12778 14 Linked samples
+             Sweetia_fruticosa_Fuentes5632 166 Linked samples
+             Vatairea_erythrocarpa_Neill6727 58 Linked samples
+             Vatairea_fusca_Cardoso2939 43 Linked samples
+             Vatairea_guianensis_Cardoso2865 174 Linked samples
+             Vatairea_heteroptera_Cardoso2176 49 Linked samples
+             Vatairea_lundellii_Morales1125 72 Linked samples
+             Vatairea_macrocarpa_Cardoso2388 289 Linked samples
+             Vatairea_paraensis_Queiroz13039 20 Linked samples
+             Vatairea_sericea_Queiroz13919 64 Linked samples
+             Vatairea_tobyi_sp_nov_Foster2933 10 Linked samples
+             Vatairea_morii_sp_nov_Sabatier3763 7 Linked samples
+             Vataireopsis_araroba_Cardoso2348 63 Linked samples
+             Vataireopsis_iglesiasii_Froes12149 16 Linked samples
+             Vataireopsis_speciosa_Cardoso2208 44 Linked samples
+             Vataireopsis_surinamensis_Mori15090 16 Linked samples
+Tree Information
+     Trees:                      1
+     Taxa:                       30
+     Sites:                      3
+Iteration	Lh	Tree No	Alpha	Beta 1	Beta 2	Var	R^2	s.e. Alpha	s.e. Beta-1	s.e. Beta-2	Lambda	Luetzelburgia_amazonica_Cardoso2920-1	Luetzelburgia_amazonica_Cardoso2920-2	Luetzelburgia_amazonica_Cardoso2920-3	Luetzelburgia_andina_Cayola2358-1	Luetzelburgia_andina_Cayola2358-2	Luetzelburgia_andina_Cayola2358-3	Luetzelburgia_andradelimae_Cardoso2518-1	Luetzelburgia_andradelimae_Cardoso2518-2	Luetzelburgia_andradelimae_Cardoso2518-3	Luetzelburgia_auriculata_Cardoso2385-1	Luetzelburgia_auriculata_Cardoso2385-2	Luetzelburgia_auriculata_Cardoso2385-3	Luetzelburgia_bahiensis_Cardoso2942-1	Luetzelburgia_bahiensis_Cardoso2942-2	Luetzelburgia_bahiensis_Cardoso2942-3	Luetzelburgia_guaissara_Cardoso2202-1	Luetzelburgia_guaissara_Cardoso2202-2	Luetzelburgia_guaissara_Cardoso2202-3	Luetzelburgia_guianensis_Cardoso2857-1	Luetzelburgia_guianensis_Cardoso2857-2	Luetzelburgia_guianensis_Cardoso2857-3	Luetzelburgia_harleyi_Cardoso2076-1	Luetzelburgia_harleyi_Cardoso2076-2	Luetzelburgia_harleyi_Cardoso2076-3	Luetzelburgia_jacana_Banda386-1	Luetzelburgia_jacana_Banda386-2	Luetzelburgia_jacana_Banda386-3	Luetzelburgia_neurocarpa_Cardoso1853-1	Luetzelburgia_neurocarpa_Cardoso1853-2	Luetzelburgia_neurocarpa_Cardoso1853-3	Luetzelburgia_praecox_Cardoso2545-1	Luetzelburgia_praecox_Cardoso2545-2	Luetzelburgia_praecox_Cardoso2545-3	Luetzelburgia_purpurea_Cardoso2103-1	Luetzelburgia_purpurea_Cardoso2103-2	Luetzelburgia_purpurea_Cardoso2103-3	Luetzelburgia_sotoi_Soto1135-1	Luetzelburgia_sotoi_Soto1135-2	Luetzelburgia_sotoi_Soto1135-3	Luetzelburgia_trialata_Cardoso2196-1	Luetzelburgia_trialata_Cardoso2196-2	Luetzelburgia_trialata_Cardoso2196-3	Sweetia_fruticosa_Queiroz12778-1	Sweetia_fruticosa_Queiroz12778-2	Sweetia_fruticosa_Queiroz12778-3	Sweetia_fruticosa_Fuentes5632-1	Sweetia_fruticosa_Fuentes5632-2	Sweetia_fruticosa_Fuentes5632-3	Vatairea_erythrocarpa_Neill6727-1	Vatairea_erythrocarpa_Neill6727-2	Vatairea_erythrocarpa_Neill6727-3	Vatairea_fusca_Cardoso2939-1	Vatairea_fusca_Cardoso2939-2	Vatairea_fusca_Cardoso2939-3	Vatairea_guianensis_Cardoso2865-1	Vatairea_guianensis_Cardoso2865-2	Vatairea_guianensis_Cardoso2865-3	Vatairea_heteroptera_Cardoso2176-1	Vatairea_heteroptera_Cardoso2176-2	Vatairea_heteroptera_Cardoso2176-3	Vatairea_lundellii_Morales1125-1	Vatairea_lundellii_Morales1125-2	Vatairea_lundellii_Morales1125-3	Vatairea_macrocarpa_Cardoso2388-1	Vatairea_macrocarpa_Cardoso2388-2	Vatairea_macrocarpa_Cardoso2388-3	Vatairea_paraensis_Queiroz13039-1	Vatairea_paraensis_Queiroz13039-2	Vatairea_paraensis_Queiroz13039-3	Vatairea_sericea_Queiroz13919-1	Vatairea_sericea_Queiroz13919-2	Vatairea_sericea_Queiroz13919-3	Vatairea_tobyi_sp_nov_Foster2933-1	Vatairea_tobyi_sp_nov_Foster2933-2	Vatairea_tobyi_sp_nov_Foster2933-3	Vatairea_morii_sp_nov_Sabatier3763-1	Vatairea_morii_sp_nov_Sabatier3763-2	Vatairea_morii_sp_nov_Sabatier3763-3	Vataireopsis_araroba_Cardoso2348-1	Vataireopsis_araroba_Cardoso2348-2	Vataireopsis_araroba_Cardoso2348-3	Vataireopsis_iglesiasii_Froes12149-1	Vataireopsis_iglesiasii_Froes12149-2	Vataireopsis_iglesiasii_Froes12149-3	Vataireopsis_speciosa_Cardoso2208-1	Vataireopsis_speciosa_Cardoso2208-2	Vataireopsis_speciosa_Cardoso2208-3	Vataireopsis_surinamensis_Mori15090-1	Vataireopsis_surinamensis_Mori15090-2	Vataireopsis_surinamensis_Mori15090-3	
+301000	7.421786	1	1.530275468838	0.000180026742	-0.007074994143	0.003682815721	0.544380568264	N\A	0.000058555125	0.001665945229	0.653690188059	1.653213	2197.000000	65.595441	1.506505	1846.000000	53.237859	1.113943	812.000000	88.244460	0.845098	588.000000	93.804439	0.716003	432.000000	98.699963	1.494155	1493.000000	36.215423	0.845098	1437.000000	89.963774	0.845098	614.000000	82.441623	1.477121	1357.000000	49.678812	0.845098	560.000000	90.752959	0.845098	1271.000000	68.831933	1.012837	745.000000	51.921460	0.845098	1110.000000	51.861884	1.477121	1246.000000	36.247632	1.382017	870.000000	40.333153	1.382017	1066.000000	57.861290	1.439333	2237.000000	57.490920	1.502427	2756.000000	38.569568	1.750508	2921.000000	22.423267	1.797960	1147.000000	21.175011	1.811575	3303.000000	67.703328	1.365488	1633.000000	81.298766	1.653213	1351.000000	41.767389	1.474216	2233.000000	36.907275	1.477121	2603.000000	73.684512	1.720159	2439.000000	43.914600	1.594393	1516.000000	17.689053	1.781755	2750.000000	38.248795	1.696356	2152.000000	48.937719	1.511883	2018.000000	67.629070	
+302000	6.029380	1	1.571366515354	0.000148592105	-0.005885338139	0.003123856849	0.523604691581	N\A	0.000070842183	0.001997138924	0.451327558782	1.653213	2197.000000	65.595441	1.506505	1846.000000	53.237859	1.079181	818.000000	95.401438	0.845098	588.000000	93.804439	0.716003	627.000000	91.619418	1.494155	1305.000000	63.646427	0.845098	1437.000000	89.963774	0.845098	614.000000	82.441623	1.447158	1357.000000	49.678812	0.845098	560.000000	90.752959	0.845098	1686.000000	84.344770	1.012837	745.000000	51.921460	0.845098	1051.000000	57.757655	1.477121	1246.000000	36.247632	1.382017	1256.000000	86.737700	1.602060	1219.000000	49.998040	1.767156	3004.000000	17.210932	1.477121	2250.000000	55.297247	1.799341	3139.000000	19.788890	1.797960	1673.000000	47.520469	1.811575	3303.000000	67.703328	1.365488	1294.000000	96.480447	1.676694	2422.000000	52.772912	1.474216	1737.000000	65.753793	1.477121	2185.000000	66.134411	1.720159	2373.000000	34.142545	1.594393	1222.000000	59.033579	1.781755	2998.000000	16.830973	1.696356	2246.000000	68.037570	1.511883	1991.000000	58.873688	
+303000	5.569242	1	1.542469254284	0.000114874195	-0.006346121271	0.002461177880	0.598397245980	N\A	0.000059535880	0.001817539167	0.040959336754	1.653213	2197.000000	65.595441	1.230449	1180.000000	45.957899	1.079181	749.000000	61.743657	0.991226	1003.000000	94.725539	0.716003	627.000000	91.619418	1.494155	1529.000000	21.137642	0.845098	1437.000000	89.963774	0.845098	614.000000	82.441623	1.450249	2129.000000	41.445954	0.845098	560.000000	90.752959	0.845098	1686.000000	84.344770	1.012837	534.000000	52.434136	0.845098	1180.000000	58.353485	1.477121	1246.000000	36.247632	1.382017	870.000000	40.333153	1.382017	1315.000000	66.675749	1.767156	3004.000000	17.210932	1.477121	2250.000000	55.297247	1.799341	3139.000000	19.788890	1.681241	1203.000000	53.388382	1.811575	2490.000000	52.609141	1.365488	1294.000000	96.480447	1.676694	2744.000000	76.225618	1.474216	1942.000000	75.640475	1.477121	2185.000000	66.134411	1.720159	2373.000000	34.142545	1.594393	1295.000000	18.297687	1.781755	2998.000000	16.830973	1.696356	2152.000000	48.937719	1.511883	2439.000000	43.914600	
+304000	11.729952	1	1.272963307462	0.000203626499	-0.003254416430	0.002268567662	0.589110444726	N\A	0.000060224412	0.001553113840	0.506864418692	1.602060	1891.000000	69.080318	1.230449	1180.000000	45.957899	1.079181	1256.000000	86.737700	0.991226	487.000000	103.238688	0.716003	504.000000	97.321420	1.494155	1399.000000	42.919293	0.845098	1437.000000	89.963774	0.845098	614.000000	82.441623	1.450249	2106.000000	39.467174	0.845098	560.000000	90.752959	0.845098	1599.000000	86.441051	1.012837	633.000000	58.614047	0.845098	1180.000000	58.353485	1.397940	1529.000000	43.116632	1.382017	1025.000000	52.769856	1.382017	1315.000000	66.675749	1.767156	2554.000000	46.513813	1.502427	1889.000000	49.612836	1.750508	2833.000000	20.852445	1.431364	1203.000000	53.388382	1.811575	2771.000000	67.366091	1.365488	1442.000000	105.002200	1.676694	2193.000000	41.299388	1.474216	1942.000000	75.640475	1.477121	2185.000000	66.134411	1.720159	2803.000000	53.423739	1.594393	1592.000000	17.341984	1.781755	2998.000000	17.093338	1.696356	2162.000000	46.118067	1.511883	2018.000000	67.629070	
+305000	7.973273	1	1.446852218712	0.000210612883	-0.006397865532	0.002924923018	0.500006345216	N\A	0.000063833011	0.001686749704	0.510065546121	1.653213	2197.000000	65.595441	1.230449	1180.000000	45.957899	1.079181	1257.000000	87.692054	0.991226	892.000000	98.987642	0.716003	504.000000	97.321420	1.494155	1994.000000	45.340247	0.845098	1437.000000	89.963774	0.845098	614.000000	82.441623	1.477121	1357.000000	49.678812	0.845098	560.000000	90.752959	0.845098	1599.000000	86.441051	1.012837	583.000000	45.338069	0.845098	1180.000000	58.353485	1.397940	1529.000000	43.116632	1.382017	844.000000	91.886534	1.330414	1616.000000	57.024019	1.767156	2489.000000	30.265245	1.502427	1837.000000	51.353758	1.750508	2606.000000	54.461818	1.681241	1203.000000	53.388382	1.811575	2771.000000	67.366091	1.365488	1442.000000	105.002200	1.676694	2662.000000	54.255924	1.474216	1942.000000	75.640475	1.477121	2549.000000	58.209199	1.720159	2803.000000	53.423739	1.594393	1592.000000	17.341984	1.781755	2998.000000	17.093338	1.696356	2378.000000	69.440960	1.511883	2190.000000	39.989145	
+306000	6.618934	1	1.673608401238	0.000116160446	-0.006847884258	0.002528939694	0.513256699062	N\A	0.000067176418	0.001891149453	0.246158929607	1.653213	2214.000000	65.037659	1.320146	1559.000000	58.166713	1.079181	560.000000	90.752959	0.991226	1034.000000	92.230547	0.716003	588.000000	94.806981	1.494155	1572.000000	66.241916	0.845098	1437.000000	89.963774	0.845098	614.000000	82.441623	1.397940	1295.000000	48.954600	0.845098	560.000000	90.752959	0.845098	1545.000000	81.772290	1.012837	609.000000	79.182588	0.845098	1270.000000	64.196107	1.397940	1995.000000	54.925954	1.382017	1146.000000	57.572544	1.382017	1209.000000	56.100518	1.767156	2489.000000	30.265245	1.502427	1203.000000	55.553610	1.750508	2460.000000	34.084446	1.797960	1626.000000	10.517118	1.811575	2234.000000	88.959157	1.365488	1442.000000	105.002200	1.676694	1191.000000	45.437825	1.474216	1942.000000	75.640475	1.477121	2185.000000	66.134411	1.720159	2803.000000	53.423739	1.594393	1148.000000	51.185914	1.781755	2739.000000	23.490451	1.696356	2378.000000	69.440960	1.511883	1624.000000	67.755323	

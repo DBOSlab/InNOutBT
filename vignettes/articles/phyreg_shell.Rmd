@@ -21,29 +21,29 @@ knitr::opts_chunk$set(
 
 \
 The main goal of the __InNOutBT__ package is to readily create input data and
-process output data for Meade & Pagel's (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html) 
+process output data for Meade & Pagel's (2022) [BayesTraits](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html) 
 program.\
 
 Here in this article, we show how to use __InNOutBT__'s function `phyreg.shell`
 for producing shell scripts and associated run commands of BayesTraits phylogenetic 
 independent contrast regression analyses. Basically, the function `phyreg.shell`
-uses the directory paths to the tree, mean and linked data files as created with
+uses the directory paths to the tree, mean, and linked data files as created with
 `phyreg.inputs` (see article [here](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)),
 to automatically produce shell scripts in both Unix and Windows PowerShell formats. 
-The resulting single shell script file can then be used for running one or all-in-once
-multiple BayesTraits phylogenetic regressions, without manually setting new analyses
+The resulting single shell script file can then be used for running one or multiple
+BayesTraits phylogenetic regressions all at once, without manually setting new analyses
 with new parameters. The shell script produced with `phyreg.shell` should 
-have thus all parameters for all analyses with any defined model. In addition to 
-save the shell script directly in BayesTraits directory, the function saves all 
-the separate running files with BayesTraits specified parameters (bi, it, sa, and
-st) for any run, depending on the chosen model of tree transformation. See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
-for further details on each of BayesTraits parameters available for phylogenetic
+thus have all parameters for all analyses with any defined model. In addition to
+saving the shell script directly in the BayesTraits directory, the function saves all 
+the separate running files with the specified BayesTraits parameters (bi, it, sa, and
+st) for any run, depending on the chosen model of tree transformation. See the [BayesTraits 5.0.3 Manual](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/Files/BayesTraitsV5.0.2-Manual.pdf)
+for further details on each of the BayesTraits parameters available for phylogenetic
 regression so as to better understand how to set the arguments of `phyreg.shell`.\
 \
 
 # Setup
 
-__InNOutBT__ is not on CRAN yet but you can install the latest development version 
+__InNOutBT__ is not on CRAN yet, but you can install the latest development version 
 from [GitHub](https://github.com/):
 
 ``` r
@@ -55,20 +55,22 @@ library(InNOutBT)
 ```
 \
 
-# Creating Unix shell script
+# Creating a Unix shell script
 
 Set the argument `syst = "unix"` to create a shell script for running the phylogenetic
-regressions with macOS Monterey.\
+regressions on macOS Monterey.\
 
-Note that you should give the name of the response variable of your analysis in
+Note that you should give the path to the folder that contains the BayesTraits
+executable file in the argument `BayesTraits_dir`, the name of that file in
+`BayesTraits_exe`, and the name of the response variable of your analysis in
 the argument `responvar`. Also, you should use the argument `treetransf` to define
-any or all (listed as a vector) available tree transformation models that you want
-to run the phylogenetic regressions with your input data. As such, choose among 
+any or all (listed as a vector) available tree transformation models with which you want
+to run the phylogenetic regressions on your input data. As such, choose among 
 the models *Kappa*, *Delta*, *Lambda*, *OU* (Ornstein–Uhlenbeck), *UNI* (if you 
-have set a complete default BayesTraits regression analysis, i.e. assumed a uniform
-rates of evolution no other tree transformation models were estimated), *VR* (if 
-you have used a variable rates) or *Fabric* (if you want to use the general statistical
-mode that accommodates uneven evolutionary landscape as described by [Pagel et al. 2022](https://doi.org/10.1038/s41467-022-28595-z)).\
+have set a complete default BayesTraits regression analysis, i.e., assuming uniform
+rates of evolution with no other tree transformation models estimated), *VR* (if 
+you have used variable rates), or *Fabric* (if you want to use the general statistical
+model that accommodates an uneven evolutionary landscape as described by [Pagel et al. 2022](https://doi.org/10.1038/s41467-022-28595-z)).\
 
 ```{r, eval = FALSE}
 library(InNOutBT)
@@ -76,7 +78,8 @@ library(InNOutBT)
 phyreg.shell(meanfile_dir = "results_BayesTraits_phyreg_input/09Jun2022",
              linkfile_dir = "results_BayesTraits_phyreg_input/09Jun2022",
              treefile_dir = "Data",
-             BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
+             BayesTraits_dir = "/Users/domingoscardoso/BayesTraits",
+             BayesTraits_exe = "BayesTraitsV5",
              responvar = "DBH",
              treetransf = c("UNI", "Lambda", "VR", "Fabric"),
              Kappa = NULL,
@@ -99,16 +102,17 @@ knitr::include_graphics("figures/shell_unix.png", dpi = 300)
 \
 \
 
-# Creating Windows PowerShell script 
+# Creating a Windows PowerShell script 
 
 Set the argument `syst = "windows"` to create a PowerShell script for running the 
-phylogenetic regressions with Windows. 
+phylogenetic regressions on Windows. 
 
 ```{r, eval = FALSE}
 phyreg.shell(meanfile_dir = "results_BayesTraits_phyreg_input/09Jun2022",
              linkfile_dir = "results_BayesTraits_phyreg_input/09Jun2022",
              treefile_dir = "Data",
-             BayesTraits_dir = "/Users/domingoscardoso/BayesTraitsV4",
+             BayesTraits_dir = "C:/Users/Matt_/Documents/BayesTraits",
+             BayesTraits_exe = "BayesTraitsV5",
              responvar = "DBH",
              treetransf = c("UNI", "Lambda", "VR", "Fabric"),
              Kappa = NULL,
@@ -141,7 +145,7 @@ knitr::include_graphics("figures/shell_bayestraits_running_commands.png", dpi = 
 
 \
 \
-Note that because we have set the argument `cc_DataTree = TRUE`, then the tree, 
+Note that because we have set the argument `cc_DataTree = TRUE`, the tree, 
 mean data, and linked data files were also copied directly into the BayesTraits folder.\
 \
 ```{r, echo = FALSE}
@@ -150,7 +154,7 @@ knitr::include_graphics("figures/bayestraits_folder.png", dpi = 300)
 
 \
 \
-Note that if you set any of the arguments `Kappa`, `Delta`, `Lambda`, and `OU` as
+Note that if you leave any of the arguments `Kappa`, `Delta`, `Lambda`, and `OU` as
 the default *NULL*, these tree transformation models will be estimated, provided
 that any of them were also listed in the argument `treetransf`. But you can also
 set them as a vector with any specific value between 0 and 1. For example, if you 
@@ -158,19 +162,19 @@ want to run analyses with both specific and estimated values for `Lambda`, then
 you have to set a vector such as *c("0.001", "1.0", "Estimate")*.\
 \
 Also, if you define the logical argument `VRLambda` as *TRUE*, then the specific values 
-set for the tree transformation models at the parameters `Kappa`, `Delta`, `Lambda`
+set for the tree transformation models in the arguments `Kappa`, `Delta`, `Lambda`
 or `OU` will be considered as separate runs when using the model of variable rates
-*VR*, provided that you have also chosen this model in the parameter `treetransf`.
+*VR*, provided that you have also chosen this model in the argument `treetransf`.
 \
 \
 
 # Running the Unix shell script 
 
-After using the function `phyreg.shell` with all the needed parameters, you 
-have to set permission to the shell script to run automatically all the phylogenetic 
-regression analyses with BayesTraits program. You can just follow the steps below.\
+After using the function `phyreg.shell` with all the needed parameters, you
+have to give the shell script permission to run automatically all the phylogenetic
+regression analyses with the BayesTraits program. You can just follow the steps below.\
 
-__1.__ Open the terminal;\
+__1.__ Open the Terminal;\
 
 __2.__ Go to the BayesTraits program folder where you have saved the shell script 
 file __.sh__ and the associated running and input data files with the function `phyreg.shell`.
@@ -186,9 +190,9 @@ __./run_BayesTraits_phyreg_shell_unix.sh__
 
 # Running the Windows PowerShell script 
 
-After using the function `BayesTraits.shell` with all the needed parameters, you 
-have to set permission to the PowerShell script to run automatically all the 
-phylogenetic regression analyses with BayesTraits program. You can just follow the
+After using the function `phyreg.shell` with all the needed parameters, you
+have to give the PowerShell script permission to run automatically all the
+phylogenetic regression analyses with the BayesTraits program. You can just follow the
 steps below, but you may also want to find [further information on how to use Windows PowerShell](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.2).
 
 __1.__ Open PowerShell as Administrator;\
@@ -208,6 +212,6 @@ __.\\run_BayesTraits_phyreg_shell_windows.ps1__
 
 \
 \
-See also an associated article on how to automatically [create input files ](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)
+See also an associated article on how to automatically [create input files](https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html)
 with `phyreg.inputs` for the phylogenetic regression analyses, as well as another 
 article on how to use `phyreg.outputs` to [process the resulting output files](https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html) from the analyses.

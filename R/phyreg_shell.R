@@ -6,15 +6,15 @@
 #' @description By reporting the directory paths to the tree and data files, this
 #' function produces shell scripts in both Unix and Windows PowerShell formats
 #' for running one or multiple phylogenetic regression analyses with Meade & Pagel's
-#' (2022) [BayesTraits](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html)
+#' (2022) [BayesTraits](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html)
 #' program. In addition to generating the shell script directly in the BayesTraits
 #' directory, the function also creates BayesTraits batch files with specified
 #' parameters, including generations set for burnin, iterations, and the stepping
 #' stones sampler (e.g., bi, it, sa, and st). In addition, models involving alternative
-#' tree transformations can be specified. See [BayesTraits V4.0.0 Manual](http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf)
+#' tree transformations can be specified. See the [BayesTraits 5.0.3 Manual](https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/Files/BayesTraitsV5.0.2-Manual.pdf)
 #' for further details involving BayesTraits parameters and default settings for
 #' independent contrast regression analysis so as to better understand how to set
-#' arguments of this function \code{phyreg.shell}. You might consider using
+#' the arguments of this function \code{phyreg.shell}. You might consider using
 #' the function \code{\link{phyreg.inputs}} to generate properly formatted
 #' input files of mean and linked samples of trait data prior to using \code{phyreg.shell}.
 #' See also a more complete article on how to create a [shell script](https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html)
@@ -25,6 +25,7 @@
 #'              linkfile_dir = NULL,
 #'              treefile_dir = NULL,
 #'              BayesTraits_dir = NULL,
+#'              BayesTraits_exe = "BayesTraitsV5",
 #'              responvar = NULL,
 #'              treetransf = NULL,
 #'              Kappa = NULL,
@@ -41,54 +42,59 @@
 #'              cc_DataTree = TRUE)
 #'
 #' @param meanfile_dir Path to the folder directory where the data file(s)
-#' containing trait means for samples of trait data is(are) stored.
+#' containing trait means for samples of trait data are stored.
 #'
 #' @param linkfile_dir Path to the folder directory where the data file(s)
-#' containing samples of linked trait data is(are) stored.
+#' containing samples of linked trait data are stored.
 #'
 #' @param treefile_dir Path to the folder directory where the tree file is stored.
 #'
 #' @param BayesTraits_dir Path to the folder directory where the BayesTraits
 #' executable file is stored.
 #'
+#' @param BayesTraits_exe Name of the BayesTraits executable file stored in
+#' \code{BayesTraits_dir}, which depends on the installed version of the program.
+#' The default is "BayesTraitsV5". For example, set "BayesTraitsV4" if you are
+#' running BayesTraits V4.
+#'
 #' @param responvar Report the name of the response variable of your analysis.
 #'
 #' @param treetransf In vector format, report tree transformation models to be
-#' estimated, such as *Kappa*, *Delta*, *Lambda*, *OU* (Ornstein–Uhlenbeck).
+#' estimated, such as *Kappa*, *Delta*, *Lambda*, or *OU* (Ornstein–Uhlenbeck).
 #' A model of variable rates *VR* or the *Fabric* model can be reported here,
 #' the latter of which is a statistical model accommodating an uneven evolutionary
 #' landscape, as described by [Pagel et al. (2022)](https://doi.org/10.1038/s41467-022-28595-z).
 #' We use *UNI* as a designation for uniform rates of evolution where *VR* is not
 #' estimated and no other tree transformation models are estimated (e.g., Lambda
-#' is assumed to be 1.0). In this case, "UNI" here set a complete default BayesTraits
-#'  regression analysis.
+#' is assumed to be 1.0). In this case, "UNI" sets a complete default BayesTraits
+#' regression analysis.
 #'
-#' @param Kappa If set as default \code{NULL}, this tree transformation model will
+#' @param Kappa If left as the default \code{NULL}, this tree transformation model will
 #' be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 #' But here you can also set a vector with any specific value between 0 and 1. If
-#' you want to run analyses with both specific and estimated values for for *Kappa*,
-#' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+#' you want to run analyses with both specific and estimated values for *Kappa*,
+#' then you have to set a vector here, such as c("0.001", "1.0", "Estimate"). Report
 #' any number as a character (i.e., in quotes).
 #'
-#' @param Delta If set as default \code{NULL}, this tree transformation model will
+#' @param Delta If left as the default \code{NULL}, this tree transformation model will
 #' be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 #' But here you can also set a vector with any specific value between 0 and 1. If
-#' you want to run analyses with both specific and estimated values for for *Delta*,
-#' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+#' you want to run analyses with both specific and estimated values for *Delta*,
+#' then you have to set a vector here, such as c("0.001", "1.0", "Estimate"). Report
 #' any number as a character (i.e., in quotes).
 #'
-#' @param Lambda If set as default \code{NULL}, this tree transformation model will
+#' @param Lambda If left as the default \code{NULL}, this tree transformation model will
 #' be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 #' But here you can also set a vector with any specific value between 0 and 1. If
-#' you want to run analyses with both specific and estimated values for for *Lambda*,
-#' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+#' you want to run analyses with both specific and estimated values for *Lambda*,
+#' then you have to set a vector here, such as c("0.001", "1.0", "Estimate"). Report
 #' any number as a character (i.e., in quotes).
 #'
-#' @param OU If set as default \code{NULL}, this tree transformation model will
+#' @param OU If left as the default \code{NULL}, this tree transformation model will
 #' be estimated, provided that it was also defined in the previous parameter \code{treetransf}.
 #' But here you can also set a vector with any specific value between 0 and 1. If
-#' you want to run analyses with both specific and estimated values for for *OU*,
-#' then you have to set here a vector such as c("0.001", "1.0", "Estimate"). Report
+#' you want to run analyses with both specific and estimated values for *OU*,
+#' then you have to set a vector here, such as c("0.001", "1.0", "Estimate"). Report
 #' any number as a character (i.e., in quotes).
 #'
 #' @param VRLambda Logical, the default is \code{FALSE}. If set as \code{TRUE},
@@ -100,7 +106,7 @@
 #' @param bi Set the number of iterations for the MCMC burnin. Report this number
 #' as a character (i.e., in quotes).
 #'
-#' @param it Set the number of total iterations for the MCMC chain. Report this
+#' @param it Set the total number of iterations for the MCMC chain. Report this
 #' number as a character (i.e., in quotes).
 #'
 #' @param sa Set the sample frequency. Report this number as a character (i.e., in quotes).
@@ -111,9 +117,10 @@
 #'
 #' @param syst Report the operating system ("unix" or "windows").
 #'
-#' @param dir_create Path to the computer's working directory or where the file(s)
-#' will be saved. The default setting creates a directory "results_BayesTraits_phyreg_output"
-#' in which the results will be saved within a subfolder named by the current date.
+#' @param dir_create Path to the computer's working directory or to the directory where
+#' the file(s) will be saved. The default setting creates a directory named
+#' "results_BayesTraits_phyreg_shell", in which the results will be saved within a
+#' subfolder named with the current date.
 #'
 #' @param cc_DataTree Logical, the default is \code{TRUE}. A copy of the tree file
 #' and the mean and linked data files will be made in the BayesTraits folder where
@@ -129,6 +136,7 @@ phyreg.shell <- function (meanfile_dir = NULL,
                           linkfile_dir = NULL,
                           treefile_dir = NULL,
                           BayesTraits_dir = NULL,
+                          BayesTraits_exe = "BayesTraitsV5",
                           responvar = NULL,
                           treetransf = NULL,
                           Kappa = NULL,
@@ -162,6 +170,9 @@ phyreg.shell <- function (meanfile_dir = NULL,
   if (is.null(syst)) {
     syst <- .Platform$OS.type
   }
+
+  # Name of the BayesTraits executable to be called in the shell script
+  bt_exe <- gsub(".+[/]", "", BayesTraits_exe)
 
   #_____________________________________________________________________________
   # Start creating the shell script
@@ -339,7 +350,7 @@ phyreg.shell <- function (meanfile_dir = NULL,
     temp <- gsub("_", " + ", temp)
     command_heads[i] <- paste0("## ", i, ".", " Run ", responvar, " ~ ", temp)
 
-    commands[i] <- paste0("./", gsub(".+[/]", "" , "BayesTraitsV4"), " $treefile", " $meanfile", " <", paste0(" $paramfile", i))
+    commands[i] <- paste0("./", bt_exe, " $treefile", " $meanfile", " <", paste0(" $paramfile", i))
 
     names(commands)[i] <- temp
   }
@@ -356,9 +367,9 @@ phyreg.shell <- function (meanfile_dir = NULL,
   }
 
   if (syst == "windows") {
-    commands <- gsub("[.]/BayesTraitsV4", "", commands)
+    commands <- gsub(paste0("./", bt_exe), "", commands, fixed = TRUE)
     temp <- gsub(" .+\\s<", "", commands)
-    commands <- paste0("Get-Content", temp, " | ", ".\\BayesTraitsV4", gsub(" <.+", "", commands))
+    commands <- paste0("Get-Content", temp, " | ", ".\\", bt_exe, gsub(" <.+", "", commands))
   }
 
   #_____________________________________________________________________________
@@ -448,7 +459,7 @@ phyreg.shell <- function (meanfile_dir = NULL,
   }
 
   chunck_change_names <- unlist(change_names[[1]])
-  for (i in 2:length(change_names)) {
+  for (i in seq_along(change_names)[-1]) {
     chunck_change_names <- append(chunck_change_names, unlist(change_names[[i]]))
   }
 
