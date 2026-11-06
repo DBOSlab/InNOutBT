@@ -5,89 +5,110 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="InNOutBT">
 <title>Fully automated regression analysis and log processing with a shell script • InNOutBT</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fully automated regression analysis and log processing with a shell script">
-<meta property="og:description" content="InNOutBT">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fully automated regression analysis and log processing with a shell script">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">InNOutBT</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/phyreg_inputs.html">1. Creating input data for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/phyreg_outputs.html">3. Processing output data from independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/phyreg_shell.html">2. Shell scripts for independent contrast regression analysis</a>
-    <a class="dropdown-item" href="../articles/phyreg_shell_project.html">Fully automated regression analysis and log processing with a shell script</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/phyreg_inputs.html">1. Creating input data for independent contrast regression analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/phyreg_outputs.html">3. Processing output data from independent contrast regression analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/phyreg_shell_project.html">Fully automated regression analysis and log processing with a shell script</a></li>
+    <li><a class="dropdown-item" href="../articles/phyreg_shell.html">2. Shell scripts for independent contrast regression analysis</a></li>
+  </ul>
 </li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/DBOSlab/InNOutBT/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/DBOSlab/InNOutBT/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
 
 
-<script src="phyreg_shell_project_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Fully automated regression analysis and log processing with a shell script</h1>
+
+      <h1>Fully automated regression analysis and log processing with a shell script</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/DBOSlab/InNOutBT/blob/HEAD/vignettes/articles/phyreg_shell_project.Rmd" class="external-link"><code>vignettes/articles/phyreg_shell_project.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/DBOSlab/InNOutBT/blob/master/vignettes/articles/phyreg_shell_project.Rmd" class="external-link"><code>vignettes/articles/phyreg_shell_project.Rmd</code></a></small>
       <div class="d-none name"><code>phyreg_shell_project.Rmd</code></div>
     </div>
 
     
     
 <p><br>
-The main goal of the <strong>InNOutBT</strong> package is to readily create input data and process output data for Meade &amp; Pagel’s (2022) <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html" class="external-link">BayesTraits</a> program.<br></p>
-<p>Here in this article, we show how to use <strong>InNOutBT</strong>’s function <code>shell.phyreg.proj</code> for a full shell script run and log processing multiple phylogenetic regression analyses with Meade &amp; Pagel’s (2022) <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/BayesTraitsV4.0.0.html" class="external-link">BayesTraits</a> program. By reporting a directory path and the computer’s operating system (“unix” or “windows”), this function creates the project folder <strong>BayesTraits_shell_phyreg_project</strong> with associated example scripts.<br></p>
-<p>The available example of a shell script in Unix or Windows PowerShell helps to fully automatize both the complete BayesTraits regression analyses and processing of the resulting log and stones files, by automatically running the three main <strong>InNOutBT</strong> functions <code>phyreg.inputs</code>, <code>phyreg.shell</code>, and <code>phyreg.outputs</code>, without directly opening the R or R Studio programs.<br></p>
-<p>Note that the <strong>BayesTraits_shell_phyreg_project</strong> folder that comes with <strong>InNOutBT</strong> package was originally used in our recently published specific study on the ecological diversification of the Vataireoid legumes. So, you will have to edit the folder paths and analysis parameters in such example scripts according to your desired regression analyses. See the associated articles on how to set the parameters to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">create input files</a> with <code>phyreg.inputs</code> for the phylogenetic regression analyses, as well to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html" class="external-link">create the internal shell script</a> with <code>phyreg.shell</code> for the actual BayesTraits runs, and to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html" class="external-link">process the resulting output files</a> with <code>phyreg.outputs</code>. You might also want to see <a href="http://www.evolution.reading.ac.uk/BayesTraitsV4.0.0/Files/BayesTraitsV4.0.0-Manual.pdf" class="external-link">BayesTraits V4.0.0 Manual</a> for further details on each of BayesTraits parameters available for phylogenetic regressions so as to better understand how to set the arguments available in the <strong>InNOutBT</strong> functions.<br><br></p>
+The main goal of the <strong>InNOutBT</strong> package is to readily
+create input data and process output data for Meade &amp; Pagel’s (2022)
+<a href="https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html" class="external-link">BayesTraits</a>
+program.<br></p>
+<p>Here in this article, we show how to use <strong>InNOutBT</strong>’s
+function <code>shell.phyreg.proj</code> for a full shell script run and
+log processing of multiple phylogenetic regression analyses with Meade
+&amp; Pagel’s (2022) <a href="https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html" class="external-link">BayesTraits</a>
+program. By reporting a directory path and the computer’s operating
+system (“unix” or “windows”), this function creates the project folder
+<strong>BayesTraits_shell_phyreg_project</strong> with associated
+example scripts.<br></p>
+<p>The available example of a shell script in Unix or Windows PowerShell
+helps to fully automate both the complete BayesTraits regression
+analyses and the processing of the resulting log and stones files, by
+automatically running the three main <strong>InNOutBT</strong> functions
+<code>phyreg.inputs</code>, <code>phyreg.shell</code>, and
+<code>phyreg.outputs</code>, without directly opening the R or RStudio
+programs.<br></p>
+<p>Note that the <strong>BayesTraits_shell_phyreg_project</strong>
+folder that comes with <strong>InNOutBT</strong> package was originally
+used in our recently published specific study on the ecological
+diversification of the Vataireoid legumes. So, you will have to edit the
+folder paths and analysis parameters in these example scripts according
+to your desired regression analyses. See the associated articles on how
+to set the parameters to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">create
+input files</a> with <code>phyreg.inputs</code> for the phylogenetic
+regression analyses, as well as to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html" class="external-link">create
+the internal shell script</a> with <code>phyreg.shell</code> for the
+actual BayesTraits runs, and to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html" class="external-link">process
+the resulting output files</a> with <code>phyreg.outputs</code>. You
+might also want to see the <a href="https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/Files/BayesTraitsV5.0.2-Manual.pdf" class="external-link">BayesTraits
+5.0.3 Manual</a> for further details on each of BayesTraits parameters
+available for phylogenetic regressions so as to better understand how to
+set the arguments available in the <strong>InNOutBT</strong>
+functions.<br><br></p>
 <div class="section level2">
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
-<p><strong>InNOutBT</strong> is not on CRAN yet but you can install the latest development version from <a href="https://github.com/" class="external-link">GitHub</a>:</p>
+<p><strong>InNOutBT</strong> is not on CRAN yet, but you can install the
+latest development version from <a href="https://github.com/" class="external-link">GitHub</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"DBOSlab/InNOutBT"</span><span class="op">)</span></span></code></pre></div>
@@ -98,70 +119,330 @@ The main goal of the <strong>InNOutBT</strong> package is to readily create inpu
 <div class="section level2">
 <h2 id="creating-a-unix-shell-project-folder">Creating a Unix shell project folder<a class="anchor" aria-label="anchor" href="#creating-a-unix-shell-project-folder"></a>
 </h2>
-<p>The <code>shell.phyreg.proj</code> function is very simple and has only two arguments. By just setting any path in your computer and the argument <code>syst = "unix"</code>, you can readily create the project folder <strong>BayesTraits_shell_phyreg_project</strong> with associate example files (R scripts, shell script, and data folder) for running the phylogenetic regressions of the Vataireoid legumes with macOS Monterey. But then you can easily modify such available scripts for your specific analyses.<br></p>
+<p>The <code>shell.phyreg.proj</code> function is very simple and has
+only two arguments. By just setting any path on your computer and the
+argument <code>syst = "unix"</code>, you can readily create the project
+folder <strong>BayesTraits_shell_phyreg_project</strong> with associated
+example files (R scripts, shell script, and data folder) for running the
+phylogenetic regressions of the Vataireoid legumes on macOS Monterey.
+But then you can easily modify such available scripts for your specific
+analyses.<br></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/shell.phyreg.proj.html">shell.phyreg.proj</a></span><span class="op">(</span>dir_create_proj <span class="op">=</span> <span class="st">"/Users/domingoscardoso"</span>,</span>
 <span>                  syst <span class="op">=</span> <span class="st">"unix"</span><span class="op">)</span></span></code></pre></div>
-<p>After running <code>shell.phyreg.proj</code> function, it will readily create the project folder <strong>BayesTraits_shell_phyreg_project</strong>, a data folder with the input data files <strong>vataireoids_1610_25May2022_BayesTraits.csv</strong> and <strong>vatcomb30_24May22_Yule.con.tree</strong>, as well as the main shell script <strong>BayesTraits_full_phyreg_shell_unix.sh</strong> and R scripts <strong>1_producing_BayesTraits_phyreg_inputs.R</strong>, <strong>2_producing_BayesTraits_phyreg_shell.R</strong>, and <strong>3_processing_BayesTraits_phyreg_outputs.R</strong>.<br><br><img src="figures/unix_shell_project.png"><!-- --><br><br>
-You should see the associated articles on how to set the parameters to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">create input files</a> with <code>phyreg.inputs</code> for the phylogenetic regression analyses, as well to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html" class="external-link">create the internal shell script</a> with <code>phyreg.shell</code> for the actual BayesTraits runs, and to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html" class="external-link">process the resulting output files</a> with <code>phyreg.outputs</code>. In these articles, you will find how to fully edit the R scripts <strong>1_producing_BayesTraits_phyreg_inputs.R</strong>, <strong>2_producing_BayesTraits_phyreg_shell.R</strong>, and <strong>3_processing_BayesTraits_phyreg_outputs.R</strong> according to your particular study. Otherwise, if you run the example files with the same parameter settings, you will be able to fully reproduce the analysis of our Vataireoid legume study.<br></p>
-<p>Note that for running the main shell script file <strong>BayesTraits_full_phyreg_shell_unix.sh</strong>, which performs the full phylogenetic regression analysis and processing of results, you will just need to give the path to both the project run folder <strong>BayesTraits_shell_phyreg_project</strong>, and the BayesTraits program folder where the executable program is installed. These should be set as the variables <strong>PROJECTFOLDER</strong> and <strong>BAYESTRFOLDER</strong>, as shown in the image bellow. Also, if you define your e-mail address at the variable <strong>EMAIL</strong>, then you will receive an automatic e-mail message when your analyses are finished.<br><br><img src="figures/unix_shell_project_script.png"><!-- --><br><br></p>
+<p>After running the <code>shell.phyreg.proj</code> function, it will
+readily create the project folder
+<strong>BayesTraits_shell_phyreg_project</strong>, a data folder with
+the input data files
+<strong>vataireoids_1610_25May2022_BayesTraits.csv</strong> and
+<strong>vatcomb30_24May22_Yule.con.tree</strong>, as well as the main
+shell script <strong>BayesTraits_full_phyreg_shell_unix.sh</strong> and
+R scripts <strong>1_producing_BayesTraits_phyreg_inputs.R</strong>,
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>, and
+<strong>3_processing_BayesTraits_phyreg_outputs.R</strong>.<br><br><img src="figures/unix_shell_project.png"><!-- --><br><br>
+You should see the associated articles on how to set the parameters to
+<a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">create
+input files</a> with <code>phyreg.inputs</code> for the phylogenetic
+regression analyses, as well as to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html" class="external-link">create
+the internal shell script</a> with <code>phyreg.shell</code> for the
+actual BayesTraits runs, and to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html" class="external-link">process
+the resulting output files</a> with <code>phyreg.outputs</code>. In
+these articles, you will find how to fully edit the R scripts
+<strong>1_producing_BayesTraits_phyreg_inputs.R</strong>,
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>, and
+<strong>3_processing_BayesTraits_phyreg_outputs.R</strong> according to
+your particular study. Otherwise, if you run the example files with the
+same parameter settings, you will be able to fully reproduce the
+analysis of our Vataireoid legume study.<br></p>
+<p>The main shell script file
+<strong>BayesTraits_full_phyreg_shell_unix.sh</strong> performs the full
+phylogenetic regression analysis and processing of results. Its first
+lines hold the paths to your folders, as shown in the image below, which
+you will set in the next section. The path in the image is an example
+from an earlier version of BayesTraits, so yours will be
+different.<br><br><img src="figures/unix_shell_project_script.png"><!-- --><br><br></p>
 </div>
 <div class="section level2">
 <h2 id="running-the-unix-shell-script">Running the Unix shell script<a class="anchor" aria-label="anchor" href="#running-the-unix-shell-script"></a>
 </h2>
-<p>After using the function <code>shell.phyreg.proj</code> with all the needed parameters, you have to set permission to the main shell script file so as to run automatically all the three R scripts and the phylogenetic regression analyses with BayesTraits program. To do that, please follow the steps below.<br></p>
-<p><strong>1.</strong> Open the terminal;<br></p>
-<p><strong>2.</strong> Move your current working directory to the project folder <strong>BayesTraits_shell_phyreg_project</strong>, i.e. the same where you should have the main shell script file <strong>BayesTraits_full_phyreg_shell_unix.sh</strong>;<br></p>
-<p><strong>3.</strong> Execute the following line:<br><strong>chmod 777 BayesTraits_full_phyreg_shell_unix.sh</strong></p>
-<p><strong>4.</strong> Then perform the full R and BayesTraits run using the shell script by executing the following line:<br><strong>./BayesTraits_full_phyreg_shell_unix.sh</strong><br><br></p>
+<p>You will work with two folders: the project folder
+<strong>BayesTraits_shell_phyreg_project</strong> and the folder where
+the BayesTraits executable file is installed. You always start the
+analysis from the <strong>project folder</strong>. You do not need to
+open the BayesTraits folder, because the main shell script moves there
+by itself to run the analyses, and then brings the results back to the
+project folder.<br></p>
+<div class="section level3">
+<h3 id="before-the-first-run">Before the first run<a class="anchor" aria-label="anchor" href="#before-the-first-run"></a>
+</h3>
+<p><strong>1.</strong> Download and install <a href="https://www.evolution.reading.ac.uk/BayesTraitsV5.0.3/BayesTraitsV5.0.3.html" class="external-link">BayesTraits</a>
+in any folder. Note the path to that folder and the name of the
+executable file, such as <strong>BayesTraitsV5</strong>.<br></p>
+<p><strong>2.</strong> Check that the executable file starts, by running
+its full path in the Terminal. If it starts and keeps waiting, press
+Control + C to leave it.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">/Users/yourname/BayesTraits/BayesTraitsV5</span></span></code></pre></div>
+<p>If macOS stops the program, for instance with the message
+<strong>killed</strong> or a warning that it cannot be opened, this is
+because macOS blocks programs downloaded from the internet that are not
+signed. If you trust the source of the download, remove the block with
+the following line, and then check again:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-d</span> com.apple.quarantine /Users/yourname/BayesTraits/BayesTraitsV5</span></code></pre></div>
+<p><strong>3.</strong> Check that <strong>InNOutBT</strong> and
+<strong>treeio</strong> are installed in R. The package
+<strong>treeio</strong> is used to read the tree in the first R script
+and is available from <a href="https://bioconductor.org/packages/treeio/" class="external-link">Bioconductor</a>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#install.packages("BiocManager")</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"treeio"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>4.</strong> Check in the Terminal that
+<strong>pandoc</strong> is available, because it is needed to write the
+Word table. If the following line returns <code>FALSE</code>, <a href="https://pandoc.org/installing.html" class="external-link">install pandoc</a>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'rmarkdown::pandoc_available()'</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="editing-the-project-files">Editing the project files<a class="anchor" aria-label="anchor" href="#editing-the-project-files"></a>
+</h3>
+<p>Open each of the following files in any text editor, such as
+RStudio.<br></p>
+<p><strong>5.</strong> In the main shell script
+<strong>BayesTraits_full_phyreg_shell_unix.sh</strong>, set:<br></p>
+<ul>
+<li>
+<strong>PROJECTFOLDER</strong>: the path to the project folder;</li>
+<li>
+<strong>BAYESTRFOLDER</strong>: the path to the
+<strong>folder</strong> that contains the BayesTraits executable file,
+not the path to the file itself;</li>
+<li>
+<strong>EMAIL</strong>: your e-mail address, to receive a message
+when the analyses start and finish. This depends on your computer being
+set up to send e-mail with the <code>mail</code> command, but the
+analyses will run even if the message is not sent.</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">PROJECTFOLDER</span><span class="op">=</span><span class="st">"/Users/yourname/BayesTraits_shell_phyreg_project"</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="va">BAYESTRFOLDER</span><span class="op">=</span><span class="st">"/Users/yourname/BayesTraits"</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="va">EMAIL</span><span class="op">=</span><span class="st">"your.address@example.com"</span></span></code></pre></div>
+<p><strong>6.</strong> In the R script
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>, set the same
+BayesTraits folder again, as well as the name of the executable file.
+Both paths to the BayesTraits folder must be identical:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>BayesTraits_dir <span class="ot">=</span> <span class="st">"/Users/yourname/BayesTraits"</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>BayesTraits_exe <span class="ot">=</span> <span class="st">"BayesTraitsV5"</span>,</span></code></pre></div>
+<p><strong>7.</strong> For your own study, also edit the three numbered
+R scripts as described in the articles mentioned above, and replace the
+files in the <strong>Data</strong> folder. To check that everything
+works before a long analysis, you can first set a few iterations in
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>, such as
+<code>bi = "2000"</code>, <code>it = "12000"</code>,
+<code>sa = "500"</code>, and <code>st = c("10", "200")</code>. These
+values are only for testing, so set your final values again before the
+real analysis.<br></p>
+</div>
+<div class="section level3">
+<h3 id="running-the-analysis">Running the analysis<a class="anchor" aria-label="anchor" href="#running-the-analysis"></a>
+</h3>
+<p><strong>8.</strong> Open the Terminal and move to the project
+folder:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="bu">cd</span> /Users/yourname/BayesTraits_shell_phyreg_project</span></code></pre></div>
+<p><strong>9.</strong> Allow the main shell script to run. You need to
+do this only once:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">chmod</span> 777 BayesTraits_full_phyreg_shell_unix.sh</span></code></pre></div>
+<p><strong>10.</strong> Start the full analysis:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">./BayesTraits_full_phyreg_shell_unix.sh</span></span></code></pre></div>
+<p>Keep the Terminal open and the computer awake until the script
+finishes. With the number of iterations in the example scripts, this can
+take a long time.<br></p>
+</div>
+<div class="section level3">
+<h3 id="what-the-script-does">What the script does<a class="anchor" aria-label="anchor" href="#what-the-script-does"></a>
+</h3>
+<p>The main shell script then performs the following steps, with no
+further action from you:<br></p>
+<p><strong>1.</strong> Runs
+<strong>1_producing_BayesTraits_phyreg_inputs.R</strong>, which saves
+the input files in the folder
+<strong>results_BayesTraits_phyreg_input</strong>;<br></p>
+<p><strong>2.</strong> Runs
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>, which saves the
+run commands in the folder
+<strong>results_BayesTraits_phyreg_shell</strong> and copies them to the
+BayesTraits folder, with the data and tree files;<br></p>
+<p><strong>3.</strong> Moves to the BayesTraits folder and runs all the
+analyses, removing the copied files at the end;<br></p>
+<p><strong>4.</strong> Moves the results to the folders
+<strong>BayesTraits_phyreg_outputs_log_stone</strong> and
+<strong>BayesTraits_phyreg_outputs_sch_trees</strong> in the project
+folder;<br></p>
+<p><strong>5.</strong> Runs
+<strong>3_processing_BayesTraits_phyreg_outputs.R</strong>, which saves
+the final table and the heatmaps in the folder
+<strong>results_BayesTraits_phyreg_output</strong>, within a subfolder
+named with the current date, and opens these files.<br></p>
+</div>
+<div class="section level3">
+<h3 id="if-something-goes-wrong">If something goes wrong<a class="anchor" aria-label="anchor" href="#if-something-goes-wrong"></a>
+</h3>
+<p>The script continues after an error, so one problem can produce many
+messages. Look at the <strong>first</strong> error in the Terminal,
+because the later ones are often just consequences.<br></p>
+<table class="table">
+<colgroup>
+<col width="42%">
+<col width="57%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Message</th>
+<th align="left">Likely cause and solution</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>chmod: BayesTraits_full_phyreg_shell_unix.sh: No such file or directory</code></td>
+<td align="left">You are not in the project folder. Repeat step 8.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>cannot open file '.../run_BayesTraits_phyreg_shell_unix.sh'</code></td>
+<td align="left">
+<code>BayesTraits_dir</code> is wrong in
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>. See step
+6.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>cd: no such file or directory</code></td>
+<td align="left">
+<code>BAYESTRFOLDER</code> is wrong in the main shell
+script. See step 5.</td>
+</tr>
+<tr class="even">
+<td align="left">
+<code>killed</code>, or many
+<code>mv: rename ...Log.txt ...: No such file or directory</code>
+messages</td>
+<td align="left">BayesTraits did not run. macOS may have blocked it
+(step 2), or <code>BayesTraits_exe</code> is wrong (step 6).</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>Error in combinat::combn(fnames, 2) : n &lt; m</code></td>
+<td align="left">There are no results to process, because BayesTraits
+did not run. Solve the first error shown.</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="creating-a-windows-powershell-project-folder">Creating a Windows PowerShell project folder<a class="anchor" aria-label="anchor" href="#creating-a-windows-powershell-project-folder"></a>
 </h2>
-<p>In the <code>shell.phyreg.proj</code> function, you can set any path in your PC and the argument <code>syst = "windows"</code> to readily create the project folder <strong>BayesTraits_shell_phyreg_project</strong> with associate example files (R scripts, PowerShell script, and data folder) for running the phylogenetic regressions of the Vataireoid legumes with Windows PC. But then you can easily modify such available scripts for your specific analyses.<br></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>In the <code>shell.phyreg.proj</code> function, you can set any path
+on your PC and the argument <code>syst = "windows"</code> to readily
+create the project folder
+<strong>BayesTraits_shell_phyreg_project</strong> with associated
+example files (R scripts, PowerShell script, and data folder) for
+running the phylogenetic regressions of the Vataireoid legumes on a
+Windows PC. But then you can easily modify such available scripts for
+your specific analyses.<br></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://DBOSlab.github.io/InNOutBT">InNOutBT</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/shell.phyreg.proj.html">shell.phyreg.proj</a></span><span class="op">(</span>dir_create_proj <span class="op">=</span> <span class="st">"/Users/domingoscardoso"</span>,</span>
+<span><span class="fu"><a href="../reference/shell.phyreg.proj.html">shell.phyreg.proj</a></span><span class="op">(</span>dir_create_proj <span class="op">=</span> <span class="st">"C:/Users/Matt_/Documents"</span>,</span>
 <span>                  syst <span class="op">=</span> <span class="st">"windows"</span><span class="op">)</span></span></code></pre></div>
-<p>After running <code>shell.phyreg.proj</code> function, it will readily create the project folder <strong>BayesTraits_shell_phyreg_project</strong>, a data folder with the input data files <strong>vataireoids_1610_25May2022_BayesTraits.csv</strong> and <strong>vatcomb30_24May22_Yule.con.tree</strong>, as well as the main PowerShell script <strong>BayesTraits_full_phyreg_shell_windows.ps1</strong> and R scripts <strong>1_producing_BayesTraits_phyreg_inputs.R</strong>, <strong>2_producing_BayesTraits_phyreg_shell.R</strong>, and <strong>3_processing_BayesTraits_phyreg_outputs.R</strong>.<br><br><img src="figures/windows_shell_project.png"><!-- --><br><br>
-You should see the associated articles on how to set the parameters to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">create input files</a> with <code>phyreg.inputs</code> for the phylogenetic regression analyses, as well to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html" class="external-link">create the internal shell script</a> with <code>phyreg.shell</code> for the actual BayesTraits runs, and to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html" class="external-link">process the resulting output files</a> with <code>phyreg.outputs</code>. In these articles, you will find how to fully edit the R scripts <strong>1_producing_BayesTraits_phyreg_inputs.R</strong>, <strong>2_producing_BayesTraits_phyreg_shell.R</strong>, and <strong>3_processing_BayesTraits_phyreg_outputs.R</strong> according to your particular study. Otherwise, if you run the example files with the same parameter settings, you will be able to fully reproduce the analysis of our Vataireoid legume study.<br></p>
-<p>Note that for running the main PowerShell script file <strong>BayesTraits_full_phyreg_shell_windows.ps1</strong> which performs the full phylogenetic regression analyses and processing of results, you will just need to give the path to the project run folder <strong>BayesTraits_shell_phyreg_project</strong>, the BayesTraits, R, Adobe Acrobat, and Microsoft Office program folders where their corresponding executable programs are installed. These should be set, respectively, as the variables <strong>$PROJECTFOLDER</strong>, <strong>$BAYESTRFOLDER</strong>, <strong>$RFOLDER</strong>, <strong>$ACROBATFOLDER</strong>, and <strong>$WORDFOLDER</strong>, as shown in the image bellow:<br><br><img src="figures/windows_shell_project_script.png"><!-- --><br><br></p>
+<p>After running the <code>shell.phyreg.proj</code> function, it will
+readily create the project folder
+<strong>BayesTraits_shell_phyreg_project</strong>, a data folder with
+the input data files
+<strong>vataireoids_1610_25May2022_BayesTraits.csv</strong> and
+<strong>vatcomb30_24May22_Yule.con.tree</strong>, as well as the main
+PowerShell script
+<strong>BayesTraits_full_phyreg_shell_windows.ps1</strong> and R scripts
+<strong>1_producing_BayesTraits_phyreg_inputs.R</strong>,
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>, and
+<strong>3_processing_BayesTraits_phyreg_outputs.R</strong>.<br><br><img src="figures/windows_shell_project.png"><!-- --><br><br>
+You should see the associated articles on how to set the parameters to
+<a href="https://dboslab.github.io/InNOutBT/articles/phyreg_inputs.html" class="external-link">create
+input files</a> with <code>phyreg.inputs</code> for the phylogenetic
+regression analyses, as well as to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_shell.html" class="external-link">create
+the internal shell script</a> with <code>phyreg.shell</code> for the
+actual BayesTraits runs, and to <a href="https://dboslab.github.io/InNOutBT/articles/phyreg_outputs.html" class="external-link">process
+the resulting output files</a> with <code>phyreg.outputs</code>. In
+these articles, you will find how to fully edit the R scripts
+<strong>1_producing_BayesTraits_phyreg_inputs.R</strong>,
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>, and
+<strong>3_processing_BayesTraits_phyreg_outputs.R</strong> according to
+your particular study. Otherwise, if you run the example files with the
+same parameter settings, you will be able to fully reproduce the
+analysis of our Vataireoid legume study.<br></p>
+<p>The main PowerShell script file
+<strong>BayesTraits_full_phyreg_shell_windows.ps1</strong> performs the
+full phylogenetic regression analyses and processing of results. Its
+first lines hold the paths to your folders and programs, as shown in the
+image below, which you will set in the next section. The paths in the
+image are examples from an earlier version of BayesTraits and R, so
+yours will be different.<br><br><img src="figures/windows_shell_project_script.png"><!-- --><br><br></p>
 </div>
 <div class="section level2">
 <h2 id="running-the-windows-powershell-script">Running the Windows PowerShell script<a class="anchor" aria-label="anchor" href="#running-the-windows-powershell-script"></a>
 </h2>
-<p>After using the function <code>shell.phyreg.proj</code> with all the needed parameters, you have to set permission to the main PowerShell script so as to run automatically all the three R scripts and the phylogenetic regression analyses with BayesTraits program. To do that, please follow the steps below, but you may also want to find <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.2" class="external-link">further information on how to use Windows PowerShell</a>.<br></p>
-<p><strong>1.</strong> Open PowerShell as Administrator;<br></p>
-<p><strong>2.</strong> Move your current working directory to the project folder <strong>BayesTraits_shell_phyreg_project</strong>, i.e. the same where you should have the main shell script file <strong>BayesTraits_full_phyreg_shell_windows.ps1</strong>;<br></p>
-<p><strong>3.</strong> Execute the following line and choose option <strong>[Y]Yes</strong>;<br><strong>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine</strong></p>
-<p><strong>4.</strong> Execute the following line:<br><strong>Unblock-File -Path .\BayesTraits_full_phyreg_shell_windows.ps1</strong></p>
-<p><strong>5.</strong> Then perform the full R and BayesTraits run using the PowerShell script by executing the following line:<br><strong>.\BayesTraits_full_phyreg_shell_windows.ps1</strong></p>
+<p>As in Unix, you always start the analysis from the <strong>project
+folder</strong>, and the main PowerShell script moves to the BayesTraits
+folder by itself. You may also want to find <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.2" class="external-link">further
+information on how to use Windows PowerShell</a>.<br></p>
+<div class="section level3">
+<h3 id="editing-the-project-files-1">Editing the project files<a class="anchor" aria-label="anchor" href="#editing-the-project-files-1"></a>
+</h3>
+<p><strong>1.</strong> In the main PowerShell script
+<strong>BayesTraits_full_phyreg_shell_windows.ps1</strong>, set
+<strong>$PROJECTFOLDER</strong> to the path of the project folder, and
+<strong>$BAYESTRFOLDER</strong> to the path of the
+<strong>folder</strong> that contains the BayesTraits executable file.
+Also set the paths to the Rscript, Adobe Acrobat, and Microsoft Word
+executable files in <strong>$RFOLDER</strong>,
+<strong>$ACROBATFOLDER</strong>, and <strong>$WORDFOLDER</strong>;<br></p>
+<p><strong>2.</strong> In the R script
+<strong>2_producing_BayesTraits_phyreg_shell.R</strong>, set
+<code>BayesTraits_dir</code> to the same path as
+<strong>$BAYESTRFOLDER</strong>, and <code>BayesTraits_exe</code> to the
+name of the executable file, such as <code>"BayesTraitsV5"</code>;<br></p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+<div class="section level3">
+<h3 id="running-the-analysis-1">Running the analysis<a class="anchor" aria-label="anchor" href="#running-the-analysis-1"></a>
+</h3>
+<p><strong>3.</strong> Open PowerShell as Administrator;<br></p>
+<p><strong>4.</strong> Move to the project folder
+<strong>BayesTraits_shell_phyreg_project</strong>, i.e. the same where
+you should have the main PowerShell script
+<strong>BayesTraits_full_phyreg_shell_windows.ps1</strong>;<br></p>
+<p><strong>5.</strong> Execute the following line and choose option
+<strong>[Y]Yes</strong>;<br><strong>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope
+LocalMachine</strong></p>
+<p><strong>6.</strong> Execute the following line:<br><strong>Unblock-File -Path
+.\BayesTraits_full_phyreg_shell_windows.ps1</strong></p>
+<p><strong>7.</strong> Then perform the full R and BayesTraits run using
+the PowerShell script by executing the following line:<br><strong>.\BayesTraits_full_phyreg_shell_windows.ps1</strong></p>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Domingos Cardoso, Matt Lavin.</p>
+  <p>Developed by Domingos Cardoso, Matt Lavin.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
